@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+vim Gemfile `find ./ -iname '*.rb' | grep -v vendor | grep -v eventmachine` `find ./ -iname '*.erb' | grep -v vendor | grep -v eventmachine` `find ./public/stylesheets -iname '*.css' | grep -v vendor | grep -v eventmachine` `find ./ -iname '*.yml' | grep -v vendor | grep -v eventmachine` `find ./ -iname '*.js' | grep -v vendor | grep -v eventmachine`
