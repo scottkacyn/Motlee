@@ -1,4 +1,19 @@
 Motlee::Application.routes.draw do
+  
+  # PAGES - get
+  get "pages/index"
+  get "pages/about"
+  get "pages/company"
+  get "pages/contact"
+  get "pages/jobs"
+
+  # PAGES - match
+  match 'about' => 'pages#about'
+  match 'company' => 'pages#company'
+  match 'contact' => 'pages#contact'
+  match 'jobs' => 'pages#jobs'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +63,7 @@ Motlee::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "pages#index"
 
   # See how all your routes lay out with "rake routes"
 
