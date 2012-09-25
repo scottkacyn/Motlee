@@ -1,4 +1,7 @@
 /* COLORS */
+/* BACKGROUNDS */
+/* LENGTH, PADDING, & MARGIN */
+/* CONTAINER SHADOW */
 html, body, div, span, applet, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -17,27 +20,31 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background: transparent;
   text-decoration: none; }
 
-.color-stripe {
-  height: 50px;
-  width: 100%; }
+body {
+  background: url("http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/subtle_dots.png"); }
 
-#white {
-  background-color: white; }
+.container {
+  background-color: white;
+  width: 1000px;
+  min-height: 600px;
+  padding: 20px;
+  margin: 20px auto;
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px #888;
+  box-shadow: 0 0 5px #DDD;
+  border: 1px solid #DDD; }
 
-#salmon {
-  background-color: #f05541; }
+h1, h2, h3, h4, h5, h6 {
+  color: #3a3836; }
 
-#black {
-  background-color: #2d2b29; }
+h1 {
+  font-size: 40px;
+  color: #2b333a; }
 
-#gray {
-  background-color: #968f87; }
+.subtext {
+  font-size: 80%;
+  color: #54524f; }
 
-#gray2 {
-  background-color: #3a3836; }
-
-#brick {
-  background-color: #c25541; }
-
-#blue {
-  background-color: #2b333a; }
+.compressor {
+  width: 1000px;
+  margin: 0 auto; }

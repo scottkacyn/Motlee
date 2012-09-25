@@ -1,9 +1,9 @@
-<div class="color-stripe" id="white">
-    <h1>Motlee - Color Palette</h1>
-</div>
-<div class="color-stripe" id="gray"></div>
-<div class="color-stripe" id="black"></div>
-<div class="color-stripe" id="gray2"></div>
-<div class="color-stripe" id="salmon"></div>
-<div class="color-stripe" id="brick"></div>
-<div class="color-stripe" id="blue"></div>
+<% if user_signed_in? %>
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        Congratulations, you are now signed in!
+    </div>
+<% else %>
+    <h1>Motlee Home</h1>
+    <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-large btn-primary" %>
+<% end %>

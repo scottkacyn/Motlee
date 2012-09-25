@@ -6,6 +6,27 @@ $dk_gray: #3A3836;
 $salmon: #F05541;
 $brick: #C25541;
 $blue: #2B333A;
+$text-color: $dk_gray;
+
+
+/* BACKGROUNDS */
+$cloth: url("http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/grid.png");
+$dots: url("http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/subtle_dots.png");
+
+
+/* LENGTH, PADDING, & MARGIN */
+$container-width: 1000px;
+$thick-padding: 20px;
+$thin-padding: 10px;
+
+
+/* CONTAINER SHADOW */
+@mixin box-shadow {
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px #888;
+    box-shadow: 0 0 5px #DDD;
+    border: 1px solid #DDD;
+}
 
 html, body, div, span, applet, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -27,35 +48,37 @@ table, caption, tbody, tfoot, thead, tr, th, td
     text-decoration: none;
 }
 
-.color-stripe {
-    height: 50px;
-    width: 100%;
+body
+{
+    background: $dots;
 }
 
-#white {
+.container {
     background-color: $white;
+    width: $container-width;
+    min-height: 600px;
+    padding: $thick-padding;
+    margin: 20px auto;
+    @include box-shadow;
 }
 
-#salmon {
-    background-color: $salmon;
+h1, h2, h3, h4, h5, h6
+{
+    color: $text-color;
 }
 
-#black {
-    background-color: $black;
+h1
+{
+    font-size: 40px;
+    color: $blue;
 }
 
-#gray {
-    background-color: $lt_gray;
+.subtext {
+    font-size: 80%;
+    color: lighten($text-color, 10%);
 }
 
-#gray2 {
-    background-color: $dk_gray;
-}
-
-#brick {
-    background-color: $brick;
-}
-
-#blue {
-    background-color: $blue;
+.compressor {
+    width: $container-width;
+    margin: 0 auto;
 }
