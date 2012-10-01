@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
   </div>
   <div class="field">
     <%= f.label :name %><br />
@@ -30,10 +29,6 @@
   <div class="field">
     <%= f.label :end_time %><br />
     <%= f.datetime_select :end_time %>
-  </div>
-  <div class="field">
-    <%= f.label :location_id %><br />
-    <%= f.text_field :location_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

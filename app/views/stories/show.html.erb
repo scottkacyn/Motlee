@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @story.user %>
+</p>
+
+<p>
+  <b>Event:</b>
+  <%= @story.event %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @story.body %>
+</p>
+
+<p>
+  <b>Comment thread:</b>
+  <%= @story.comment_thread %>
+</p>
+
+<p>
+  <b>Like thread:</b>
+  <%= @story.like_thread %>
+</p>
+
+
+<%= link_to 'Edit', edit_story_path(@story) %> |
+<%= link_to 'Back', stories_path %>

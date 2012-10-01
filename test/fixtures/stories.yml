@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: 
+  event: 
+  body: MyText
+  comment_thread: 
+  like_thread: 
+
+two:
+  user: 
+  event: 
+  body: MyText
+  comment_thread: 
+  like_thread: 

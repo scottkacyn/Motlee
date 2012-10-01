@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
+    <%= f.hidden_field :user, :value => current_user.id %>
   </div>
   <div class="field">
     <%= f.label :event %><br />

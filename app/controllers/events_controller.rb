@@ -14,6 +14,7 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     @event = Event.find(params[:id])
+    @owner = User.find(@event.user_id)
 
     respond_to do |format|
       format.html # show.html.erb

@@ -1,9 +1,8 @@
 Motlee::Application.routes.draw do
   
+  resources :stories
   resources :photos
-
   resources :locations
-
   resources :events
 
   devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
