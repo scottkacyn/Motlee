@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  owner: 1
+  name: MyString
+  description: MyText
+  start_time: 2012-10-01 14:48:28
+  end_time: 2012-10-01 14:48:28
+  location: 1
+
+two:
+  owner: 1
+  name: MyString
+  description: MyText
+  start_time: 2012-10-01 14:48:28
+  end_time: 2012-10-01 14:48:28
+  location: 1

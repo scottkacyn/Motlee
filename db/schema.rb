@@ -10,7 +10,53 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925041251) do
+ActiveRecord::Schema.define(:version => 20121001190012) do
+
+  create_table "comment_threads", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "like_threads", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", :force => true do |t|
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "name"
+    t.integer  "fsid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.string   "caption"
+    t.string   "thumbnail"
+    t.string   "source"
+    t.integer  "height"
+    t.integer  "width"
+    t.float    "lat"
+    t.float    "lon"
+    t.integer  "comment_thread_id"
+    t.integer  "like_thread_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -27,6 +73,11 @@ ActiveRecord::Schema.define(:version => 20120925041251) do
     t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "gender"
+    t.string   "picture"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

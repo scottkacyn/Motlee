@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @photo.user %>
+</p>
+
+<p>
+  <b>Event:</b>
+  <%= @photo.event %>
+</p>
+
+<p>
+  <b>Caption:</b>
+  <%= @photo.caption %>
+</p>
+
+<p>
+  <b>Thumbnail:</b>
+  <%= @photo.thumbnail %>
+</p>
+
+<p>
+  <b>Source:</b>
+  <%= @photo.source %>
+</p>
+
+<p>
+  <b>Height:</b>
+  <%= @photo.height %>
+</p>
+
+<p>
+  <b>Width:</b>
+  <%= @photo.width %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @photo.lat %>
+</p>
+
+<p>
+  <b>Lon:</b>
+  <%= @photo.lon %>
+</p>
+
+<p>
+  <b>Comment thread:</b>
+  <%= @photo.comment_thread %>
+</p>
+
+<p>
+  <b>Like thread:</b>
+  <%= @photo.like_thread %>
+</p>
+
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>

@@ -3,6 +3,8 @@
         <button type="button" class="close" data-dismiss="alert">x</button>
         Congratulations, you are now signed in!
     </div>
+    <img src="<%= current_user.picture %>">
+
 <% else %>
     <h1>Motlee Home</h1>
     <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-large btn-primary" %>

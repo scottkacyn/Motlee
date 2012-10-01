@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: 
+  event: 
+  caption: MyString
+  thumbnail: MyString
+  source: MyString
+  height: 1
+  width: 1
+  lat: 1.5
+  lon: 1.5
+  comment_thread: 
+  like_thread: 
+
+two:
+  user: 
+  event: 
+  caption: MyString
+  thumbnail: MyString
+  source: MyString
+  height: 1
+  width: 1
+  lat: 1.5
+  lon: 1.5
+  comment_thread: 
+  like_thread: 
