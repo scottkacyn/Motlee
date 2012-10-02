@@ -2,17 +2,20 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'jquery-rails'
-
+gem 'dispatcher'
 gem 'pg'
 gem 'thin'
 gem 'devise'
 gem 'omniauth'
 gem 'oauth2'
 gem 'omniauth-facebook'
+#gem 'paperclip', '~> 3.0'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

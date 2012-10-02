@@ -44,6 +44,10 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
+        @comment_thread = Comment_Thread.new
+        @like_thread = Like_Thread.new
+        
+        @story.update_attributes(:comment_thread_id => @comment_thread.id, :like_thread_id => @like_thread.id)
         format.html { redirect_to(@story, :notice => 'Story was successfully created.') }
         format.xml  { render :xml => @story, :status => :created, :location => @story }
       else
