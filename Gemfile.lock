@@ -111,12 +111,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  devise ()
-  dispatcher ()
-  jquery-rails ()
-  oauth2 ()
-  omniauth ()
-  omniauth-facebook ()
-  pg ()
+  devise
+  dispatcher
+  jquery-rails
+  oauth2
+  omniauth
+  omniauth-facebook
+  pg
   rails (= 3.0.9)
-  thin ()
+  thin
