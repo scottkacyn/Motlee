@@ -13,6 +13,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'oauth2'
 gem 'omniauth-facebook'
+gem 'activeadmin'
 #gem 'paperclip', '~> 3.0'
 
 

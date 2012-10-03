@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">x</button>
-        Congratulations, you are now signed in!
+        Congratulations, <%= current_user.first_name %>, you are now signed in!
     </div>
     <img src="<%= current_user.picture %>">
 
