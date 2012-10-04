@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003232425) do
+ActiveRecord::Schema.define(:version => 20121004200349) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -53,18 +53,17 @@ ActiveRecord::Schema.define(:version => 20121003232425) do
     t.datetime "updated_at"
   end
 
-  create_table "comment_threads", :force => true do |t|
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "comments", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "comment_thread_id"
-    t.string   "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
+  add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
@@ -85,18 +84,15 @@ ActiveRecord::Schema.define(:version => 20121003232425) do
     t.datetime "updated_at"
   end
 
-  create_table "like_threads", :force => true do |t|
+  create_table "likes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "likeable_id"
+    t.string   "likeable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "likes", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "like_thread_id"
-    t.boolean  "is_active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "likes", ["likeable_id", "likeable_type"], :name => "index_likes_on_likeable_id_and_likeable_type"
 
   create_table "locations", :force => true do |t|
     t.float    "lat"
@@ -117,8 +113,6 @@ ActiveRecord::Schema.define(:version => 20121003232425) do
     t.integer  "width"
     t.float    "lat"
     t.float    "lon"
-    t.integer  "comment_thread_id"
-    t.integer  "like_thread_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -127,8 +121,6 @@ ActiveRecord::Schema.define(:version => 20121003232425) do
     t.integer  "user_id"
     t.integer  "event_id"
     t.text     "body"
-    t.integer  "comment_thread_id"
-    t.integer  "like_thread_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

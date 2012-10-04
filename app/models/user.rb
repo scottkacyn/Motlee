@@ -17,10 +17,6 @@ class User < ActiveRecord::Base
   has_many :fomos
   has_many :likes
   
-  has_many :comment_threads, :through => :comments
-  has_many :fomos, :through => :events
-  has_many :events, :through => :attendees
-
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user

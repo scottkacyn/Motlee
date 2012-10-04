@@ -2,12 +2,12 @@
 
 <p>
   <b>User:</b>
-  <%= @story.user %>
+  <%= @story.user.name %>
 </p>
 
 <p>
   <b>Event:</b>
-  <%= @story.event %>
+  <%= @story.event.name %>
 </p>
 
 <p>
@@ -15,16 +15,13 @@
   <%= @story.body %>
 </p>
 
-<p>
-  <b>Comment thread:</b>
-  <%= @story.comment_thread %>
-</p>
+<h2>Comments</h2>
+<%= render "comments/comments" %>
+<%= render "comments/form" %>
 
-<p>
-  <b>Like thread:</b>
-  <%= @story.like_thread %>
-</p>
-
+<h2>Likes</h2>
+<%= render "likes/likes" %>
+<%= render "likes/form" %>
 
 <%= link_to 'Edit', edit_story_path(@story) %> |
 <%= link_to 'Back', stories_path %>

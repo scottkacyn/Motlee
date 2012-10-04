@@ -2,10 +2,12 @@
 
 one:
   user: 
-  comment_thread: 
-  body: MyString
+  body: MyText
+  commentable_id: 1
+  commentable_type: MyString
 
 two:
   user: 
-  comment_thread: 
-  body: MyString
+  body: MyText
+  commentable_id: 1
+  commentable_type: MyString

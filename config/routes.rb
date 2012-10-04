@@ -4,11 +4,16 @@ Motlee::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
 
-  resources :stories
-  resources :photos
+  resources :stories do
+    resources :comments
+    resources :likes
+  end
+  resources :photos do
+    resources :comments
+    resources :likes
+  end
   resources :locations
   resources :events
-  resources :comments
 
   # PAGES - get
   get "pages/index"

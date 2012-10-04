@@ -14,7 +14,13 @@ class StoriesController < ApplicationController
   # GET /stories/1.xml
   def show
     @story = Story.find(params[:id])
-
+    @commentable = @story
+    @comments = @commentable.comments
+    @comment = Comment.new
+    @likeable = @story
+    @likes = @likeable.likes
+    @like = Like.new
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }

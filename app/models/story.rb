@@ -1,6 +1,7 @@
 class Story < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
-  has_one :comment_thread
-  has_one :like_thread
+
+  has_many :comments, as: :commentable
+  has_many :likes, as: :likeable
 end

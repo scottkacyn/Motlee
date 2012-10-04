@@ -11,8 +11,6 @@
     <th>Width</th>
     <th>Lat</th>
     <th>Lon</th>
-    <th>Comment thread</th>
-    <th>Like thread</th>
     <th></th>
     <th></th>
     <th></th>
@@ -29,8 +27,6 @@
     <td><%= photo.width %></td>
     <td><%= photo.lat %></td>
     <td><%= photo.lon %></td>
-    <td><%= photo.comment_thread %></td>
-    <td><%= photo.like_thread %></td>
     <td><%= link_to 'Show', photo %></td>
     <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, :confirm => 'Are you sure?', :method => :delete %></td>

@@ -44,10 +44,6 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        @comment_thread = Comment_Thread.new
-        @like_thread = Like_Thread.new
-
-        @photo.update_attributes(:comment_thread_id => @comment_thread.id, :like_thread_id => @like_thread.id)
         format.html { redirect_to(@photo, :notice => 'Photo was successfully created.') }
         format.xml  { render :xml => @photo, :status => :created, :location => @photo }
       else
