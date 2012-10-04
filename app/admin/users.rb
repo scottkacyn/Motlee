@@ -1,6 +1,5 @@
 ActiveAdmin.register User do
 
-  menu :label => "Motlee Users"
   config.per_page = 10
   
   index do

@@ -14,11 +14,11 @@
 
 <% @stories.each do |story| %>
   <tr>
-    <td><%= story.user %></td>
-    <td><%= story.event %></td>
+    <td><%= story.user.name %></td>
+    <td><%= story.event.name %></td>
     <td><%= story.body %></td>
-    <td><%= story.comment_thread %></td>
-    <td><%= story.like_thread %></td>
+    <td></td>
+    <td></td>
     <td><%= link_to 'Show', story %></td>
     <td><%= link_to 'Edit', edit_story_path(story) %></td>
     <td><%= link_to 'Destroy', story, :confirm => 'Are you sure?', :method => :delete %></td>

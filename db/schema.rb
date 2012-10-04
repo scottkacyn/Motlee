@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003174201) do
+ActiveRecord::Schema.define(:version => 20121003232425) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -45,7 +45,23 @@ ActiveRecord::Schema.define(:version => 20121003174201) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
+  create_table "attendees", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.integer  "rsvp_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comment_threads", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_thread_id"
+    t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -137,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20121003174201) do
     t.string   "last_name"
     t.string   "gender"
     t.string   "picture"
+    t.string   "birthday"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
