@@ -50,8 +50,9 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
-        format.html { redirect_to(@story, :notice => 'Story was successfully created.') }
-        format.xml  { render :xml => @story, :status => :created, :location => @story }
+        @event = @story.event
+        format.html { redirect_to(@event, :notice => 'Story was successfully created.') }
+        format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }

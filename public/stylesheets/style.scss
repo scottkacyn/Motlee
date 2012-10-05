@@ -82,3 +82,9 @@ h1
     width: $container-width;
     margin: 0 auto;
 }
+
+.comment {
+    margin: 15px;
+    padding: 10px;
+    @include box-shadow;
+}

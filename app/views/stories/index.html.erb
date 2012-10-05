@@ -1,20 +1,5 @@
 <h1>All Stories</h1>
 
-<table id="stories" class="table table-striped">
-  <tr>
-    <td>Event</td>
-    <td>Poster</td>
-    <td>Text</td>
-  </tr>
-<% for story in @stories %>
-  <tr class="story">
-    <td><a href="/stories/<%= story.id %>"><%= story.event.name %></a></td>
-    <td><%= story.user.name %></td>
-    <td><%= story.body %></td>
-  </tr>
-<% end %>
-</table> 
+<%= render "stories" %>
 
-<br />
-
-<%= link_to 'New Story', new_story_path %>
+<%= link_to 'New Story', "stories/new" %>

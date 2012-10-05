@@ -30,6 +30,10 @@
   <%= @event.location_id %>
 </p>
 
+<h2>Stories</h2>
+<%= render "stories/stories" %>
+<%= render "stories/form" %>
+
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

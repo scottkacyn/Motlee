@@ -1,0 +1,16 @@
+<table id="stories" class="table table-striped">
+  <tr>
+    <td>Event</td>
+    <td>Poster</td>
+    <td>Text</td>
+  </tr>
+<% for story in @stories %>
+  <tr class="story">
+    <td><a href="/stories/<%= story.id %>"><%= story.event.name %></a></td>
+    <td><%= story.user.name %></td>
+    <td><%= story.body %></td>
+  </tr>
+<% end %>
+</table> 
+
+<br />

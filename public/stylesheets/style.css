@@ -48,3 +48,11 @@ h1 {
 .compressor {
   width: 1000px;
   margin: 0 auto; }
+
+.comment {
+  margin: 15px;
+  padding: 10px;
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px #888;
+  box-shadow: 0 0 5px #DDD;
+  border: 1px solid #DDD; }

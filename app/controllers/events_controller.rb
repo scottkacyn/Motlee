@@ -15,6 +15,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @owner = User.find(@event.user_id)
+    @stories = @event.stories
+    @story = Story.new
 
     respond_to do |format|
       format.html # show.html.erb

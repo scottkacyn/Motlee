@@ -12,18 +12,7 @@ class CommentsController < ApplicationController
       format.xml  { render :xml => @comments }
     end
   end
-
-  # GET /comments/1
-  # GET /comments/1.xml
-  def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @comment }
-    end
-  end
-
+  
   # GET /comments/new
   # GET /comments/new.xml
   def new
@@ -73,9 +62,15 @@ class CommentsController < ApplicationController
     end
   end
 
-private 
+private
+
   def load_commentable
     resource, id = request.path.split('/')[1,2]
-    @commentable = resource.singularize.classify.constantize.find(id) # Photo.find(1)
+    @commentable = resource.singularize.classify.constantize.find(id)
   end
+ 
+#  def load_commentable
+#    klass = [Photo, Story].detect { |c| params["#{c.name.underscore}_id"] }
+#    @commentable = klass.find(params["#{klass.name.underscore}_id"])
+#  end
 end
