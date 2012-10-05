@@ -14,20 +14,20 @@ class LikesController < ApplicationController
     if !@likeable.likes.where(:user_id => current_user.id).exists?
       @like = @likeable.likes.new(params[:like])
       if @like.save  
-        redirect_to @likeable, notice: "Like added"
+        redirect_to "/", notice: "Like added"
       else
 	render :new
       end
     else
-      redirect_to @likeable, notice: "You've already Liked this"
+      redirect_to [@likeable.event, @likeable], notice: "You've already Liked this"
     end
   end
 
 private
   
   def load_likeable
-    resource, id = request.path.split('/')[1,2]
-    @likeable = resource.singularize.classify.constantize.find(id) 
-  end   
+    klass = [Photo, Story].detect { |c| params["#{c.name.underscore}_id"] }
+    @likeable = klass.find(params["#{klass.name.underscore}_id"])
+  end
 
 end

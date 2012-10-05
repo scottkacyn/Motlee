@@ -2,7 +2,7 @@
 <% @comments.each do |comment| %>
   <div class="comment">
     <strong><%= comment.user.name %></strong> wrote: <br />
-    <%= comment.body %>
+    <%= link_to comment.body, event_story_comment_path(@event, @commentable, comment) %>
   </div>
 <% end %>
 </div>

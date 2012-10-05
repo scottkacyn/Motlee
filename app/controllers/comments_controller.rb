@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_filter :load_commentable
+  before_filter :load_commentable, :load_event
 
   # GET /comments
   # GET /comments.xml
@@ -11,6 +11,10 @@ class CommentsController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @comments }
     end
+  end
+
+  def show
+    @comment = Comment.find(params[:id])
   end
   
   # GET /comments/new
@@ -28,7 +32,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new(params[:comment])
     if @comment.save
-      redirect_to @commentable, notice: "Comment added"
+      redirect_to [@commentable.event, @commentable], notice: "Comment added"
     else
       render :new
     end
@@ -64,13 +68,18 @@ class CommentsController < ApplicationController
 
 private
 
-  def load_commentable
-    resource, id = request.path.split('/')[1,2]
-    @commentable = resource.singularize.classify.constantize.find(id)
-  end
- 
 #  def load_commentable
-#    klass = [Photo, Story].detect { |c| params["#{c.name.underscore}_id"] }
-#    @commentable = klass.find(params["#{klass.name.underscore}_id"])
+#    resource, id = request.path.split('/')[1,2]
+#    @commentable = resource.singularize.classify.constantize.find(id)
 #  end
+ 
+  def load_commentable
+    klass = [Photo, Story].detect { |c| params["#{c.name.underscore}_id"] }
+    @commentable = klass.find(params["#{klass.name.underscore}_id"])
+  end
+  
+  def load_event
+    @event = Event.find(params[:event_id])
+  end
+
 end

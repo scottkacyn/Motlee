@@ -23,5 +23,5 @@
 <%= render "likes/likes" %>
 <%= render "likes/form" %>
 
-<%= link_to 'Edit', edit_story_path(@story) %> |
-<%= link_to 'Back', stories_path %>
+<%= link_to 'Edit', edit_event_story_path(@story.event, @story) %> |
+<%= link_to 'Back', event_stories_path %>

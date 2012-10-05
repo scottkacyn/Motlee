@@ -6,7 +6,7 @@
   </tr>
 <% for story in @stories %>
   <tr class="story">
-    <td><a href="/stories/<%= story.id %>"><%= story.event.name %></a></td>
+    <td><%= link_to story.event.name, event_story_path(story.event, story) %></td>
     <td><%= story.user.name %></td>
     <td><%= story.body %></td>
   </tr>

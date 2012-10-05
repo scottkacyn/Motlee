@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to "Back", @commentable %>
+<%= link_to "Back", event_story_comments_path %>
 
 <p>
   <b>User:</b>
-  <%= @comment.user.name %>
+  <%= @comment.user_id %>
 </p>
 
 <p>

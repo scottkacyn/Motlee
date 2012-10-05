@@ -1,8 +1,11 @@
 class StoriesController < ApplicationController
+  
+  before_filter :load_event_if_exists
+ 
   # GET /stories
   # GET /stories.xml
   def index
-    @stories = Story.all
+    @stories = @event.stories
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +16,7 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.xml
   def show
-    @story = Story.find(params[:id])
+    @story = @event.stories.find(params[:id])
     @commentable = @story
     @comments = @commentable.comments
     @comment = Comment.new
@@ -86,5 +89,11 @@ class StoriesController < ApplicationController
       format.html { redirect_to(stories_url) }
       format.xml  { head :ok }
     end
+  end
+
+private
+
+  def load_event_if_exists
+    @event = Event.find(params[:event_id])
   end
 end
