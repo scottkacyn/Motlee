@@ -1,38 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Owner:</b>
-  <%= @owner.name %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @event.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @event.description %>
-</p>
-
-<p>
-  <b>Start time:</b>
-  <%= @event.start_time %>
-</p>
-
-<p>
-  <b>End time:</b>
-  <%= @event.end_time %>
-</p>
-
-<p>
-  <b>Location:</b>
-  <%= @event.location_id %>
-</p>
+<%= link_to 'Back', events_path %> | 
+<%= link_to 'Edit', edit_event_path(@event) %>
+<h1><%= @event.name %></h1>
 
 <h2>Stories</h2>
 <%= render "stories/stories" %>
 <%= render "stories/form" %>
- 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+
+<h2>Fomos</h2>
+<%= render "fomos/fomos" %>
+<%= render "fomos/form" %>
