@@ -1,8 +1,11 @@
 class PhotosController < ApplicationController
+  
+  before_filter :load_event_if_exists
+  
   # GET /photos
   # GET /photos.xml
   def index
-    @photos = Photo.all
+    @photos = @event.photos
 
     respond_to do |format|
       format.html # index.html.erb
@@ -79,5 +82,11 @@ class PhotosController < ApplicationController
       format.html { redirect_to(photos_url) }
       format.xml  { head :ok }
     end
+  end
+
+private
+
+  def load_event_if_exists
+    @event = Event.find(params[:event_id])
   end
 end
