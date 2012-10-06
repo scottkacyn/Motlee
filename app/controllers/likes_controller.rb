@@ -14,7 +14,7 @@ class LikesController < ApplicationController
     if !@likeable.likes.where(:user_id => current_user.id).exists?
       @like = @likeable.likes.new(params[:like])
       if @like.save  
-        redirect_to @likeable, notice: "Like added"
+        redirect_to [@likeable.event, @likeable], notice: "Like added"
       else
 	render :new
       end
