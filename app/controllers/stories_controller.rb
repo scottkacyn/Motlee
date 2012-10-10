@@ -10,6 +10,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @stories }
+      format.json  { render :json => @stories.to_json(:include => [:comments, :likes]) }
     end
   end
 
@@ -27,6 +28,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }
+      format.json  { render :json => @story.to_json(:include => [:comments, :likes]) }
     end
   end
 
@@ -38,6 +40,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @story }
+      format.json { render :json => @story }
     end
   end
 
@@ -55,10 +58,12 @@ class StoriesController < ApplicationController
       if @story.save
         @event = @story.event
         format.html { redirect_to(@event, :notice => 'Story was successfully created.') }
-        format.xml  { render :xml => @event, :status => :created, :location => @event }
+        format.xml  { render :xml => @story, :status => :created, :location => @event }
+        format.json  { render :json => @story, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @story.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -72,9 +77,11 @@ class StoriesController < ApplicationController
       if @story.update_attributes(params[:story])
         format.html { redirect_to(@story, :notice => 'Story was successfully updated.') }
         format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @story.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -88,6 +95,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(stories_url) }
       format.xml  { head :ok }
+      format.json  { head :ok }
     end
   end
 
