@@ -48,6 +48,7 @@ GEM
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (2.1.2)
+    curb (0.8.1)
     daemons (1.1.8)
     devise (1.5.3)
       bcrypt-ruby (~> 3.0)
@@ -145,9 +146,11 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  curb
   devise
   dispatcher
   jquery-rails
+  json
   oauth2
   omniauth
   omniauth-facebook
