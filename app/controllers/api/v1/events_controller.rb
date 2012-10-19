@@ -5,7 +5,11 @@ class Api::V1::EventsController < ApplicationController
   respond_to :json
 
   def index
-    @events = Event.order("created_at DESC").limit(5)
+    if (params[:page] && (params[:page] == "me"))
+      @events = Event.where("user_id = ?", current_user.id).order("created_at DESC")
+    else
+      @events = Event.order("created_at DESC")
+    end
     respond_with @events.to_json(:include => [:photos, :stories, :fomos]) 
   end
 
@@ -15,7 +19,17 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def create
-    respond_with Event.create(params[:event])
+    @event = Event.new(params[:event])
+ 
+    if (@event.name.blank?)
+      render :json => {:message => "The event name was NULL, not saving"}
+      return
+    end
+    if @event.save
+	respond_with @event
+    else
+     	render :json => {:message => "Something went wrong, event not saved"}
+    end
   end
 
   def update

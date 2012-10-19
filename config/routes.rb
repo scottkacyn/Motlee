@@ -46,7 +46,7 @@ Motlee::Application.routes.draw do
 	  resources :likes
 	end
       end
-      resources :users, :only => [:index]
+      resources :users, :only => [:index, :show]
       resources :tokens, :only => [:create, :destroy]
     end
   end

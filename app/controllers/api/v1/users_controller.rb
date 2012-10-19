@@ -5,7 +5,13 @@ class Api::V1::UsersController < ApplicationController
   respond_to :json
 
   def index
-    respond_with current_user.to_json
+    @user = current_user
+    render :json => @user.to_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
+  end
+
+  def show
+    @user = User.find(params[:id])
+    render :json => @user.to_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
   end
 
 end
