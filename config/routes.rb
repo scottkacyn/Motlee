@@ -37,6 +37,9 @@ Motlee::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       resources :events do
+	collection do
+	  match ':event_id/join' => 'events#join', :via => :post
+	end
         resources :stories do
 	  resources :comments
 	  resources :likes
