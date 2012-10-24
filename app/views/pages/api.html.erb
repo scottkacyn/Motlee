@@ -1,0 +1,62 @@
+<p class="lead">The base URL for all API calls is http(s)://dev.motleeapp.com/api</p>
+
+<p class="lead">/events</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr class="success">
+      <th>page</th>
+    </tr>
+    <tr>
+      <th>option</th>
+      <th>result</th>
+      <th>usable?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>all</td>
+      <td>(Default) Returns all events for a user and the user's friends, including events the user is not currently attending.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>me</td>
+      <td>Returns all events the user created OR that the user is attending.</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>nearby</td>
+      <td>Returns all events that are with X miles of the user's current location</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered">
+  <thead>
+    <tr class="success">
+      <th>ongoing (optional)</th>
+    </tr>
+    <tr>
+      <th>option</th>
+      <th>result</th>
+      <th>usable?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Returns only events that are happening now</td> 
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>Default if param not set: returns all events regardless of time.</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>-1</td>
+      <td>Returns only events that happened in the past</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>

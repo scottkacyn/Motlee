@@ -14,4 +14,7 @@ class PagesController < ApplicationController
   def jobs
   end
 
+  def api
+  end
+
 end

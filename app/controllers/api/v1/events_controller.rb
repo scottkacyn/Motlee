@@ -4,20 +4,33 @@ class Api::V1::EventsController < ApplicationController
 
   respond_to :json
 
+  # GET
+  # /api/events
+  # Returns a list of ALL the users events and events she is attending
+  # Accepts page (all, me, nearby) and ongoing (1, 0, -1) as params
   def index
-    if (params[:page] && (params[:page] == "me"))
-      @events = Event.where("user_id = ?", current_user.id).order("created_at DESC")
+    if (params[:page])
+      if (params[:page] == "me")
+        @events = Event.where("user_id = ?", current_user.id).order("created_at DESC")
+      elsif (params[:page] == "nearby")
+	# @events = Event.where(LOCATION IS NEAR CURRENT USER
+      end
     else
       @events = Event.order("created_at DESC")
     end
     respond_with @events.to_json(:include => [:photos, :stories, :fomos]) 
   end
 
+  # GET
+  # /api/events/:id
+  # Returns the details for the event with id = :id
   def show
     @event = Event.find(params[:id])
     respond_with @event.to_json(:include => [:photos, :stories, :fomos])
   end
 
+  # POST
+  # /api/events
   def create
     @event = Event.new(params[:event])
  
@@ -32,6 +45,10 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
+  # POST
+  # /api/events/:id/join
+  # Allows you to add a user to an event as an attendee
+  # Requires :uids param which is an array of Facebook UIDs
   def join
     @uids = params[:uids]
     @uid_array = []

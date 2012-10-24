@@ -26,15 +26,18 @@ Motlee::Application.routes.draw do
   get "pages/company"
   get "pages/contact"
   get "pages/jobs"
+  get "pages/api"
 
   # PAGES - match
   match 'about' => 'pages#about'
   match 'company' => 'pages#company'
   match 'contact' => 'pages#contact'
   match 'jobs' => 'pages#jobs'
+  match 'api' => 'pages#api'
 
   # USER TOKEN AUTHENTICATION
   namespace :api, defaults: {format: 'json'} do
+    match '/' => 'api#index', :via => :get
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       resources :events do
 	collection do
