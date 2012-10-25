@@ -1,4 +1,4 @@
-class RemoveColumnFromComment < ActiveRecord::Migration
+class RemoveColumnFromComments < ActiveRecord::Migration
   def self.up
     remove_column :comments, :comment_thread_id
   end
