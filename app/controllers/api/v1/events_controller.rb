@@ -18,7 +18,11 @@ class Api::V1::EventsController < ApplicationController
     else
       @events = Event.order("created_at DESC")
     end
-    respond_with @events.to_json(:include => [:photos, :stories, :fomos]) 
+    render :json => @events.to_json(:methods => [:owner, :fomo_count, :attendee_count])
+  end
+
+  def fomo_count
+	  return event.fomos.count
   end
 
   # GET
