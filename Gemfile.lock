@@ -44,10 +44,16 @@ GEM
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (2.0.10)
+    aws-sdk (1.3.9)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (2.1.2)
+    cocaine (0.4.2)
     curb (0.8.1)
     daemons (1.1.8)
     devise (1.5.3)
@@ -67,6 +73,9 @@ GEM
       actionpack (>= 3.0)
     has_scope (0.5.1)
     hashie (1.2.0)
+    httparty (0.9.0)
+      multi_json (~> 1.0)
+      multi_xml
     i18n (0.5.0)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
@@ -90,7 +99,9 @@ GEM
       arel (~> 2.0.2)
     mime-types (1.19)
     multi_json (1.1.0)
+    multi_xml (0.5.1)
     multipart-post (1.1.5)
+    nokogiri (1.5.5)
     oauth2 (0.5.2)
       faraday (~> 0.7)
       multi_json (~> 1.0)
@@ -103,6 +114,11 @@ GEM
       oauth2 (~> 0.5.0)
       omniauth (~> 1.0)
     orm_adapter (0.0.6)
+    paperclip (2.6.0)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
     pg (0.14.1)
     polyglot (0.3.3)
     rack (1.2.5)
@@ -138,6 +154,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.33)
+    uuidtools (2.1.3)
     warden (1.1.0)
       rack (>= 1.0)
 
@@ -146,6 +163,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  aws-sdk (~> 1.3.4)
   curb
   devise
   dispatcher
@@ -154,6 +172,7 @@ DEPENDENCIES
   oauth2
   omniauth
   omniauth-facebook
+  paperclip (~> 2.6.0)
   pg
   rails (= 3.0.9)
   thin
