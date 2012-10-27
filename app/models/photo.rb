@@ -5,4 +5,9 @@ class Photo < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :likes, as: :likeable
 
+  has_attached_file :image,
+	  :styles => { :thumbnail => "92x92#",
+		       :iphone	  => "320" },
+  	  :storage => :s3,
+	  :s3_credentials => S3_CREDENTIALS 
 end
