@@ -2,6 +2,9 @@
 
 <table>
   <tr>
+	  <th>Source</th>
+	  <th>iPhone</th>
+	  <th>Thumb</th>
     <th>User</th>
     <th>Event</th>
     <th>Caption</th>
@@ -14,13 +17,14 @@
 
 <% @photos.each do |photo| %>
   <tr>
+	  <td><%= image_tag photo.image.url %></td>
+	  <td><%= image_tag photo.image.url(:iphone) %></td>
+	  <td><%= image_tag photo.image.url(:thumbnail) %></td>
     <td><%= photo.user %></td>
     <td><%= photo.event %></td>
     <td><%= photo.caption %></td>
     <td><%= photo.lat %></td>
     <td><%= photo.lon %></td>
-    <td><%= link_to 'Show', photo %></td>
-    <td><%= link_to 'Destroy', photo, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
