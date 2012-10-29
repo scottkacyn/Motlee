@@ -5,10 +5,6 @@
     <th>User</th>
     <th>Event</th>
     <th>Caption</th>
-    <th>Thumbnail</th>
-    <th>Source</th>
-    <th>Height</th>
-    <th>Width</th>
     <th>Lat</th>
     <th>Lon</th>
     <th></th>
@@ -21,14 +17,9 @@
     <td><%= photo.user %></td>
     <td><%= photo.event %></td>
     <td><%= photo.caption %></td>
-    <td><%= photo.thumbnail %></td>
-    <td><%= photo.source %></td>
-    <td><%= photo.height %></td>
-    <td><%= photo.width %></td>
     <td><%= photo.lat %></td>
     <td><%= photo.lon %></td>
     <td><%= link_to 'Show', photo %></td>
-    <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
