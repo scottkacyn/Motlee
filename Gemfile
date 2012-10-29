@@ -18,7 +18,7 @@ gem 'curb'
 gem 'json'
 gem 'paperclip', '~>2.6.0'
 gem 'aws-sdk', '~>1.3.4'
-
+gem 'rmagick'
 
 # Use unicorn as the web server
 # gem 'unicorn'
