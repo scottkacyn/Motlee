@@ -1,5 +1,7 @@
 Motlee::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
+  
+  Paperclip.options[:command_path] = "usr/bin/"
 
   # The test environment is used exclusively to run your application's
   # test suite.  You never need to work with it otherwise.  Remember that
