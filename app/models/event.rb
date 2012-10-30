@@ -1,8 +1,11 @@
 class Event < ActiveRecord::Base
 
+  COORDINATE_DELTA = 0.05
+
   has_many :photos
   has_many :stories
   has_one :user
+  has_one :location
   has_many :fomos
   has_many :attendees
 
@@ -21,5 +24,12 @@ class Event < ActiveRecord::Base
   def attendee_count
 	  (attendees.count + 1)
   end
+
+  scope :nearby, lambda { |lat,lon|
+	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
+	where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).
+	limit(64)
+  }
+
 
 end

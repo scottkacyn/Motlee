@@ -9,11 +9,12 @@ class Api::V1::EventsController < ApplicationController
   # Returns a list of ALL the users events and events she is attending
   # Accepts page (all, me, nearby) and ongoing (1, 0, -1) as params
   def index
+    lat, lon = params[:lat], params[:lon]
     if (params[:page])
       if (params[:page] == "me")
         @events = Event.where("user_id = ?", current_user.id).order("created_at DESC")
-      elsif (params[:page] == "nearby")
-	# @events = Event.where(LOCATION IS NEAR CURRENT USER
+      elsif ((params[:page] == "nearby") and lat and lon)
+	@events = Event.nearby(lat.to_f, lon.to_f)
       end
     else
       @events = Event.order("created_at DESC")

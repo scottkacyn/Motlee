@@ -5,8 +5,8 @@ class Photo < ActiveRecord::Base
   COORDINATE_DELTA = 0.05	
 	
   has_attached_file :image,
-	  :styles => { :thumbnail => "92x92#",
-		       :iphone	  => "320" },
+	  :styles => { :thumbnail => "200x200#",
+		       :compressed => "720x720#" },
   	  :storage => :s3,
 	  :bucket => 'motlee-development-photos',
 	  :s3_credentials => {

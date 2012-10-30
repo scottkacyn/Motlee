@@ -20,8 +20,8 @@
 	  <td><%= image_tag photo.image.url %></td>
 	  <td><%= image_tag photo.image.url(:iphone) %></td>
 	  <td><%= image_tag photo.image.url(:thumbnail) %></td>
-    <td><%= photo.user %></td>
-    <td><%= photo.event %></td>
+    <td><%= photo.user.name %></td>
+    <td><%= photo.event.name %></td>
     <td><%= photo.caption %></td>
     <td><%= photo.lat %></td>
     <td><%= photo.lon %></td>

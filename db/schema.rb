@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027015521) do
+ActiveRecord::Schema.define(:version => 20121030165636) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20121027015521) do
     t.integer  "location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "lat",         :precision => 15, :scale => 10
+    t.decimal  "lon",         :precision => 15, :scale => 10
   end
 
   create_table "fomos", :force => true do |t|
