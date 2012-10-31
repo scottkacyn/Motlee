@@ -7,19 +7,34 @@ class Api::V1::EventsController < ApplicationController
   # GET
   # /api/events
   # Returns a list of ALL the users events and events she is attending
-  # Accepts page (all, me, nearby) and ongoing (1, 0, -1) as params
   def index
-    lat, lon = params[:lat], params[:lon]
-    if (params[:page])
-      if (params[:page] == "me")
-        @events = Event.where("user_id = ?", current_user.id).order("created_at DESC")
-      elsif ((params[:page] == "nearby") and lat and lon)
-	@events = Event.nearby(lat.to_f, lon.to_f)
-      end
-    else
-      @events = Event.order("created_at DESC")
-    end
-    render :json => @events.to_json(:methods => [:owner, :fomo_count, :attendee_count])
+	  fbuid = current_user.uid
+	  access_token = params[:access_token]
+	  @friends = Array.new()
+
+	  http = Curl.get("https://graph.facebook.com/me/friends", {:access_token => access_token})
+	  result = JSON.parse(http.body_str)
+
+	  result.each do |key,value|
+	  	if key == "data"
+			value.each do |str|
+				@user = User.where(:uid => str['id']).first
+				if (!@user.nil?)
+					@friends = @friends << @user.id
+				end
+			end
+		end
+	  end
+	  #@rsvps = Attendee.where(:user_id => 3).order("event_id")
+	  
+	  @events = Event.joins(:attendees).where(:attendees => {:user_id => @friends})
+	  respond_with @events.to_json
+  end
+
+  def me
+  end
+
+  def nearby
   end
 
   def fomo_count

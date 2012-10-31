@@ -1,4 +1,6 @@
 class Api::V1::PhotosController < ApplicationController
+  
+	before_filter :load_event_if_exists
 	
 	respond_to :json
 
@@ -8,7 +10,7 @@ class Api::V1::PhotosController < ApplicationController
 		  @photos = Photo.nearby(lat.to_f, lon.to_f)
 		  respond_with({:photos => @photos}.as_json)
 	  else
-		@photos = Photo.all
+		@photos = @event.photos
 		respond_with({:photos => @photos}.as_json)
 	  end
 	end
@@ -23,4 +25,9 @@ class Api::V1::PhotosController < ApplicationController
 		respond_with(@photo)
 	end
 
+private
+
+  def load_event_if_exists
+    @event = Event.find(params[:event_id])
+  end
 end

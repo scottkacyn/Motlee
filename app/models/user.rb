@@ -10,12 +10,14 @@ class User < ActiveRecord::Base
   
   
   # Setup ActiveRecord associations with other models
-  has_many :events
   has_many :photos
   has_many :stories
   has_many :comments
   has_many :fomos
   has_many :likes
+  has_many :attendees
+
+  has_many :events, :through => :attendees
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first

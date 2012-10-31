@@ -9,6 +9,8 @@ class Event < ActiveRecord::Base
   has_many :fomos
   has_many :attendees
 
+  has_many :users, :through => :attendees
+
   def owner
 	  if (user_id == 0 || !user_id)
 		  return
@@ -22,7 +24,7 @@ class Event < ActiveRecord::Base
   end
 
   def attendee_count
-	  (attendees.count + 1)
+	  attendees.count
   end
 
   scope :nearby, lambda { |lat,lon|
