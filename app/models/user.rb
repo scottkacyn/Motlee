@@ -17,7 +17,8 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :attendees
 
-  has_many :events, :through => :attendees
+  has_many :events_attended, :through => :attendees, :source => :event
+  has_many :events_fomoed, :through => :fomos, :source => :event	
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first

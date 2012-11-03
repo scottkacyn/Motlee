@@ -5,7 +5,7 @@ class Api::V1::PhotosController < ApplicationController
 	respond_to :json
 
 	def index
-	  lat, lon = params[:at], params[:lon]
+	  lat, lon = params[:lat], params[:lon]
 	  if lat and lon
 		  @photos = Photo.nearby(lat.to_f, lon.to_f)
 		  respond_with({:photos => @photos}.as_json)
@@ -22,7 +22,7 @@ class Api::V1::PhotosController < ApplicationController
 
 	def create
 		@photo = Photo.create(params[:photo])
-		respond_with(@photo)
+		render :json => @photo.as_json
 	end
 
 private

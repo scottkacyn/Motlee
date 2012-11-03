@@ -3,7 +3,7 @@
 <table>
   <tr>
 	  <th>Source</th>
-	  <th>iPhone</th>
+	  <th>Compressed</th>
 	  <th>Thumb</th>
     <th>User</th>
     <th>Event</th>
@@ -18,7 +18,7 @@
 <% @photos.each do |photo| %>
   <tr>
 	  <td><%= image_tag photo.image.url %></td>
-	  <td><%= image_tag photo.image.url(:iphone) %></td>
+	  <td><%= image_tag photo.image.url(:compressed) %></td>
 	  <td><%= image_tag photo.image.url(:thumbnail) %></td>
     <td><%= photo.user.name %></td>
     <td><%= photo.event.name %></td>

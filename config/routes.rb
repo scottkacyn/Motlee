@@ -43,6 +43,7 @@ Motlee::Application.routes.draw do
 	collection do
 	  match ':event_id/join' => 'events#join', :via => :post
 	  match ':event_id/photos' => 'photos#index', :via => :get
+	  match ':event_id/photos/new' => 'photos#create', :via => :post
 	end
         resources :stories do
 	  resources :comments

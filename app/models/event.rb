@@ -9,7 +9,8 @@ class Event < ActiveRecord::Base
   has_many :fomos
   has_many :attendees
 
-  has_many :users, :through => :attendees
+  has_many :people_attending, :through => :attendees, :source => :user
+  has_many :fomoers, :through => :fomos, :source => :user
 
   def owner
 	  if (user_id == 0 || !user_id)
