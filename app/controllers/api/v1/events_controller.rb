@@ -63,9 +63,9 @@ class Api::V1::EventsController < ApplicationController
 	else
 		# Failure
 	end
-	respond_with @event
+    	render :json => @event, :status => :created
     else
-     	render :json => {:message => "Something went wrong, event not saved"}
+     	render :json => @event.errors, :status => :unprocessable_entity
     end
   end
 

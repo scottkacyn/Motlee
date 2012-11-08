@@ -11,18 +11,22 @@ class Api::V1::PhotosController < ApplicationController
 		  respond_with({:photos => @photos}.as_json)
 	  else
 		@photos = @event.photos
-		respond_with({:photos => @photos}.as_json)
+		render :json => @photos.as_json(:methods => [:owner])
 	  end
 	end
 
 	def show
 		@photo = Photo.find(params[:id])
-		respond_with(@photo)
+		render :json => @photo.as_json(:methods => [:owner])
 	end
-
+	
 	def create
-		@photo = Photo.create(params[:photo])
-		render :json => @photo.as_json
+	  @photo = Photo.new(params[:photo])
+	  if @photo.save
+	    render :json => @photo, :status => :created
+	  else
+	    render :json => @photo.errors, :status => :unprocessable_entity
+          end	
 	end
 
 private

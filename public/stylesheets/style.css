@@ -21,18 +21,64 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   text-decoration: none; }
 
 body {
-  background: url("http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/subtle_dots.png"); }
+  background: url("/images/LP-Body-BG.png");
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 100; }
 
 .container {
-  background-color: white;
-  width: 1000px;
+  background: url("/images/LP-Background.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-width: 1003px;
   min-height: 600px;
-  padding: 20px;
-  margin: 20px auto;
-  -moz-box-shadow: 0 0 5px #888;
-  -webkit-box-shadow: 0 0 5px #888;
-  box-shadow: 0 0 5px #DDD;
-  border: 1px solid #DDD; }
+  padding: 0;
+  margin: 0;
+  overflow: hidden; }
+
+.container .content {
+  width: 1000px;
+  height: 100%;
+  margin: 0 auto; }
+
+#top {
+  height: 50%;
+  width: 100%; }
+
+#divider-bar {
+  background: url("/images/divider-bar.png");
+  height: 21px;
+  width: 100%;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #111; }
+
+#bottom {
+  background: url("/images/LP-BG-Bottom.png");
+  height: 50%;
+  width: 100%;
+  padding-top: 10px; }
+
+#info {
+  padding: 40px;
+  font-size: 36px;
+  line-height: 36px;
+  color: #AAA;
+  text-align: center; }
+
+#interest-form {
+  text-align: center;
+  padding: 10px; }
+
+#interest-form span {
+  font-size: 16px;
+  color: #AAA; }
+
+#interest-form form input {
+  line-height: 28px;
+  height: 28px;
+  font-size: 20px;
+  background-color: #EEE; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #3a3836; }
@@ -46,7 +92,7 @@ h1 {
   color: #54524f; }
 
 .compressor {
-  width: 1000px;
+  width: 1023px;
   margin: 0 auto; }
 
 .comment {
@@ -56,3 +102,6 @@ h1 {
   -webkit-box-shadow: 0 0 5px #888;
   box-shadow: 0 0 5px #DDD;
   border: 1px solid #DDD; }
+
+.salmon {
+  color: #f05541; }

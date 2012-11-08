@@ -9,41 +9,13 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-    
-    <div class="navbar">
-        <div class="compressor">
-            <div class="navbar-inner">
-                <a class="brand" href="/">Motlee</a>
-                <ul class="nav">
-			<li class="divider-vertical"></li>
-			<li><%= link_to "Events", events_path %></li>
-			<li class="divider-vertical"></li>
-                </ul>
-                <ul class="nav pull-right">
-                    <% if user_signed_in? %>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <%= current_user.name %>
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
-                                <li><%= link_to "Account Settings", edit_user_registration_path %></li>
-                            </ul>
-                        </li>
-                    <% else %>
-                        <li class="pull-right">
-                            <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook) %>
-                        </li>
-                    <% end %>
-                </ul>
-            </div>
-        </div>
-    </div>
+    	<div class="container">
+        	<%= yield %>
+	</div>
 
-    <div class="container">
-        <%= yield %>
-    </div>
 
+	<script>
+		$(".container").css({'width' : $(window).width(), 'height' : $(window).height()});
+	</script>
 </body>
 </html>

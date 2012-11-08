@@ -27,5 +27,13 @@ class Photo < ActiveRecord::Base
 	  where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).
 	  limit(64)
   }
+  
+  def owner
+	  if (user_id == 0 || !user_id)
+		  return
+	  end
+	  @owner = User.find(user_id)
+	  [:id => @owner.id, :uid => @owner.uid, :name => @owner.name]
+  end
    
 end

@@ -1,11 +1,25 @@
-<% if user_signed_in? %>
-    <div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">x</button>
-        Congratulations, <%= current_user.first_name %>, you are now signed in!
-    </div>
-    <img src="<%= current_user.picture %>">
-
-<% else %>
-    <h1>Motlee Home</h1>
-    <%= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-large btn-primary" %>
-<% end %>
+<div id="top">
+	<div class="content">
+		<div id="logo">
+		</div>
+		<div id="tagline">
+		</div>
+	</div>
+</div>
+<div id="divider-bar"></div>
+<div id="bottom">
+	<div class="content">
+		<div id="info">
+			<span class="salmon">Motlee</span> is an awesome way to capture live events<br />from the perspective of the group.
+		</div>
+		<div id="interest-form">
+			<form class="form-inline">
+				<input type="text" class="input-xlarge" placeholder="email@address.com">
+				<button type="submit" class="btn btn-inverse btn-large">Submit</button>
+			</form>
+			<span>
+				Let us notify you when Motlee launches by entering your email above.
+			</span>
+		</div>
+	</div>
+</div>

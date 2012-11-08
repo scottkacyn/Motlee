@@ -1,12 +1,16 @@
 class Api::V1::StoriesController < ApplicationController
   
   before_filter :load_event_if_exists
- 
+
+  respond_to :json
+
   # GET /stories
   # GET /stories.xml
   def index
     @stories = @event.stories
-    render :json => @stories.to_json(:include => [:comments, :likes])
+    render :json => {:message => "poop"}
+    return
+    render :json => @stories.as_json(:methods => [:owner], :include => [:comments, :likes])
   end
 
   # GET /stories/1
@@ -19,20 +23,17 @@ class Api::V1::StoriesController < ApplicationController
     @likeable = @story
     @likes = @likeable.likes
     @like = Like.new
+    render :json => {:message => "poop"}
+    return
     
-    render :json => @story.to_json(:include => [:comments, :likes])
+    render :json => @story.as_json(:methods => [:owner], :include => [:comments, :likes])
   end
 
   # GET /stories/new
   # GET /stories/new.xml
   def new
     @story = Story.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @story }
-      format.json { render :json => @story }
-    end
+    render :json => @story
   end
 
   # GET /stories/1/edit
@@ -44,37 +45,22 @@ class Api::V1::StoriesController < ApplicationController
   # POST /stories.xml
   def create
     @story = Story.new(params[:story])
-
-    respond_to do |format|
       if @story.save
-        @event = @story.event
-        format.html { redirect_to(@event, :notice => 'Story was successfully created.') }
-        format.xml  { render :xml => @story, :status => :created, :location => @event }
-        format.json  { render :json => @story, :status => :created, :location => @event }
+        render :json => @story, :status => :created
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @story.errors, :status => :unprocessable_entity }
+        render :json => @story.errors, :status => :unprocessable_entity
       end
-    end
   end
 
   # PUT /stories/1
   # PUT /stories/1.xml
   def update
     @story = Story.find(params[:id])
-
-    respond_to do |format|
       if @story.update_attributes(params[:story])
-        format.html { redirect_to(@story, :notice => 'Story was successfully updated.') }
-        format.xml  { head :ok }
-        format.json  { head :ok }
+        head :ok
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @story.errors, :status => :unprocessable_entity }
+        render :json => @story.errors, :status => :unprocessable_entity
       end
-    end
   end
 
   # DELETE /stories/1
@@ -82,12 +68,7 @@ class Api::V1::StoriesController < ApplicationController
   def destroy
     @story = Story.find(params[:id])
     @story.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(stories_url) }
-      format.xml  { head :ok }
-      format.json  { head :ok }
-    end
+      head :ok
   end
 
 private
