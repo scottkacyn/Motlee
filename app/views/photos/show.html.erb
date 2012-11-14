@@ -47,13 +47,10 @@
 
 <p>
   <b>Comment thread:</b>
-  <%= @photo.comment_thread %>
+  <%= @photo.comments %>
 </p>
 
 <p>
   <b>Like thread:</b>
-  <%= @photo.like_thread %>
+  <%= @photo.likes %>
 </p>
-
-
-<%= link_to 'Back', photos_path %>

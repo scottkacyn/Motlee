@@ -7,6 +7,7 @@
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag "/bootstrap/js/bootstrap.min.js" %>
   <%= csrf_meta_tag %>
+  <meta name="google-site-verification" content="Q6BlJWjWuU9gCQat1sQet2SIPaJR8wLcXe-YyEqa7Lg" />
 </head>
 <body>
     	<div class="container">
@@ -14,8 +15,20 @@
 	</div>
 
 
-	<script>
+	<script>			
+		var logo = $("#logo");
+		var offset= logo.offset();
 		$(".container").css({'width' : $(window).width(), 'height' : $(window).height()});
+		$("#divider-bar").hide().fadeIn(500);
+		$("#phone").hide().css('left', (offset.left - 250)).fadeIn(1000);
+		$("#bottom").hide().fadeIn(1000);
+
+		$(window).resize(function() {
+			$(".container").css({'width' : $(window).width(), 'height' : $(window).height()});
+			var logo = $("#logo");
+			var offset= logo.offset();
+			$("#phone").css('left', (offset.left - 250));
+		});
 	</script>
 </body>
 </html>

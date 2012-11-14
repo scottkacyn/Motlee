@@ -1,6 +1,6 @@
 class Api::V1::LikesController < ApplicationController
   
-  before_filter :load_likeable
+  before_filter :load_likeable, :authenticate_user!
 
   respond_to :json
 
@@ -16,13 +16,19 @@ class Api::V1::LikesController < ApplicationController
   def create
     if !@likeable.likes.where(:user_id => current_user.id).exists?
       @like = @likeable.likes.new(params[:like])
+      @like.user_id = current_user.id
       if @like.save 
 	render :json => @like, :status => :created 
       else
 	render :json => @like.errors, :status => :unprocessable_entity
       end
     else
-      render :json => "User has already liked this object."
+	@like = @likeable.likes.where(:user_id => current_user.id).first
+    	if @like.destroy
+		render :json => {:message => "You unliked like ##{@like.id}"}
+	else
+		render :json => @like.errors, :status => :unprocessable_entity
+	end
     end
   end
 

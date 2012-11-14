@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
       :last_name => auth.info.last_name,
       :gender => auth.extra.raw_info.gender,
       :birthday => auth.extra.raw_info.birthday,
-      :picture => "https://graph.facebook.com/" + auth.uid + "/picture?type=normal",
+      :picture => "https://graph.facebook.com/" + auth.uid + "/picture",
       :email => auth.info.email,
       :password => Devise.friendly_token[0,20]
       )

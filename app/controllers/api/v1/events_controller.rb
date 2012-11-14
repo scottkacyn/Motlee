@@ -43,7 +43,7 @@ class Api::V1::EventsController < ApplicationController
     end
     
     render :json => { :is_attending => is_attending,
-	    :event => @event.as_json({root: false, :methods => [:owner, :fomo_count, :attendee_count], :include => [:photos, :stories, :people_attending, :fomoers] }) }
+	    :event => @event.as_json({:methods => [:owner, :fomo_count, :attendee_count], :include => {:photos => {:include => {:comments => {}, :likes => {}}}, :stories => {}, :people_attending => {}, :fomoers => {}}})}
    
   end
 
@@ -51,11 +51,11 @@ class Api::V1::EventsController < ApplicationController
   # /api/events
   def create
     @event = Event.new(params[:event])
- 
     if (@event.name.blank?)
       render :json => {:message => "The event name was NULL, not saving"}
       return
     end
+    @event.user_id = current_user.id
     if @event.save
 	@attendee = Attendee.new(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
 	if @attendee.save
@@ -80,32 +80,33 @@ class Api::V1::EventsController < ApplicationController
 	    @uid_array = @uids.split(",")
 
 	    @uid_array.each do |uid|
-	      motlee_user = User.where(:uid => uid).first
-	      if (motlee_user.nil?) #User is not currently a Motlee user
-		# We're going to add the user to Motlee as a "placeholder"
-	      else
-		# User is a Motlee user, let's check to make sure he or she hasn't already been added to the event
-		    # TODO - Add validation to this model and call first_or_initialize! instead of ...initialize 
-		    # TODO = Upgrade to Rails 3.2.1 so that you can use the above method
-		    #@attendee = Attendee.where("user_id = ? AND event_id = ?", @user_id, @event_id).first_or_initialize(:user_id => @user_id, :event_id => @event_id, :rsvp_status => 1)
+	    	motlee_user = User.where(:uid => uid).first
+	      	if (motlee_user.nil?) #User is not currently a Motlee user
+			# We're going to add the user to Motlee as a "placeholder"
+	      	else
+			# User is a Motlee user, let's check to make sure he or she hasn't already been added to the event
+		    	# TODO - Add validation to this model and call first_or_initialize! instead of ...initialize 
+		    	# TODO = Upgrade to Rails 3.2.1 so that you can use the above method
+		    	#@attendee = Attendee.where("user_id = ? AND event_id = ?", @user_id, @event_id).first_or_initialize(:user_id => @user_id, :event_id => @event_id, :rsvp_status => 1)
 		   
-		    @attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
+		    	@attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
 
-		    if (@attendee.nil?)
-		      @attendee = Attendee.new(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
-		    end
+		    	if (@attendee.nil?)
+		      		@attendee = Attendee.new(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
+		    	end
 
-		    if @attendee.new_record? 
-			    if @attendee.save
-			      render :json => {:success => "User added as attendee successfully"}
-			    else
-			      render :json => {:error => "Something went wrong"}
-			    end
-		    else
-		      # User has already been added to the event
-		    end
-	      end
+		    	if @attendee.new_record? 
+			    	if @attendee.save
+			    	else
+			      		render :json => @attendee.errors, :status => :unprocessable_entity
+					return
+			    	end
+		    	else
+		      		# User has already been added to the event
+		   	end
+	      	end
 	    end
+	    render :json => {:message => "Attendees were successfully added to the event"}
     else
 	    @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, params[:event_id]).first
 
@@ -123,7 +124,6 @@ class Api::V1::EventsController < ApplicationController
 	      # User has already been added to the event
 	    end
     end
-    render :json => {:message => "We just did stuff!"}
   end
 
   def update

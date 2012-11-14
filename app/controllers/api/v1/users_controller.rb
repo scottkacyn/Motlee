@@ -6,12 +6,28 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     @user = current_user
-    render :json => @user.to_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
+
+    if (params[:type] == "verbose")
+	render :json => @user.as_json({:include => [:photos, :events_attended, :events_fomoed, :likes, :comments, :stories]})
+    else
+    	render :json => @user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
+    end
   end
 
   def show
     @user = User.find(params[:id])
-    render :json => @user.to_json(:only => [:id, :name, :first_name, :last_name, :email, :uid, :picture])
+    render :json => @user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid, :picture])
+  end
+
+  # api/users/<user id>/events
+  # ...
+  def events
+	  @user = User.find(params[:id])
+	  @events = User.events;
+  end
+
+  def photos
+	  @user = User.find(params[:id])
   end
 
 end

@@ -32,7 +32,7 @@ body {
   -o-background-size: cover;
   background-size: cover;
   min-width: 1003px;
-  min-height: 600px;
+  min-height: 1000px;
   padding: 0;
   margin: 0;
   overflow: hidden; }
@@ -40,11 +40,37 @@ body {
 .container .content {
   width: 1000px;
   height: 100%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  text-align: center; }
+
+#top-right-banner {
+  position: absolute;
+  width: 239px;
+  height: 235px;
+  right: 0;
+  top: 0;
+  background: url("/images/top-right-banner.png"); }
 
 #top {
   height: 50%;
-  width: 100%; }
+  width: 100%;
+  padding-top: 20px; }
+
+#phone {
+  position: absolute; }
+
+#logo {
+  width: 300px;
+  text-align: center;
+  margin: 110px auto 40px auto; }
+
+#tagline {
+  width: 100%;
+  font-size: 50px;
+  line-height: 50px;
+  color: #2b333a;
+  font-weight: 400;
+  text-shadow: -1px 0px 3px #555555; }
 
 #divider-bar {
   background: url("/images/divider-bar.png");
@@ -57,7 +83,8 @@ body {
   background: url("/images/LP-BG-Bottom.png");
   height: 50%;
   width: 100%;
-  padding-top: 10px; }
+  padding-top: 10px;
+  border-bottom: 2px solid #000; }
 
 #info {
   padding: 40px;
@@ -71,12 +98,12 @@ body {
   padding: 10px; }
 
 #interest-form span {
-  font-size: 16px;
+  font-size: 17px;
   color: #AAA; }
 
 #interest-form form input {
-  line-height: 28px;
-  height: 28px;
+  line-height: 26px;
+  height: 26px;
   font-size: 20px;
   background-color: #EEE; }
 
