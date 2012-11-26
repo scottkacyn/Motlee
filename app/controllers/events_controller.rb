@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   # GET /events
   def index
     #@events = Event.order("created_at DESC")
-    @events = Event.where("user_id > 0")
+    @events = Event.where("user_id > 0").order("updated_at DESC")
   end
 
   # GET /events/1
@@ -13,6 +13,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @owner = User.find(@event.user_id)
 
+    @photos = @event.photos
     @stories = @event.stories
     @story = Story.new
     @fomos = @event.fomos

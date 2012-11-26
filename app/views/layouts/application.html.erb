@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Motlee</title>
   <%= stylesheet_link_tag "style.css" %>
@@ -10,7 +10,7 @@
   <meta name="google-site-verification" content="Q6BlJWjWuU9gCQat1sQet2SIPaJR8wLcXe-YyEqa7Lg" />
 </head>
 <body>
-    	<div class="container">
+    	<div class="bg_container">
         	<%= yield %>
 	</div>
 
@@ -18,13 +18,13 @@
 	<script>			
 		var logo = $("#logo");
 		var offset= logo.offset();
-		$(".container").css({'width' : $(window).width(), 'height' : $(window).height()});
+		$(".bg_container").css({'width' : $(window).width(), 'height' : $(window).height()});
 		$("#divider-bar").hide().fadeIn(500);
 		$("#phone").hide().css('left', (offset.left - 250)).fadeIn(1000);
 		$("#bottom").hide().fadeIn(1000);
 
 		$(window).resize(function() {
-			$(".container").css({'width' : $(window).width(), 'height' : $(window).height()});
+			$(".bg_container").css({'width' : $(window).width(), 'height' : $(window).height()});
 			var logo = $("#logo");
 			var offset= logo.offset();
 			$("#phone").css('left', (offset.left - 250));

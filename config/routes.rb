@@ -41,6 +41,7 @@ Motlee::Application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       resources :events do
 	collection do
+	  match 'fbfriends' => 'events#fb_friends', :via => :get
 	  match ':event_id/join' => 'events#join', :via => :post
 	  match ':event_id/fomos' => 'fomos#create', :via => :post
 	  #match ':event_id/photos' => 'photos#index', :via => :get
@@ -55,6 +56,7 @@ Motlee::Application.routes.draw do
 	  resources :likes
 	end
       end
+      resources :photos, :only => [:index, :show, :create]
       resources :users, :only => [:index, :show]
       resources :tokens, :only => [:create, :destroy]
     end

@@ -1,6 +1,6 @@
 class Api::V1::StoriesController < ApplicationController
   
-  before_filter :load_event_if_exists
+  before_filter :load_event_if_exists, :authenticate_user!
 
   respond_to :json
 
@@ -45,6 +45,8 @@ class Api::V1::StoriesController < ApplicationController
   # POST /stories.xml
   def create
     @story = Story.new(params[:story])
+      @story.user_id = current_user.id
+      @story.event_id = @event.id
       if @story.save
         render :json => @story, :status => :created
       else

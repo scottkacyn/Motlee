@@ -1,11 +1,24 @@
-<%= link_to 'Back', events_path %> | 
-<%= link_to 'Edit', edit_event_path(@event) %>
-<h1><%= @event.name %></h1>
-
-<h2>Stories</h2>
-<%= render "stories/stories" %>
-<%= render "stories/form" %>
-
-<h2>Fomos</h2>
-<%= render "fomos/fomos" %>
-<%= render "fomos/form" %>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<div class="nav-collapse collapse">
+				<a class="brand" href="#">motlee</a>
+				<ul class="nav">
+					<li><a href="#">Download The App!</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container" style="margin-top: 60px;">
+	<h1><%= @event.name %></h1>
+	<ul class="thumbnails">
+		<% @photos.each do |photo| %>
+			<li class="span3">
+			<a href="#" class="thumbnail">
+				<%= image_tag photo.image.url(:compressed) %>
+			</a>
+			</li>
+		<% end %>
+	</ul>
+</div>

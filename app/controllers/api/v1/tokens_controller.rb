@@ -24,19 +24,25 @@ class Api::V1::TokensController < ApplicationController
 	  http = Curl.get("https://graph.facebook.com/me", {:access_token => access_token})
 	  result = JSON.parse(http.body_str)
 	  uid = result['id']
-	  email = result['email']
+	  user = User.where(:uid => uid).first
 
-	  @user = User.where(:uid => uid).first
-
-	  if @user.nil?
-	    # A Motlee entry has not yet been created. Create one now
-	      render :status => 200, :json => {:message => "A user has not yet been invited to the party that is Motlee!"}
-	  else
-	    # A Motlee user has already been created, return his goodies
-	      # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
-	      @user.ensure_authentication_token!
-	      render :json => { :token => @user.authentication_token }
+	  unless user  	
+	  # A Motlee entry has not yet been created. Create one now
+		user = User.create(:name => result['name'],
+				   :provider => "facebook",
+				   :uid => result['id'],
+				   :email => result['email'],
+				   :first_name => result['first_name'],
+				   :last_name => result['last_name'],
+				   :birthday => result['birthday'],
+				   :gender => result['gender'],
+				   :picture => "https://graph.facebook.com/" + uid + "/picture",
+				   :password => Devise.friendly_token[0,20]
+				  )
 	  end
+
+          user.ensure_authentication_token!
+          render :json => { :token => user.authentication_token }
         end
     end
 

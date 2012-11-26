@@ -5,11 +5,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid,
+  attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :provider, :uid,
                   :name, :first_name, :last_name, :birthday, :gender, :picture
   
   
   # Setup ActiveRecord associations with other models
+  has_many :events
   has_many :photos
   has_many :stories
   has_many :comments
@@ -46,4 +47,23 @@ class User < ActiveRecord::Base
     end
   end
 
+  def motlee_friend_uids(access_token)
+
+    #fb_user = FbGraph::User.me(access_token)
+    # FQL for "friends who are using the FanTravel app"
+    friend_uids = FbGraph::Query.new("SELECT uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = #{self.uid}) AND is_app_user = 1").fetch(access_token)
+
+    # Strip it down to just UIDs instead of hashes because FQL will return an array of hashes containing the UID as a string.
+    friend_uids.collect do |friend_uid|
+      friend_uid["uid"].to_s
+    end
+  end
+
+  def all_events(access_token, updated_at)
+	  users = User.where(:uid => self.motlee_friend_uids(access_token))
+	  user_ids = users.collect do |user|
+		  user.id
+	  end.push(self.id)
+	  events = Event.where("updated_at > ?", updated_at).where(:user_id => user_ids)
+  end
 end

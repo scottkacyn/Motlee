@@ -8,29 +8,14 @@ class Api::V1::EventsController < ApplicationController
   # /api/events
   # Returns a list of ALL the users events and events she is attending
   def index
-	  fbuid = current_user.uid
-	  access_token = params[:access_token]
-	  @friends ||= Array.new
-	  @friends << current_user.id
-
-	  http = Curl.get("https://graph.facebook.com/me/friends", {:access_token => access_token})
-	  result = JSON.parse(http.body_str)
-
-	  result.each do |key,value|
-	  	if key == "data"
-			value.each do |str|
-				@user = User.where(:uid => str['id']).first
-				if (!@user.nil?)
-					@friends << @user.id
-				end
-			end
-		end
-	  end
-
-	  @events = Event.joins(:attendees).where(:attendees => {:user_id => @friends})
-	  render :json => @events.as_json(:methods => [:owner, :fomo_count, :attendee_count, :is_attending])
+    events = current_user.all_events(params[:access_token], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"))
+    render :json => events.as_json(:include => [:photos, :stories], :methods => [:owner, :fomo_count, :attendee_count, :is_attending])
   end
 
+  def fb_friends
+    render :json => events.as_json
+  end
+  
   # GET
   # /api/events/:id
   # Returns the details for the event with id = :id
@@ -43,7 +28,11 @@ class Api::V1::EventsController < ApplicationController
     end
     
     render :json => { :is_attending => is_attending,
-	    :event => @event.as_json({:methods => [:owner, :fomo_count, :attendee_count], :include => {:photos => {:include => {:comments => {}, :likes => {}}}, :stories => {}, :people_attending => {}, :fomoers => {}}})}
+	    :event => @event.as_json({:methods => [:owner, :fomo_count, :attendee_count], 
+				     :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
+					     	  :stories => {}, 
+				     		  :people_attending => {}, 
+				     		  :fomoers => {}}})}
    
   end
 
@@ -117,11 +106,13 @@ class Api::V1::EventsController < ApplicationController
 	    if @attendee.new_record? 
 		    if @attendee.save
 		      # User successfully added to event
+	    	      render :json => @attendee.as_json
 		    else
 		      # Something went wrong
 		    end
 	    else
 	      # User has already been added to the event
+	      render :json => @attendee.as_json
 	    end
     end
   end

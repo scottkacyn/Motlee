@@ -25,7 +25,7 @@ body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100; }
 
-.container {
+.bg_container {
   background: url("/images/LP-Background.png") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -37,7 +37,7 @@ body {
   margin: 0;
   overflow: hidden; }
 
-.container .content {
+.bg_container .content {
   width: 1000px;
   height: 100%;
   margin: 0 auto;

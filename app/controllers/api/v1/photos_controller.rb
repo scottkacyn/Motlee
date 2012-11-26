@@ -1,6 +1,6 @@
 class Api::V1::PhotosController < ApplicationController
   
-	before_filter :load_event_if_exists
+	before_filter :load_event_if_exists, :authenticate_user!
 	
 	respond_to :json
 
@@ -10,7 +10,11 @@ class Api::V1::PhotosController < ApplicationController
 		  @photos = Photo.nearby(lat.to_f, lon.to_f)
 		  respond_with({:photos => @photos}.as_json)
 	  else
-		@photos = @event.photos
+		if !@event.nil?
+		  @photos = @event.photos
+		else
+		  @photos = Photo.all
+		end
 		render :json => @photos.as_json(:include => [:comments, :likes], :methods => [:owner])
 	  end
 	end
@@ -22,8 +26,12 @@ class Api::V1::PhotosController < ApplicationController
 	
 	def create
 	  @photo = Photo.new(params[:photo])
+	  @photo.user_id = current_user.id
+	  @photo.event_id = @event.id
+
 	  if @photo.save
-	    render :json => @photo, :status => :created
+	    @event.update_attributes(:updated_at => @photo.updated_at)
+ 	    render :json => @photo, :status => :created
 	  else
 	    render :json => @photo.errors, :status => :unprocessable_entity
           end	
@@ -32,6 +40,9 @@ class Api::V1::PhotosController < ApplicationController
 private
 
   def load_event_if_exists
-    @event = Event.find(params[:event_id])
+	  @event = nil
+	  if (params[:event_id])
+		  @event = Event.find(params[:event_id])
+	  end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102210751) do
+ActiveRecord::Schema.define(:version => 20121124000215) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -110,10 +110,6 @@ ActiveRecord::Schema.define(:version => 20121102210751) do
     t.integer  "user_id"
     t.integer  "event_id"
     t.string   "caption"
-    t.string   "thumbnail"
-    t.string   "source"
-    t.integer  "height"
-    t.integer  "width"
     t.decimal  "lat",                :precision => 15, :scale => 10
     t.decimal  "lon",                :precision => 15, :scale => 10
     t.datetime "created_at"
