@@ -58,6 +58,7 @@ Motlee::Application.routes.draw do
       end
       resources :photos, :only => [:index, :show, :create]
       resources :users, :only => [:index, :show]
+      resources :locations, :only => [:index, :new, :create]
       resources :tokens, :only => [:create, :destroy]
     end
   end

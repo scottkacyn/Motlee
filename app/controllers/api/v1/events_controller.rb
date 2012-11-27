@@ -13,7 +13,7 @@ class Api::V1::EventsController < ApplicationController
     if lat and lon
 	    events = events.nearby(lat.to_f, lon.to_f)
     end
-    render :json => events.as_json(:include => [:photos, :stories, :people_attending], :methods => [:owner, :attendee_count, :is_attending])
+    render :json => events.as_json(:include => [:location, :photos, :stories], :methods => [:owner, :attendee_count, :is_attending])
   end
 
   def fb_friends

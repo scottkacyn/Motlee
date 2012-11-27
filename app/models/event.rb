@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
   has_many :photos
   has_many :stories
   has_one :user
-  has_one :location
+  belongs_to :location
   has_many :attendees
 
   has_many :people_attending, :through => :attendees, :source => :user
