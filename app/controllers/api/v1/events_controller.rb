@@ -8,8 +8,12 @@ class Api::V1::EventsController < ApplicationController
   # /api/events
   # Returns a list of ALL the users events and events she is attending
   def index
+    lat, lon = params[:lat], params[:lon]
     events = current_user.all_events(params[:access_token], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"))
-    render :json => events.as_json(:include => [:photos, :stories], :methods => [:owner, :fomo_count, :attendee_count, :is_attending])
+    if lat and lon
+	    events = events.nearby(lat.to_f, lon.to_f)
+    end
+    render :json => events.as_json(:include => [:photos, :stories, :people_attending], :methods => [:owner, :attendee_count, :is_attending])
   end
 
   def fb_friends
@@ -28,11 +32,10 @@ class Api::V1::EventsController < ApplicationController
     end
     
     render :json => { :is_attending => is_attending,
-	    :event => @event.as_json({:methods => [:owner, :fomo_count, :attendee_count], 
+	    :event => @event.as_json({:methods => [:owner, :attendee_count], 
 				     :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
 					     	  :stories => {}, 
-				     		  :people_attending => {}, 
-				     		  :fomoers => {}}})}
+				     		  :people_attending => {}}})}
    
   end
 

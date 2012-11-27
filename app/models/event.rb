@@ -6,11 +6,9 @@ class Event < ActiveRecord::Base
   has_many :stories
   has_one :user
   has_one :location
-  has_many :fomos
   has_many :attendees
 
   has_many :people_attending, :through => :attendees, :source => :user
-  has_many :fomoers, :through => :fomos, :source => :user
 
   def owner
 	  if (user_id == 0 || !user_id)
@@ -31,7 +29,9 @@ class Event < ActiveRecord::Base
   scope :nearby, lambda { |lat,lon|
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
 	where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).
-	limit(64)
+	where("start_time < ?", Time.now).
+	where("end_time > ?", Time.now).
+	limit(10)
   }
 
 
