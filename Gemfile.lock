@@ -108,6 +108,7 @@ GEM
     multi_json (1.1.0)
     multi_xml (0.5.1)
     multipart-post (1.1.5)
+    newrelic_rpm (3.5.2.17)
     nokogiri (1.5.5)
     oauth2 (0.5.2)
       faraday (~> 0.7)
@@ -186,6 +187,7 @@ DEPENDENCIES
   fb_graph
   jquery-rails
   json
+  newrelic_rpm
   oauth2
   omniauth
   omniauth-facebook
