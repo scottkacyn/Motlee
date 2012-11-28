@@ -9,10 +9,6 @@ class Api::V1::LocationsController < ApplicationController
     render :json => locations.as_json
   end
 
-  def new
-    location = location.new
-  end
-
   def create
 
     #TODO FIXME
@@ -20,19 +16,27 @@ class Api::V1::LocationsController < ApplicationController
     # geographic region, don't let them save a brand new object.
 
     uid = params[:location]['uid']
-    location = Location.where(:uid => uid).first
-
-    if !location.nil?
-      # Location with that UID already exists in the DB
-      render :json => location.as_json
+   
+    if uid.nil?
+      # User is creating a custom location, not based on Facebook Places
+      # TODO This currently does not allow user to choose from our custom
+      # locations db in the app, requires user to create from Facebook or a
+      # one-off custom location.
+      # location = Location.new(params[:location])
     else
-      location = Location.new(params[:location])
-      if location.save
-	render :json => location.as_json, :status => :created
-      else
-	render :json => location.errors, :status => :unprocessable_entity
+      # User has either selected from FB or addinga  new FB
+      location = Location.where(:uid => uid).first
+      if !location.nil?
+        # Location with that UID already exists in the DB
+	return
       end
     end
+    
+    location = Location.new(params[:location])
+    location.uid = 0
+    location.fsid = 0
+    if location.save
+       head :ok
+    end
   end
-
 end

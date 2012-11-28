@@ -57,7 +57,11 @@ Motlee::Application.routes.draw do
 	end
       end
       resources :photos, :only => [:index, :show, :create]
-      resources :users, :only => [:index, :show]
+      resources :users do
+	collection do
+	  match ':user_id/friends' => 'users#friends', :via => :get
+	end
+      end
       resources :locations, :only => [:index, :new, :create]
       resources :tokens, :only => [:create, :destroy]
     end

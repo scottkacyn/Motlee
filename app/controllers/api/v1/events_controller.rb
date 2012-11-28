@@ -39,15 +39,52 @@ class Api::V1::EventsController < ApplicationController
    
   end
 
+  def get_event_location(location)
+
+    #TODO FIXME
+    # If users try to create a location with similar names that are in the same general
+    # geographic region, don't let them save a brand new object.
+
+    uid = location['uid']
+   
+    if uid.nil?
+      # User is creating a custom location, not based on Facebook Places
+      # TODO This currently does not allow user to choose from our custom
+      # locations db in the app, requires user to create from Facebook or a
+      # one-off custom location.
+      # location = Location.new(params[:location])
+    else
+      # User has either selected from FB or addinga  new FB
+      location = Location.where(:uid => uid).first
+      if !location.nil?
+	location
+        # Location with that UID already exists in the DB
+	return
+      end
+    end
+    
+    location = Location.new(params[:location])
+    location.save
+    location
+  end
+
   # POST
   # /api/events
   def create
+
+    location = get_event_location(params[:location])
+
     @event = Event.new(params[:event])
     if (@event.name.blank?)
       render :json => {:message => "The event name was NULL, not saving"}
       return
     end
     @event.user_id = current_user.id
+    if !location.nil?
+    	@event.location_id = location.id
+    else
+	@event.location_id = -1
+    end
     if @event.save
 	@attendee = Attendee.new(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
 	if @attendee.save
@@ -55,7 +92,7 @@ class Api::V1::EventsController < ApplicationController
 	else
 		# Failure
 	end
-    	render :json => @event, :status => :created
+    	render :json => @event.as_json(:include => :location), :status => :created
     else
      	render :json => @event.errors, :status => :unprocessable_entity
     end

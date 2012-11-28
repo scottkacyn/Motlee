@@ -59,6 +59,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def motlee_friends(access_token)
+    uids = self.motlee_friend_uids(access_token)
+    friends = User.where(:uid => uids)
+  end
+
   def all_events(access_token, updated_at)
 	  users = User.where(:uid => self.motlee_friend_uids(access_token))
 	  user_ids = users.collect do |user|

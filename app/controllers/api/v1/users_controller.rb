@@ -19,6 +19,11 @@ class Api::V1::UsersController < ApplicationController
     render :json => @user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid, :picture])
   end
 
+  def friends
+    users = current_user.motlee_friends(params[:access_token])
+    render :json => users.as_json
+  end
+
   # api/users/<user id>/events
   # ...
   def events
