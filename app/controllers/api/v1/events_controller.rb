@@ -1,7 +1,6 @@
 class Api::V1::EventsController < ApplicationController
   
   before_filter :authenticate_user!
-
   respond_to :json
 
   # GET
@@ -11,7 +10,7 @@ class Api::V1::EventsController < ApplicationController
     lat, lon = params[:lat], params[:lon]
     events = current_user.all_events(params[:access_token], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"))
     if lat and lon
-	    events = events.nearby(lat.to_f, lon.to_f)
+        events = events.nearby(lat.to_f, lon.to_f)
     end
     render :json => events.as_json(:include => [:location, :photos, :stories], :methods => [:owner, :attendee_count, :is_attending])
   end
@@ -28,14 +27,14 @@ class Api::V1::EventsController < ApplicationController
     is_attending = TRUE
     @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id).first
     if @attendee.nil?
-	    is_attending = FALSE
+        is_attending = FALSE
     end
     
     render :json => { :is_attending => is_attending,
-	    :event => @event.as_json({:methods => [:owner, :attendee_count], 
-				     :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
-					     	  :stories => {}, 
-				     		  :people_attending => {}}})}
+	              :event => @event.as_json({:methods => [:owner, :attendee_count], 
+				                :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
+					     	             :stories => {}, 
+				     		             :people_attending => {}}})}
    
   end
 
@@ -83,7 +82,7 @@ class Api::V1::EventsController < ApplicationController
     if !location.nil?
     	@event.location_id = location.id
     else
-	@event.location_id = -1
+	@event.location_id = 0
     end
     if @event.save
 	@attendee = Attendee.new(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
