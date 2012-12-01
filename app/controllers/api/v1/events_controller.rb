@@ -56,7 +56,7 @@ class Api::V1::EventsController < ApplicationController
       # User has either selected from FB or addinga  new FB
       location = Location.where(:uid => uid).first
       if !location.nil?
-	location
+        location
         # Location with that UID already exists in the DB
 	return
       end
