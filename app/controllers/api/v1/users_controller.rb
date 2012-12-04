@@ -15,11 +15,15 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    if (params[:type] == "verbose")
-	render :json => @user.as_json({:include => [:photos, :events_attended]})
+    if (params[:username])
+      user = User.where(:username => params[:username])
     else
-    	render :json => @user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
+      user = User.find(params[:id])
+    end
+    if (params[:type] == "verbose")
+	render :json => user.as_json({:include => [:photos, :events_attended]})
+    else
+    	render :json => user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
     end
   end
 

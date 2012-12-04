@@ -35,6 +35,7 @@ class Api::V1::TokensController < ApplicationController
 				   :first_name => result['first_name'],
 				   :last_name => result['last_name'],
 				   :birthday => result['birthday'],
+                                   :username => result['username'],
 				   :gender => result['gender'],
 				   :picture => "https://graph.facebook.com/" + uid + "/picture",
 				   :password => Devise.friendly_token[0,20]

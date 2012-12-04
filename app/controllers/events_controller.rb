@@ -16,8 +16,6 @@ class EventsController < ApplicationController
     @photos = @event.photos
     @stories = @event.stories
     @story = Story.new
-    @fomos = @event.fomos
-    @fomo = Fomo.new
   end
 
   # GET /events/new

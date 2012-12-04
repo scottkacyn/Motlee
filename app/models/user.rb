@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :provider, :uid,
-                  :name, :first_name, :last_name, :birthday, :gender, :picture
+                  :name, :first_name, :last_name, :username, :birthday, :gender, :picture
   
   
   # Setup ActiveRecord associations with other models
@@ -14,12 +14,10 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :stories
   has_many :comments
-  has_many :fomos
   has_many :likes
   has_many :attendees
 
   has_many :events_attended, :through => :attendees, :source => :event
-  has_many :events_fomoed, :through => :fomos, :source => :event	
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -31,6 +29,7 @@ class User < ActiveRecord::Base
       :last_name => auth.info.last_name,
       :gender => auth.extra.raw_info.gender,
       :birthday => auth.extra.raw_info.birthday,
+      :username => auth.info.username,
       :picture => "https://graph.facebook.com/" + auth.uid + "/picture",
       :email => auth.info.email,
       :password => Devise.friendly_token[0,20]
@@ -71,4 +70,5 @@ class User < ActiveRecord::Base
 	  end.push(self.id)
 	  events = Event.where("updated_at > ?", updated_at).where(:user_id => user_ids)
   end
+
 end

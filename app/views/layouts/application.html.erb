@@ -26,22 +26,5 @@
     	<div class="bg_container">
         	<%= yield %>
 	</div>
-
-
-	<script>			
-		var logo = $("#logo");
-		var offset= logo.offset();
-		$(".bg_container").css({'width' : $(window).width(), 'height' : $(window).height()});
-		$("#divider-bar").hide().fadeIn(500);
-		$("#phone").hide().css('left', (offset.left - 250)).fadeIn(1000);
-		$("#bottom").hide().fadeIn(1000);
-
-		$(window).resize(function() {
-			$(".bg_container").css({'width' : $(window).width(), 'height' : $(window).height()});
-			var logo = $("#logo");
-			var offset= logo.offset();
-			$("#phone").css('left', (offset.left - 250));
-		});
-	</script>
 </body>
 </html>

@@ -10,11 +10,14 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def show
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.json { render :json => @user }
+    if (params[:username])
+      @user = User.where(:username => params[:username])
+    else
+      @user = User.find(params[:id])
     end
+
+    @photos = Photo.where(:user_id => @user.id)
+    @events = Event.join(:attendees).where(:user_id => @user.id)
   end
 
   def new

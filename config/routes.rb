@@ -6,6 +6,9 @@ Motlee::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, :controllers => { :sessions => 'users/sessions', :omniauth_callbacks => 'users/omniauth_callbacks' }
 
+  match ':username' => 'users#show', :via => :get
+  
+  resources :users
   resources :events do
     resources :stories do
       resources :comments
@@ -19,6 +22,8 @@ Motlee::Application.routes.draw do
   end
   resources :locations
   resources :comments, :only => [:index]
+
+  #match ':username' => 'devise/users/sessions#show'
 
   # PAGES - get
   get "pages/index"
