@@ -25,6 +25,7 @@ class Api::V1::CommentsController < ApplicationController
     @comment = @commentable.comments.new(params[:comment])
     @comment.user_id = current_user.id
     if @comment.save
+      @event.update_attributes(:updated_at => @comment.updated_at)
       render :json => @comment, :status => :created
     else
       render :json => @comment.errors, :status => :unprocessable_entity

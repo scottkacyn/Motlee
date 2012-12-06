@@ -48,6 +48,7 @@ class Api::V1::StoriesController < ApplicationController
       @story.user_id = current_user.id
       @story.event_id = @event.id
       if @story.save
+        @event.update_attributes(:updated_at => @story.updated_at)
         render :json => @story, :status => :created
       else
         render :json => @story.errors, :status => :unprocessable_entity
