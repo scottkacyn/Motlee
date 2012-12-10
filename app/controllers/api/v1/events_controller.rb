@@ -157,7 +157,8 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def update
-    respond_with Event.update(params[:id], params[:events])
+    @event = Event.update(params[:id], params[:event])
+    render :json => @event
   end
 
   def destroy

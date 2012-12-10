@@ -43,7 +43,7 @@ class Api::V1::TokensController < ApplicationController
 	  end
 
           user.ensure_authentication_token!
-          render :json => { :token => user.authentication_token }
+          render :json => { :user => user.as_json, :token => user.authentication_token }
         end
     end
 
