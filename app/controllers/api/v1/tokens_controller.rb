@@ -26,9 +26,6 @@ class Api::V1::TokensController < ApplicationController
 	  uid = result['id']
 	  user = User.where(:uid => uid).first
 
-          render :json => result.as_json
-          return
-
 	  unless user  	
 	  # A Motlee entry has not yet been created. Create one now
 		user = User.create(:name => result['name'],
