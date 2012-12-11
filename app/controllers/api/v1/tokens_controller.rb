@@ -11,8 +11,8 @@ class Api::V1::TokensController < ApplicationController
 	end
 
       http = Curl.get("https://graph.facebook.com/app", {:access_token => access_token})
-      #http_response = http.body_str.to_json
-       
+      http_response = http.body_str.to_json
+
 	result = JSON.parse(http.body_str)
 	id = result['id']
 
@@ -25,6 +25,9 @@ class Api::V1::TokensController < ApplicationController
 	  result = JSON.parse(http.body_str)
 	  uid = result['id']
 	  user = User.where(:uid => uid).first
+
+          render :json => result.as_json
+          return
 
 	  unless user  	
 	  # A Motlee entry has not yet been created. Create one now
