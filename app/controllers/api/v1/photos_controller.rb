@@ -47,7 +47,7 @@ class Api::V1::PhotosController < ApplicationController
           @photo = Photo.find(params[:id])
           @photo.destroy
 
-          render :json => @photo, :status => :destroyed
+          render :json => @photo
         end
 
 private
