@@ -28,15 +28,47 @@ class Api::V1::TokensController < ApplicationController
 
 	  unless user  	
 	  # A Motlee entry has not yet been created. Create one now
+          #
+            email = ''
+            if result['email'].nil?
+              if result['username'].nil?
+                email = result['uid'] + "@facebook.com"
+              else
+                email = result['username'] + "@facebook.com"
+              end
+            else
+              email = result['email']
+            end
+
+            gender = ''
+            if result['gender'].nil?
+              gender = 'unknown'
+            else
+              gender = result['gender']
+            end
+
+            birthday = ''
+            if result['birthday'].nil?
+              birthday = 'unknown'
+            else
+              birthday = result['birthday']
+            end
+
+            username = ''
+            if result['username'].nil?
+              username = 'unknown'
+            else
+              username = result['username']
+            end
 		user = User.create(:name => result['name'],
 				   :provider => "facebook",
 				   :uid => result['id'],
-				   :email => result['email'],
+				   :email => email,
 				   :first_name => result['first_name'],
 				   :last_name => result['last_name'],
-				   :birthday => result['birthday'],
-                                   :username => result['username'],
-				   :gender => result['gender'],
+				   :birthday => birthday,
+                                   :username => username,
+				   :gender => gender,
 				   :picture => "https://graph.facebook.com/" + uid + "/picture",
 				   :password => Devise.friendly_token[0,20]
 				  )
