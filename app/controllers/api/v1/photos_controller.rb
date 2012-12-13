@@ -4,6 +4,8 @@ class Api::V1::PhotosController < ApplicationController
 	
 	respond_to :json
 
+        # GET /photos
+        # Returns all photos for a particular event
 	def index
 	  lat, lon = params[:lat], params[:lon]
 	  if lat and lon
@@ -19,11 +21,15 @@ class Api::V1::PhotosController < ApplicationController
 	  end
 	end
 
+        # GET /photos/1
+        # Returns information for a particular photo
 	def show
 		@photo = Photo.find(params[:id])
 		render :json => @photo.as_json(:include => [:comments, :likes], :methods => [:owner])
 	end
 	
+        # POST /photos
+        # Creates a new photo object
 	def create
 	  @photo = Photo.new(params[:photo])
 	  @photo.user_id = current_user.id
@@ -36,6 +42,13 @@ class Api::V1::PhotosController < ApplicationController
 	    render :json => @photo.errors, :status => :unprocessable_entity
           end	
 	end
+
+        def destroy
+          @photo = Photo.find(params[:id])
+          @photo.destroy
+
+          render :json => @photo, :status => :destroyed
+        end
 
 private
 
