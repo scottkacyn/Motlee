@@ -61,7 +61,6 @@ Motlee::Application.routes.draw do
 	  resources :likes
 	end
       end
-      resources :photos, :only => [:index, :show, :create]
       resources :users do
 	collection do
 	  match ':user_id/friends' => 'users#friends', :via => :get
