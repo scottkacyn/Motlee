@@ -25,7 +25,7 @@ class Api::V1::LikesController < ApplicationController
     else
 	@like = @likeable.likes.where(:user_id => current_user.id).first
     	if @like.destroy
-		render :json => {:message => "You unliked like ##{@like.id}"}
+		render :json => @like.as_json
 	else
 		render :json => @like.errors, :status => :unprocessable_entity
 	end

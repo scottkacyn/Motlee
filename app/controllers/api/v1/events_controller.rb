@@ -144,8 +144,7 @@ class Api::V1::EventsController < ApplicationController
             access_token = params[:access_token]
 
             for @uid in @motlee_users do
-           
-               http = Curl.get("http://www.facebook.com/dialog/apprequests", {:message => "testmessage"}, {:to => @uid}, {:redirect_uri => "http://www.motleeapp.com"}, {:app_id => 283790891721595} ) 
+               http = Curl.get("http://www.facebook.com/dialog/apprequests", {:message => "testmessage", :to => @uid, :redirect_uri => "http://www.motleeapp.com", :app_id => 283790891721595}) 
             end
 
 	    render :json => {:message => "Attendees were successfully added to the event"}
