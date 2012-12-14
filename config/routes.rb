@@ -23,8 +23,6 @@ Motlee::Application.routes.draw do
   resources :locations
   resources :comments, :only => [:index]
 
-  #match ':username' => 'devise/users/sessions#show'
-
   # PAGES - get
   get "pages/index"
   get "pages/about"
@@ -40,7 +38,8 @@ Motlee::Application.routes.draw do
   match 'jobs' => 'pages#jobs'
   match 'api' => 'pages#api'
 
-  # USER TOKEN AUTHENTICATION
+  # Routes for API:V1
+  #
   namespace :api, defaults: {format: 'json'} do
     match '/' => 'api#index', :via => :get
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
@@ -61,6 +60,7 @@ Motlee::Application.routes.draw do
 	  resources :likes
 	end
       end
+      resources :photos, :only => :index
       resources :users do
 	collection do
 	  match ':user_id/friends' => 'users#friends', :via => :get

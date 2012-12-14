@@ -6,26 +6,28 @@ class Api::V1::PhotosController < ApplicationController
 
         # GET /photos
         # Returns all photos for a particular event
+        # Optional lat, lon params provide events near a geographic coordinate
 	def index
 	  lat, lon = params[:lat], params[:lon]
 	  if lat and lon
-		  @photos = Photo.nearby(lat.to_f, lon.to_f)
-		  respond_with({:photos => @photos}.as_json)
+              @photos = Photo.nearby(lat.to_f, lon.to_f)
+              render :json => @photos._as_json
 	  else
-		if !@event.nil?
-		  @photos = @event.photos
-		else
-		  @photos = Photo.all
-		end
-		render :json => @photos.as_json(:include => [:comments, :likes], :methods => [:owner])
+            if !@event.nil?
+              @photos = @event.photos
+              render :json => @photos.as_json(:include => [:comments, :likes], :methods => [:owner])
+            else
+              @photos = Photo.all
+              render :json => @photos.as_json
+            end
 	  end
 	end
 
         # GET /photos/1
         # Returns information for a particular photo
 	def show
-		@photo = Photo.find(params[:id])
-		render :json => @photo.as_json(:include => [:comments, :likes], :methods => [:owner])
+            @photo = Photo.find(params[:id])
+            render :json => @photo.as_json(:include => [:comments, :likes], :methods => [:owner])
 	end
 	
         # POST /photos
@@ -56,9 +58,9 @@ class Api::V1::PhotosController < ApplicationController
 private
 
   def load_event_if_exists
-	  @event = nil
-	  if (params[:event_id])
-		  @event = Event.find(params[:event_id])
-	  end
+      @event = nil
+      if (params[:event_id])
+        @event = Event.find(params[:event_id])
+      end
   end
 end
