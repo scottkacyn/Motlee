@@ -45,9 +45,12 @@ class Api::V1::PhotosController < ApplicationController
 
         def destroy
           @photo = Photo.find(params[:id])
-          @photo.destroy
-
-          render :json => @photo
+          if (@photo.user_id == current_user.id)
+            @photo.destroy
+            render :json => @photo
+          else
+            render :status => :forbidden
+          end
         end
 
 private

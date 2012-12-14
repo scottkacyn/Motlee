@@ -22,6 +22,7 @@ gem 'aws-sdk', '~>1.3.4'
 gem 'rmagick'
 gem 'cocaine', '~>0.3.2'
 gem 'newrelic_rpm'
+gem 'redis'
 
 # Use unicorn as the web server
 # gem 'unicorn'
