@@ -1,0 +1,26 @@
+class Notifications < ActiveRecord::Base
+
+	def self.add_notification(user_id, value)
+		
+		key_unread = "#{user_id}:unread"
+		key_read = "#{user_id}:read"
+		
+		unread_count = REDIS.lpush(key_unread, value)	
+		read_count = REDIS.llen(key_read)
+
+		if (unread_count > 50?)
+			
+			REDIS.rpop(key_unread)
+			REDIS.del(key_read)
+			
+		elsif (read_count + unread_count > 50?)
+			
+			while (read_count + unread_count > 50)
+				REDIS.rpop(key_read)
+				read_count = read_count - 1
+			end
+	
+		end
+	end
+
+end

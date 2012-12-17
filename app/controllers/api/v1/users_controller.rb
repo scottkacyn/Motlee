@@ -33,8 +33,17 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def notifications
-    key = "#{params[:user_id]}:unread"
-    render :json => REDIS.lrange(key, 0, -1)
+    if (params[:type].nil? or params[:type] == "unread")
+
+        key = "#{params[:user_id]}:unread"
+    	render :json => REDIS.lrange(key, 0, -1)
+  
+    elsif (params[:type] == "all")
+
+	render :json => Notifications.get_notifications_mark_read(params[:user_id])	
+
+    end
+
   end
 
   # api/users/<user id>/events

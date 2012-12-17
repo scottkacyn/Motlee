@@ -127,10 +127,9 @@ class Api::V1::EventsController < ApplicationController
 		   
 		    	@attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
 
-                        @notification_key = "#{motlee_user.id}:unread"
                         @notification_value = "#{motlee_user.name} invited you to #{event.name}:event:#{params[:event_id]}:#{motlee_user.id}:#{current_date}"
 
-                        REDIS.lpush(@notification_key, @notification_value)
+                        Notifications.add_notification(motlee_user.id, @notification_value)
 
 		    	if (@attendee.nil?)
 		      		@attendee = Attendee.new(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
