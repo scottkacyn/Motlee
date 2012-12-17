@@ -106,11 +106,19 @@ class Api::V1::EventsController < ApplicationController
 	    @uids = params[:uids]
 	    @uid_array = []
 	    @uid_array = @uids.split(",")
+	    
+            @motlee_users = []
+            @non_motlee_users = []
+
+            event = Event.where(:id => params[:event_id]).first
+
+            current_date = DateTime.new
 
 	    @uid_array.each do |uid|
 	    	motlee_user = User.where(:uid => uid).first
 	      	if (motlee_user.nil?) #User is not currently a Motlee user
 			# We're going to add the user to Motlee as a "placeholder"
+                        @non_motlee_users << motlee_user.uid
 	      	else
 			# User is a Motlee user, let's check to make sure he or she hasn't already been added to the event
 		    	# TODO - Add validation to this model and call first_or_initialize! instead of ...initialize 
@@ -118,6 +126,11 @@ class Api::V1::EventsController < ApplicationController
 		    	#@attendee = Attendee.where("user_id = ? AND event_id = ?", @user_id, @event_id).first_or_initialize(:user_id => @user_id, :event_id => @event_id, :rsvp_status => 1)
 		   
 		    	@attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
+
+                        @notification_key = "#{motlee_user.id}:unread"
+                        @notification_value = "#{motlee_user.name} invited you to #{event.name}:event:#{params[:event_id]}:#{motlee_user.id}:#{current_date}"
+
+                        REDIS.lpush(@notification_key, @notification_value)
 
 		    	if (@attendee.nil?)
 		      		@attendee = Attendee.new(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
@@ -134,6 +147,7 @@ class Api::V1::EventsController < ApplicationController
 		   	end
 	      	end
 	    end
+
 	    render :json => {:message => "Attendees were successfully added to the event"}
     else
 	    @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, params[:event_id]).first

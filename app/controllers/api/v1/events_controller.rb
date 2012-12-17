@@ -110,6 +110,10 @@ class Api::V1::EventsController < ApplicationController
             @motlee_users = []
             @non_motlee_users = []
 
+            event = Event.where(:id => params[:event_id]).first
+
+            current_date = DateTime.now
+
 	    @uid_array.each do |uid|
 	    	motlee_user = User.where(:uid => uid).first
 	      	if (motlee_user.nil?) #User is not currently a Motlee user
@@ -123,7 +127,10 @@ class Api::V1::EventsController < ApplicationController
 		   
 		    	@attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
 
-                        @motlee_users << motlee_user.uid
+                        @notification_key = "#{motlee_user.id}:unread"
+                        @notification_value = "#{motlee_user.name} invited you to #{event.name}:event:#{params[:event_id]}:#{motlee_user.id}:#{current_date}"
+
+                        REDIS.lpush(@notification_key, @notification_value)
 
 		    	if (@attendee.nil?)
 		      		@attendee = Attendee.new(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
@@ -140,12 +147,6 @@ class Api::V1::EventsController < ApplicationController
 		   	end
 	      	end
 	    end
-
-            access_token = params[:access_token]
-
-            for @uid in @motlee_users do
-               http = Curl.get("http://www.facebook.com/dialog/apprequests", {:message => "testmessage", :to => @uid, :redirect_uri => "http://www.motleeapp.com", :app_id => 283790891721595}) 
-            end
 
 	    render :json => {:message => "Attendees were successfully added to the event"}
     else

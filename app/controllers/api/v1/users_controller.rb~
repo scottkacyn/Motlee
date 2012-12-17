@@ -34,7 +34,7 @@ class Api::V1::UsersController < ApplicationController
 
   def notifications
     key = "#{params[:user_id]}:unread"
-    render :json => REDIS.lrange(key, 0, -1)
+    render :json => key
   end
 
   # api/users/<user id>/events
