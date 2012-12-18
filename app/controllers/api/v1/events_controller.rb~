@@ -114,6 +114,8 @@ class Api::V1::EventsController < ApplicationController
 
 	    owner_user = User.where(:id => event.user_id).first
 
+            current_date = DateTime.now
+
 	    @uid_array.each do |uid|
 	    	motlee_user = User.where(:uid => uid).first
 	      	if (motlee_user.nil?) #User is not currently a Motlee user
@@ -127,7 +129,9 @@ class Api::V1::EventsController < ApplicationController
 		   
 		    	@attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
 
-                        Notifications.add_event_notification(motlee_user.id, event, owner_user)
+                        
+
+                        Notifications.add_notification(motlee_user.id, event, owner_user)
 
 		    	if (@attendee.nil?)
 		      		@attendee = Attendee.new(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)

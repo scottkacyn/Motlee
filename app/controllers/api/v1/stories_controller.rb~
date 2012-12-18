@@ -49,7 +49,6 @@ class Api::V1::StoriesController < ApplicationController
       @story.event_id = @event.id
 
       Notifications.add_event_story_notification(@story, @event)
-
       if @story.save
         @event.update_attributes(:updated_at => @story.updated_at)
         render :json => @story, :status => :created

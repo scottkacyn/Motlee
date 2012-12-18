@@ -46,21 +46,9 @@ class Notifications < ActiveRecord::Base
 
 		owner_comment = User.where(:id => comment.user_id).first	
 	
-		@notification_value = "#{owner_comment.name} commented on your photo:photo_comment:#{commentable.id}:#{owner_comment.id}:#{current_date}"
+		@notification_value = "#{owner_comment.name} commented on your photo:photo_comment:#{commentable.id}:#{inviter_user.id}:#{current_date}"
 
-		Notifications.add_notification(commentable.user_id, @notification_value)
-
-	end
-
-	def self.add_like_notification(like, commentable)
-
-		current_date = DateTime.now
-
-		owner_like = User.where(:id => like.user_id).first	
-	
-		@notification_value = "#{owner_like.name} liked your photo:photo_comment:#{commentable.id}:#{owner_like.id}:#{current_date}"
-
-		Notifications.add_notification(commentable.user_id, @notification_value)
+		Notifications.add_notification(invitee_user_id, @notification_value)
 
 	end
 
