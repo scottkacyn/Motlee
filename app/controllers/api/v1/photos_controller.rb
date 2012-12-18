@@ -37,8 +37,6 @@ class Api::V1::PhotosController < ApplicationController
 	  @photo.user_id = current_user.id
 	  @photo.event_id = @event.id
 
-	  Notifications.add_event_photo_notification(@photo, @event)
-
 	  if @photo.save
 	    @event.update_attributes(:updated_at => @photo.updated_at)
  	    render :json => @photo, :status => :created
