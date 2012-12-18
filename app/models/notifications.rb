@@ -24,21 +24,6 @@ class Notifications < ActiveRecord::Base
 		end	
 
 	end
-	
-	def self.add_event_photo_notification(photo, event)
-		
-		current_date = DateTime.now
-
-		owner_user = User.where(:id => photo.user_id).first
-
-		Attendee.where("event_id = ?", params[:event_id]) do |attendee|
-
-			@notification_value = "#{owner_user.name} posted a photo in #{event.name}:event_story:#{event.id}:#{owner_user.id}:#{current_date}"
-
-			Notifications.add_notification(attendee.user_id, @notification_value)
-		end
-
-	end
 
 	def self.add_comment_notification(comment, commentable)
 
@@ -77,6 +62,7 @@ class Notifications < ActiveRecord::Base
 		end
 
 	end
+
 
 	def self.add_notification(user_id, value)
 		

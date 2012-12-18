@@ -13,6 +13,7 @@ class Api::V1::LikesController < ApplicationController
     @like = @likeable.likes.new
   end
 
+
   def create
     if !@likeable.likes.where(:user_id => current_user.id).exists?
       @like = @likeable.likes.new(params[:like])

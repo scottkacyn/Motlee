@@ -36,6 +36,7 @@ class Api::V1::StoriesController < ApplicationController
     render :json => @story
   end
 
+
   # GET /stories/1/edit
   def edit
     @story = Story.find(params[:id])

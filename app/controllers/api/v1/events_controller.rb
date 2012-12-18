@@ -97,6 +97,7 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
+
   # POST
   # /api/events/:id/join
   # Allows you to add a user to an event as an attendee

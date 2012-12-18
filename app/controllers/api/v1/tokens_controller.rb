@@ -83,6 +83,8 @@ class Api::V1::TokensController < ApplicationController
         end
     end
 
+
+
     def destroy
       @user=User.find_by_authentication_token(params[:id])
       if @user.nil?
