@@ -36,6 +36,7 @@ class Api::V1::StoriesController < ApplicationController
     render :json => @story
   end
 
+
   # GET /stories/1/edit
   def edit
     @story = Story.find(params[:id])
@@ -47,6 +48,9 @@ class Api::V1::StoriesController < ApplicationController
     @story = Story.new(params[:story])
       @story.user_id = current_user.id
       @story.event_id = @event.id
+
+      Notifications.add_event_story_notification(@story, @event)
+
       if @story.save
         @event.update_attributes(:updated_at => @story.updated_at)
         render :json => @story, :status => :created

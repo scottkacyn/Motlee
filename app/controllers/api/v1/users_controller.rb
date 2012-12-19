@@ -27,9 +27,24 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+
   def friends
     users = current_user.motlee_friends(params[:access_token])
     render :json => users.as_json
+  end
+
+  def notifications
+    if (params[:type].nil? or params[:type] == "unread")
+        
+        key = "#{params[:user_id]}:unread"
+    	render :json => REDIS.lrange(key, 0, -1)
+  
+    elsif (params[:type] == "all")
+
+	render :json => Notifications.get_notifications_mark_read(params[:user_id])	
+
+    end
+
   end
 
   # api/users/<user id>/events

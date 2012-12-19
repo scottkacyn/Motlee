@@ -84,6 +84,7 @@ class Api::V1::EventsController < ApplicationController
                 
                     # Now we check to see if the user has already been added to the event
                     @attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
+                    Notifications.add_event_notification(motlee_user.id, event, owner_user)
                     if @attendee.nil?
                         # If user has not been added, create new Attendee object
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)

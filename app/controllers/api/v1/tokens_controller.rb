@@ -72,12 +72,18 @@ class Api::V1::TokensController < ApplicationController
 				   :picture => "https://graph.facebook.com/" + uid + "/picture",
 				   :password => Devise.friendly_token[0,20]
 				  )
+
+		user_friends = user.motlee_friends(access_token)
+
+		Notifications.add_friend_join_notification(user, user_friends)
 	  end
 
           user.ensure_authentication_token!
           render :json => { :user => user.as_json, :token => user.authentication_token }
         end
     end
+
+
 
     def destroy
       @user=User.find_by_authentication_token(params[:id])

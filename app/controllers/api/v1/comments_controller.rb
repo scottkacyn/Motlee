@@ -24,6 +24,9 @@ class Api::V1::CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new(params[:comment])
     @comment.user_id = current_user.id
+
+    Notifications.add_comment_notification(@comment, @commentable)
+
     if @comment.save
       @event.update_attributes(:updated_at => @comment.updated_at)
       render :json => @comment, :status => :created
@@ -42,6 +45,7 @@ class Api::V1::CommentsController < ApplicationController
 	render :json => @comment.errors, :status => :unprocessable_entity
       end
   end
+
 
   # DELETE /comments/1
   def destroy
