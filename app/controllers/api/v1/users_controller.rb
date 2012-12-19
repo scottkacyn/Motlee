@@ -35,7 +35,7 @@ class Api::V1::UsersController < ApplicationController
 
   def notifications
     if (params[:type].nil? or params[:type] == "unread")
-
+        
         key = "#{params[:user_id]}:unread"
     	render :json => REDIS.lrange(key, 0, -1)
   
