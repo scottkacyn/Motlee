@@ -7,23 +7,25 @@ class Event < ActiveRecord::Base
   has_one :user
   belongs_to :location
   has_many :attendees
-
   has_many :people_attending, :through => :attendees, :source => :user
 
   def owner
-	  if (user_id == 0 || !user_id)
-		  return
-	  end
-	  @owner = User.find(user_id)
-	  [:id => @owner.id, :uid => @owner.uid, :name => @owner.name]
+    if (user_id == 0 || !user_id)
+        return
+    end
+    @owner = User.find(user_id)
+    [:id => @owner.id, :uid => @owner.uid, :name => @owner.name]
   end
 
   def fomo_count
-	  fomos.count
+    fomos.count
   end
 
   def attendee_count
 	  attendees.count
+  end
+
+  def location
   end
 
   scope :nearby, lambda { |lat,lon|

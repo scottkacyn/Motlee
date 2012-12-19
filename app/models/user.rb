@@ -47,9 +47,7 @@ class User < ActiveRecord::Base
   end
 
   def motlee_friend_uids(access_token)
-
-    #fb_user = FbGraph::User.me(access_token)
-    # FQL for "friends who are using the FanTravel app"
+    # FQL for friends who are also using the Motlee app
     friend_uids = FbGraph::Query.new("SELECT uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = #{self.uid}) AND is_app_user = 1").fetch(access_token)
 
     # Strip it down to just UIDs instead of hashes because FQL will return an array of hashes containing the UID as a string.
@@ -64,11 +62,11 @@ class User < ActiveRecord::Base
   end
 
   def all_events(access_token, updated_at)
-	  users = User.where(:uid => self.motlee_friend_uids(access_token))
-	  user_ids = users.collect do |user|
-		  user.id
-	  end.push(self.id)
-	  events = Event.where("updated_at > ?", updated_at).where(:user_id => user_ids)
+      users = User.where(:uid => self.motlee_friend_uids(access_token))
+      user_ids = users.collect do |user|
+          user.id
+      end.push(self.id)
+      events = Event.where("updated_at > ?", updated_at).where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, users)
   end
 
 end
