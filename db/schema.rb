@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211171247) do
+ActiveRecord::Schema.define(:version => 20121219032028) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20121211171247) do
     t.datetime "updated_at"
     t.decimal  "lat",         :precision => 15, :scale => 10
     t.decimal  "lon",         :precision => 15, :scale => 10
+    t.boolean  "is_private"
   end
 
   create_table "fomos", :force => true do |t|
