@@ -63,7 +63,7 @@ class Api::V1::EventsController < ApplicationController
     # Requires :uids param which is an array of Facebook UIDs
     def join
         if (params[:type] == "invite")
-            event = Event.where(:id => params[:event_id])
+            @event = Event.where(:id => params[:event_id])
             @uids = params[:uids]
             @uid_array = []
             @uid_array = @uids.split(",")
@@ -76,15 +76,15 @@ class Api::V1::EventsController < ApplicationController
                 if motlee_user.nil?
                     # User is not registered with Motlee yet.
                     # Add user to array of non-Motlee users
-                    @non_motlee_users << motlee_user.uid
+                    @non_motlee_users << uid
                 else
                     # User is already a part of Motlee
                     # Add user to array of Motlee users
-                    @motlee_users << motlee_user.uid
+                    @motlee_users << uid
                 
                     # Now we check to see if the user has already been added to the event
                     @attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
-                    Notifications.add_event_notification(motlee_user.id, event, current_user)
+                    Notifications.add_event_notification(motlee_user.id, @event, current_user)
                     if @attendee.nil?
                         # If user has not been added, create new Attendee object
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
