@@ -74,7 +74,6 @@ class Api::V1::TokensController < ApplicationController
 				  )
 
 		user_friends = user.motlee_friends(access_token)
-
 		Notifications.add_friend_join_notification(user, user_friends)
 	  end
 
