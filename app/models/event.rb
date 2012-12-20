@@ -25,9 +25,6 @@ class Event < ActiveRecord::Base
 	  attendees.count
   end
 
-  def location
-  end
-
   scope :nearby, lambda { |lat,lon|
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
 	where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).
