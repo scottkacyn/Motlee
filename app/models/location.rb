@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
 
   def self.find_or_create_with_params(params)
     uid = params['uid']
-    if uid.nil? || uid == 0
+    if uid == "0" or uid.nil?
         # User is creating a custom location
         # We don't do anything at this point
         location = Location.create(params)
