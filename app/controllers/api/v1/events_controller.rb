@@ -43,11 +43,7 @@ class Api::V1::EventsController < ApplicationController
         end
         
         location = Location.find_or_create_with_params(params[:location])
-        if !location.nil?
-            @event.location_id = location.id
-        else
-            @event.location_id = 0
-        end
+        @event.location_id = !location.nil? ? location.id : 0;
         
         if @event.save
             @attendee = Attendee.create(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)

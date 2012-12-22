@@ -7,6 +7,7 @@ class Location < ActiveRecord::Base
     if uid.nil?
         # User is creating a custom location
         # We don't do anything at this point
+        location = Location.create(params)
     else
         # User has selected a place from FB places
         # 1) First, check to see if it's stored...
@@ -14,8 +15,8 @@ class Location < ActiveRecord::Base
         unless location
             location = Location.create(params)
         end
-        location
     end
+    location
   end
  
 end
