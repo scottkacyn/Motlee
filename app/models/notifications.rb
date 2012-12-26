@@ -39,8 +39,8 @@ class Notifications
     def self.add_friend_join_notification(joined_user, friends)
         current_date = DateTime.now
         friends.each do |friend|
-            @notification_value = "#{joined_user.name} has just joined Motlee|friend|#{joined_user.id}|#{joined_user.id}|#{current_date}"
-            Notifications.add_friend_join_notifications(friend.id, @notification_value)	
+            @notification_value = "Your friend #{joined_user.name} has just joined Motlee|friend|#{joined_user.id}|#{joined_user.id}|#{current_date}"
+            Notifications.add_notification(friend.id, @notification_value)	
         end
     end
 
