@@ -32,7 +32,7 @@ class Api::V1::TokensController < ApplicationController
             email = ''
             if result['email'].nil?
               if result['username'].nil?
-                email = result['uid'] + "@facebook.com"
+                email = uid + "@facebook.com"
               else
                 email = result['username'] + "@facebook.com"
               end
@@ -60,21 +60,21 @@ class Api::V1::TokensController < ApplicationController
             else
               username = result['username']
             end
-		user = User.create(:name => result['name'],
-				   :provider => "facebook",
-				   :uid => result['id'],
-				   :email => email,
-				   :first_name => result['first_name'],
-				   :last_name => result['last_name'],
-				   :birthday => birthday,
-                                   :username => username,
-				   :gender => gender,
-				   :picture => "https://graph.facebook.com/" + uid + "/picture",
-				   :password => Devise.friendly_token[0,20]
-				  )
+            user = User.create(:name => result['name'],
+                               :provider => "facebook",
+                               :uid => result['id'],
+                               :email => email,
+                               :first_name => result['first_name'],
+                               :last_name => result['last_name'],
+                               :birthday => birthday,
+                               :username => username,
+                               :gender => gender,
+                               :picture => "https://graph.facebook.com/" + uid + "/picture",
+                               :password => Devise.friendly_token[0,20]
+                              )
 
-		user_friends = user.motlee_friends(access_token)
-		Notifications.add_friend_join_notification(user, user_friends)
+            user_friends = user.motlee_friends(access_token)
+            Notifications.add_friend_join_notification(user, user_friends)
 	  end
 
           user.ensure_authentication_token!
