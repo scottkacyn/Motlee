@@ -96,6 +96,13 @@ class Api::V1::EventsController < ApplicationController
 
             # Render a response so the devices are happy
             render :json => {:message => "Attendees were added to the event"}
+        else
+            @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, params[:event_id]).first
+            if @attendee.nil?
+                # If user has not been added, create new Attendee object
+                @attendee = Attendee.create(:user_id => current_user.id, :event_id => params[:event_id], :rsvp_status => 1)
+            end
+            render :json => {:message => "You were added to the event"}
         end
     end
 
