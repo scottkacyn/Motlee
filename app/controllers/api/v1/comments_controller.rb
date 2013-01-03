@@ -25,7 +25,7 @@ class Api::V1::CommentsController < ApplicationController
     @comment = @commentable.comments.new(params[:comment])
     @comment.user_id = current_user.id
 
-    Notifications.add_comment_notification(@comment, @commentable)
+    Resque.enqueue(AddCommentNotification, @comment.id, @commentable.id)
 
     if @comment.save
       @event.update_attributes(:updated_at => @comment.updated_at)
