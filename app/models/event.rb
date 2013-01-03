@@ -33,5 +33,4 @@ class Event < ActiveRecord::Base
 	limit(10)
   }
 
-
 end
