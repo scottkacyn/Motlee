@@ -4,8 +4,9 @@ require 'resque'
   module AddFriendJoinNotification
     @queue = :notification
 
-    def self.perform(joined_user_id, friends)
+    def self.perform(joined_user_id, access_token)
 	joined_user = User.find(joined_user_id)
+	friends = joined_user.motlee_friends(access_token)
         current_date = DateTime.now
         friends.each do |friend_id|
  	    friend = User.find(friend_id)
