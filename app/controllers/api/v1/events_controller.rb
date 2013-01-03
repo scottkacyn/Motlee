@@ -119,6 +119,7 @@ class Api::V1::EventsController < ApplicationController
                                        :picture => "https://graph.facebook.com/" + uid + "/picture",
                                        :password => Devise.friendly_token[0,20]
                                       )
+                    @attendee = Attendee.create(:user_id => user.id, :event_id => params[:event_id], :rsvp_status => 1)
                 else
                     # User is already a part of Motlee
                     # Add user to array of Motlee users
