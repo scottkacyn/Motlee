@@ -151,8 +151,8 @@ class Api::V1::EventsController < ApplicationController
                 url = "http://www.motleeapp.com/events/" + params[:event_id]
 
                 Resque.enqueue(PublishFbOgAction, token, url)
+                render :json => {:message => url, :token => token}
             end
-            render :json => {:message => url, :token => token}
         end
     end
 
