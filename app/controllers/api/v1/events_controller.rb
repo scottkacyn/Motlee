@@ -152,7 +152,7 @@ class Api::V1::EventsController < ApplicationController
 
                 Resque.enqueue(PublishFbOgAction, token, url)
             end
-            render :json => {:message => url}
+            render :json => {:message => url + tokenk}
         end
     end
 
