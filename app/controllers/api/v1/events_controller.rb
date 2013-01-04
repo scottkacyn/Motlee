@@ -152,14 +152,16 @@ class Api::V1::EventsController < ApplicationController
     def update
         @event = Event.update(params[:id], params[:event])
 
-        location = Location.find_or_create_with_params(params[:location])
-        if !location.nil?
-            @event.update_attributes(:location_id => location.id)
-        else
-            @event.location_id = 0
+        if params[:location]
+            location = Location.find_or_create_with_params(params[:location])
+            if !location.nil?
+                @event.update_attributes(:location_id => location.id)
+            else
+                @event.location_id = 0
+            end
         end
 
-        render :json => @event
+        render :json => @event.as_json
     end
 
     def destroy

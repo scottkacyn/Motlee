@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :likes
   has_many :attendees
+  has_one :setting
 
   has_many :events_attended, :through => :attendees, :source => :event
   
@@ -67,6 +68,10 @@ class User < ActiveRecord::Base
           user.id
       end.push(self.id)
       events = Event.where("updated_at > ?", updated_at).where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, users)
+  end
+
+  def settings
+    settings = Setting.where(:user_id => self.id)
   end
 
 end

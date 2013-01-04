@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219032028) do
+ActiveRecord::Schema.define(:version => 20130104173957) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -120,6 +120,19 @@ ActiveRecord::Schema.define(:version => 20121219032028) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+  end
+
+  create_table "settings", :force => true do |t|
+    t.boolean  "fb_on_event_create"
+    t.boolean  "fb_on_event_invite"
+    t.boolean  "on_event_invite"
+    t.boolean  "on_event_message"
+    t.boolean  "on_photo_comment"
+    t.boolean  "on_photo_like"
+    t.boolean  "on_friend_join"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "stories", :force => true do |t|

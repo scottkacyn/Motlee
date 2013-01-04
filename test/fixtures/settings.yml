@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  fb_on_event_create: false
+  fb_on_event_invite: false
+  on_event_invite: false
+  on_event_message: false
+  on_photo_comment: false
+  on_photo_like: false
+  on_friend_join: false
+
+two:
+  fb_on_event_create: false
+  fb_on_event_invite: false
+  on_event_invite: false
+  on_event_message: false
+  on_photo_comment: false
+  on_photo_like: false
+  on_friend_join: false
