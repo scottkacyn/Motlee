@@ -23,9 +23,6 @@ class Api::V1::StoriesController < ApplicationController
     @likeable = @story
     @likes = @likeable.likes
     @like = Like.new
-    render :json => {:message => "poop"}
-    return
-    
     render :json => @story.as_json(:methods => [:owner], :include => [:comments, :likes])
   end
 
