@@ -152,7 +152,7 @@ class Api::V1::EventsController < ApplicationController
 
                 Resque.enqueue(PublishFbOgAction, token, url)
             end
-            render :json => {:message => "You were added to the event"}
+            render :json => {:message => url}
         end
     end
 
