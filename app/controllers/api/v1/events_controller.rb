@@ -131,7 +131,7 @@ class Api::V1::EventsController < ApplicationController
                         # If user has not been added, create new Attendee object
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
                         if (motlee_user.id != current_user.id)
-                            Notifications.add_event_notification(motlee_user.id, @event, current_user)
+                            Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
                         end
                     end
                 end

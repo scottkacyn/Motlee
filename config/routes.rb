@@ -1,6 +1,9 @@
 require 'api_constraints'
+require 'resque/server'
 
 Motlee::Application.routes.draw do
+
+  mount Resque::Server.new, :at => "/resque"
   
   ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config

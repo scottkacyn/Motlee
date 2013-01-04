@@ -23,9 +23,6 @@ class Api::V1::StoriesController < ApplicationController
     @likeable = @story
     @likes = @likeable.likes
     @like = Like.new
-    render :json => {:message => "poop"}
-    return
-    
     render :json => @story.as_json(:methods => [:owner], :include => [:comments, :likes])
   end
 
@@ -49,9 +46,8 @@ class Api::V1::StoriesController < ApplicationController
       @story.user_id = current_user.id
       @story.event_id = @event.id
 
-      Notifications.add_event_story_notification(@story, @event)
-
       if @story.save
+        Resque.enqueue(AddEventStoryNotification, @story.id, @event.id)
         @event.update_attributes(:updated_at => @story.updated_at)
         render :json => @story, :status => :created
       else

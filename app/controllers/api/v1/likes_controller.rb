@@ -18,10 +18,9 @@ class Api::V1::LikesController < ApplicationController
     if !@likeable.likes.where(:user_id => current_user.id).exists?
       @like = @likeable.likes.new(params[:like])
       @like.user_id = current_user.id
-	
-      Notifications.add_like_notification(@like, @likeable)
 
       if @like.save
+        Resque.enqueue(AddLikeNotification, @like.id, @likeable.id)
 	render :json => @like, :status => :created 
       else
 	render :json => @like.errors, :status => :unprocessable_entity

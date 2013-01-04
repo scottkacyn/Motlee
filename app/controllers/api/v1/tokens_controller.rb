@@ -73,8 +73,8 @@ class Api::V1::TokensController < ApplicationController
                                :password => Devise.friendly_token[0,20]
                               )
 
-            user_friends = user.motlee_friends(access_token)
-            Notifications.add_friend_join_notification(user, user_friends)
+	    Resque.enqueue(AddFriendJoinNotification, user.id, access_token)
+
 	  end
 
           user.ensure_authentication_token!
