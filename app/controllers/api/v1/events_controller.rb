@@ -58,6 +58,10 @@ class Api::V1::EventsController < ApplicationController
     # Allows you to add a user to an event as an attendee
     # Requires :uids param which is an array of Facebook UIDs
     def join
+        logger.info "Joining the fuck"
+        Resque.enqueue(PublishFbOgAction, "AAAECGzdKo3sBAFScPanmGmreRN8SH6ZC4wvrubvktf7pskSc9f26H5Imbeg2wR8APfgFeWvKrtDuk1IHpRB1nQHM0b1Y6FvStsZCYqpgZDZD", "http://www.motleeapp.com/events/40")
+render :json => current_user.as_json
+return
         if (params[:type] == "invite")
             @event = Event.find(params[:event_id])
             @uids = params[:uids]
@@ -144,6 +148,10 @@ class Api::V1::EventsController < ApplicationController
             if @attendee.nil?
                 # If user has not been added, create new Attendee object
                 @attendee = Attendee.create(:user_id => current_user.id, :event_id => params[:event_id], :rsvp_status => 1)
+
+                # Add a Facebook Open Graph post
+                Curl.post("https://graph.facebook.com/me/motleeapp:join",
+                          {:access_token => "AAAECGzdKo3sBAFScPanmGmreRN8SH6ZC4wvrubvktf7pskSc9f26H5Imbeg2wR8APfgFeWvKrtDuk1IHpRB1nQHM0b1Y6FvStsZCYqpgZDZD", :event => "http://samples.ogp.me/305813712852646"})
             end
             render :json => {:message => "You were added to the event"}
         end
