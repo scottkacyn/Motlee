@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'http://gemcutter.org'
 
 gem 'rails', '3.0.9'
 
@@ -24,6 +25,7 @@ gem 'cocaine', '~>0.3.2'
 gem 'newrelic_rpm'
 gem 'redis'
 gem 'resque'
+gem 'delayed_paperclip'
 
 # Use unicorn as the web server
 # gem 'unicorn'
