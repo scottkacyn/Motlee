@@ -21,18 +21,17 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   text-decoration: none; }
 
 body {
-  background: url("/images/LP-Body-BG.png");
+  background: #FFF;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100; }
 
 .bg_container {
-  background: url("/images/LP-Background.png") no-repeat center center fixed;
+  background: #fff;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   min-width: 1003px;
-  min-height: 1000px;
   padding: 0;
   margin: 0;
   overflow: hidden; }
@@ -40,7 +39,7 @@ body {
 .bg_container .content {
   width: 1000px;
   height: 100%;
-  margin: 0 auto;
+  margin: 10px auto;
   text-align: center; }
 
 #top-right-banner {
@@ -73,6 +72,7 @@ body {
   text-shadow: -1px 0px 3px #555555; }
 
 #divider-bar {
+  position: fixed;
   background: url("/images/divider-bar.png");
   height: 21px;
   width: 100%;
@@ -80,10 +80,11 @@ body {
   border-bottom: 1px solid #111; }
 
 #bottom {
+  position: fixed;
   background: url("/images/LP-BG-Bottom.png");
-  height: 50%;
+  height: 40%;
   width: 100%;
-  padding-top: 10px;
+  bottom: 0;
   border-bottom: 2px solid #000; }
 
 #info {
