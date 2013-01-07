@@ -28,6 +28,7 @@ Motlee::Application.routes.draw do
 
   # PAGES - get
   get "pages/index"
+  get "pages/terms"
   get "pages/about"
   get "pages/company"
   get "pages/contact"
@@ -36,6 +37,7 @@ Motlee::Application.routes.draw do
 
   # PAGES - match
   match 'about' => 'pages#about'
+  match 'terms' => 'pages#terms'
   match 'company' => 'pages#company'
   match 'contact' => 'pages#contact'
   match 'jobs' => 'pages#jobs'

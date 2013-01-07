@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
   end
 
   def attendee_count
-	  attendees.count
+    attendees.count
   end
 
   scope :nearby, lambda { |lat,lon|
