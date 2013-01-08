@@ -71,56 +71,9 @@ class Api::V1::EventsController < ApplicationController
             @uid_array.each do |uid|
                 motlee_user = User.where(:uid => uid).first
                 if motlee_user.nil?
-                    # User is not registered with Motlee yet.
-                    # Add user to array of non-Motlee users
-                    @non_motlee_users << uid
-                    http = Curl.get("https://graph.facebook.com/" + uid)
-                    result = JSON.parse(http.body_str)
-                    
-                    email = ''
-                    if result['email'].nil?
-                      if result['username'].nil?
-                        email = uid + "@facebook.com"
-                      else
-                        email = result['username'] + "@facebook.com"
-                      end
-                    else
-                      email = result['email']
-                    end
-
-                    gender = ''
-                    if result['gender'].nil?
-                      gender = 'unknown'
-                    else
-                      gender = result['gender']
-                    end
-
-                    birthday = ''
-                    if result['birthday'].nil?
-                      birthday = 'unknown'
-                    else
-                      birthday = result['birthday']
-                    end
-
-                    username = ''
-                    if result['username'].nil?
-                      username = 'unknown'
-                    else
-                      username = result['username']
-                    end
-                    user = User.create(:name => result['name'],
-                                       :provider => "facebook",
-                                       :uid => result['id'],
-                                       :email => email,
-                                       :first_name => result['first_name'],
-                                       :last_name => result['last_name'],
-                                       :birthday => birthday,
-                                       :username => username,
-                                       :gender => gender,
-                                       :picture => "https://graph.facebook.com/" + uid + "/picture",
-                                       :password => Devise.friendly_token[0,20]
-                                      )
-                    @attendee = Attendee.create(:user_id => user.id, :event_id => params[:event_id], :rsvp_status => 1)
+                    token = params[:access_token]
+                    event_id = params[:event_id]
+                    Resque.enqueue(ProcessNewUserInvite, token, event_id, uid) 
                 else
                     # User is already a part of Motlee
                     # Add user to array of Motlee users
@@ -133,15 +86,16 @@ class Api::V1::EventsController < ApplicationController
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
                         if (motlee_user.id != current_user.id)
                             Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
-                        else
-                            # Add a Facebook Open Graph post
-                            token = params[:access_token]
-                            url = "http://www.motleeapp.com/events/" + params[:event_id]
-                            type = "create"
-                            Resque.enqueue(PublishFbOgAction, token, url, type)
                         end
                     end
                 end
+
+                # Add a Facebook Open Graph post (Invite)
+                #
+                token = params[:access_token]
+                event_url = "http://www.motleeapp.com/events/" + params[:event_id]
+                profile_url = "http://www.motleeapp.com/users/" + 
+                Resque.enqueue(PublishFbOgInvitation, token, event_url, profile_url, url)
             end
 
             # Render a response so the devices are happy
