@@ -37,13 +37,13 @@ Motlee::Application.routes.draw do
   get "pages/api"
 
   # PAGES - match
-  match 'about' => 'pages#about'
-  match 'terms' => 'pages#terms'
-  match 'privacy' => 'pages#privacy'
-  match 'company' => 'pages#company'
-  match 'contact' => 'pages#contact'
-  match 'jobs' => 'pages#jobs'
-  match 'api' => 'pages#api'
+  match 'about' => 'pages#about', :via => :get
+  match 'terms' => 'pages#terms', :via => :get
+  match 'privacy' => 'pages#privacy', :via => :get
+  match 'company' => 'pages#company', :via => :get
+  match 'contact' => 'pages#contact', :via => :get
+  match 'jobs' => 'pages#jobs', :via => :get
+  match 'api' => 'pages#api', :via => :get
 
   # Routes for API:V1
   #
