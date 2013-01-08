@@ -1,15 +1,10 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<div class="nav-collapse collapse">
-				<a class="brand" href="#">motlee</a>
-				<ul class="nav">
-					<li><a href="#">Download The App!</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
+<% content_for :head do %>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# profile: http://ogp.me/ns/profile#">
+  <meta property="fb:app_id" content="283790891721595" /> 
+  <meta property="og:type"   content="profile" /> 
+  <meta property="og:url"    content="http://www.motleeapp.com/users/<%= @user.id %>" /> 
+  <meta property="og:title"  content="<%= @user.name %>" /> 
+  <meta property="og:image"  content="https://graph.facebook.com/<%= @user.uid %>/picture" />
 <div class="container" style="margin-top: 60px;">
 	<h1><%= @user.name %></h1>
         <%= image_tag @user.picture %>

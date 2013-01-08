@@ -21,12 +21,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   text-decoration: none; }
 
 body {
-  background: #FFF;
+  background: url("/images/LP-BG-Bottom.png");
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100; }
 
 .bg_container {
-  background: #fff;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -51,9 +50,10 @@ body {
   background: url("/images/top-right-banner.png"); }
 
 #top {
-  height: 50%;
-  width: 100%;
-  padding-top: 20px; }
+  background: url("/images/MotleeSplash-Header.png") no-repeat black;
+  height: 600px;
+  width: 1400px;
+  margin: 0px auto; }
 
 #phone {
   position: absolute; }
@@ -80,11 +80,9 @@ body {
   border-bottom: 1px solid #111; }
 
 #bottom {
-  position: fixed;
+  top: 600px;
   background: url("/images/LP-BG-Bottom.png");
-  height: 40%;
   width: 100%;
-  bottom: 0;
   border-bottom: 2px solid #000; }
 
 #info {
@@ -96,7 +94,7 @@ body {
 
 #interest-form {
   text-align: center;
-  padding: 10px; }
+  padding: 30px; }
 
 #interest-form span {
   font-size: 17px;
