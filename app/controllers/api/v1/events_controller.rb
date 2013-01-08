@@ -133,12 +133,13 @@ class Api::V1::EventsController < ApplicationController
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
                         if (motlee_user.id != current_user.id)
                             Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
+                        else
+                            # Add a Facebook Open Graph post
+                            token = params[:access_token]
+                            url = "http://www.motleeapp.com/events/" + params[:event_id]
+                            type = "create"
+                            Resque.enqueue(PublishFbOgAction, token, url, type)
                         end
-                        # Add a Facebook Open Graph post
-                        token = params[:access_token]
-                        url = "http://www.motleeapp.com/events/" + params[:event_id]
-                        type = "create"
-                        Resque.enqueue(PublishFbOgAction, token, url, type)
                     end
                 end
             end
