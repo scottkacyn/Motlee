@@ -5,6 +5,7 @@
   <meta property="og:url"    content="http://www.motleeapp.com/users/<%= @user.id %>" /> 
   <meta property="og:title"  content="<%= @user.name %>" /> 
   <meta property="og:image"  content="https://graph.facebook.com/<%= @user.uid %>/picture" />
+<% end %>
 <div class="container" style="margin-top: 60px;">
 	<h1><%= @user.name %></h1>
         <%= image_tag @user.picture %>
