@@ -58,7 +58,6 @@ class Api::V1::EventsController < ApplicationController
     # Allows you to add a user to an event as an attendee
     # Requires :uids param which is an array of Facebook UIDs
     def join
-
         if (params[:type] == "invite")
             @event = Event.find(params[:event_id])
             @uids = params[:uids]
