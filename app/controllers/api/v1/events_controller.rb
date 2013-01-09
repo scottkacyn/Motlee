@@ -54,6 +54,23 @@ class Api::V1::EventsController < ApplicationController
     end
 
     # POST
+    # /api/events/:id/unjoin
+    def unjoin
+        event = Event.find(params[:id])
+        if current_user.id == event.user_id
+            # User is the event creator, has delete priveleges
+            uids = params[:uids]
+            uid_array = []
+            uid_array = uids.split(",")
+            uid_array.each do |uid|
+                user = User.where(:uid => uid)
+                attendee = Attendee.where(:user_id => user.id, :event_id => params[:id])
+                attendee.destroy
+            end
+        end
+    end
+
+    # POST
     # /api/events/:id/join
     # Allows you to add a user to an event as an attendee
     # Requires :uids param which is an array of Facebook UIDs

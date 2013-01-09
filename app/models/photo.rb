@@ -22,6 +22,8 @@ class Photo < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :likes, as: :likeable
 
+  scope :recent, order("created_at DESC")
+
   scope :nearby, lambda { |lat,lon|
 	  where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
 	  where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).

@@ -69,6 +69,10 @@ class User < ActiveRecord::Base
       events = Event.where("updated_at > ?", updated_at).where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, users)
   end
 
+  def recent_photos
+    photos.recent
+  end
+
   def settings
     settings = Setting.where(:user_id => self.id)
   end
