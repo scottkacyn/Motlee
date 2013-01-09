@@ -14,7 +14,7 @@ module PublishFacebookInvite
         # Process the Facebook Open Graph action
         #
         Curl.post("https://graph.facebook.com/me/motleeapp:invite",
-                    {:access_token => access_token,
+                    {:access_token => token,
                      :event => event_url,
                      :profile => profile_url})
     end
