@@ -4,7 +4,7 @@ module ProcessNewUserInvite
 
     @queue = :invitations
 
-    def self.perform(access_token, event_id, uid) 
+    def self.perform(access_token, event_id, uid)
 
         http = Curl.get("https://graph.facebook.com/" + uid)
         result = JSON.parse(http.body_str)
@@ -54,6 +54,16 @@ module ProcessNewUserInvite
                           )
         @attendee = Attendee.create(:user_id => user.id, :event_id => event_id, :rsvp_status => 1)
 
+        event_url = "http://www.motleeapp.com/events/" + event_id
+        profile_url = "http://www.motleeapp.com/users/" + user.id
+
+        # Scrape the two URLs so that the scraper info is up-to-date
+        #
+        Curl.post("https://graph.facebook.com?id=#{event_url}&scrape=true");
+        Curl.post("https://graph.facebook.com?id=#{profile_url}&scrape=true");
+        
+        # Process the Facebook Open Graph action
+        #
         Curl.post("https://graph.facebook.com/me/motleeapp:invite",
                     {:access_token => access_token,
                      :event => "http://www.motleeapp.com/events/" + event_id,

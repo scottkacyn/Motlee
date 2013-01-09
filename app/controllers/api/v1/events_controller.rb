@@ -86,16 +86,13 @@ class Api::V1::EventsController < ApplicationController
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
                         if (motlee_user.id != current_user.id)
                             Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
+                            token = params[:access_token]
+                            event_url = "http://www.motleeapp.com/events/" + params[:event_id]
+                            profile_url = "http://www.motleeapp.com/users/" + motlee_user.id 
+                            Resque.enqueue(PublishFacebookInvite, token, event_url, profile_url)
                         end
                     end
                 end
-
-                # Add a Facebook Open Graph post (Invite)
-                #
-                token = params[:access_token]
-                event_url = "http://www.motleeapp.com/events/" + params[:event_id]
-                profile_url = "http://www.motleeapp.com/users/" + 
-                Resque.enqueue(PublishFbOgInvitation, token, event_url, profile_url, url)
             end
 
             # Render a response so the devices are happy
@@ -109,8 +106,7 @@ class Api::V1::EventsController < ApplicationController
                 # Add a Facebook Open Graph post
                 token = params[:access_token]
                 url = "http://www.motleeapp.com/events/" + params[:event_id]
-                type = "join"
-                Resque.enqueue(PublishFbOgAction, token, url, type)
+                Resque.enqueue(PublishFacebookJoin, token, url)
                 render :json => {:message => url, :token => token}
             end
         end
