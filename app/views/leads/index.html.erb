@@ -1,0 +1,7 @@
+<h1>Leads</h1>
+
+<h2><%= @leads.count %> total leads</h2>
+
+<% @leads.each do |lead| %>
+    <h3><%= lead.email %></h3>
+<% end %>

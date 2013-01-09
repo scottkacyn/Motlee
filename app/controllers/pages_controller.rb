@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+    @leads = Leads.new
   end
 
   def about

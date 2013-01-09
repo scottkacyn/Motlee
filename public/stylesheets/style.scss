@@ -12,7 +12,6 @@ $text-color: $dk_gray;
 $cloth: url("http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/grid.png");
 $dots: url("/images/LP-Body-BG.png");
 
-
 /* LENGTH, PADDING, & MARGIN */
 $container-width: 1023px;
 $thick-padding: 20px;
@@ -47,19 +46,25 @@ table, caption, tbody, tfoot, thead, tr, th, td
     text-decoration: none;
 }
 
+html {
+    background: $black;
+}
+
 body
 {
-    background: url("/images/LP-BG-Bottom.png");
+    background: $black;
+    //background: url("/images/LP-BG-Bottom.png");
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 100;
 }
 
 .bg_container {
+    background: $black;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    min-width: ($container-width - $thick-padding);
+    min-width: 1400px;
     padding: 0;
     margin: 0;
     overflow: hidden;
@@ -86,6 +91,24 @@ body
 	height: 600px;
 	width: 1400px;
         margin: 0px auto;
+}
+
+#screenshot_container
+{
+    position: relative;
+    width: 208px;
+    height: 312px;
+    background: transparent;
+    left: 854px;
+    top: 144px;
+}
+
+.rotating-item
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
 }
 
 #phone {

@@ -43,6 +43,8 @@ Motlee::Application.routes.draw do
   match 'jobs' => 'pages#jobs', :via => :get
   match 'api' => 'pages#api', :via => :get
 
+  resources :leads, :only => [:index, :show, :create]
+
   # Routes for API:V1
   #
   namespace :api, defaults: {format: 'json'} do
