@@ -87,7 +87,7 @@ class Api::V1::EventsController < ApplicationController
                             Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
                             token = params[:access_token]
                             event_url = "http://www.motleeapp.com/events/" + params[:event_id]
-                            profile_url = "http://www.motleeapp.com/users/" + motlee_user.id 
+                            profile_url = "http://www.motleeapp.com/users/" + (motlee_user.id).to_s 
                             Resque.enqueue(PublishFacebookInvite, token, event_url, profile_url)
                         end
                     end
