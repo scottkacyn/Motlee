@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
     @user = current_user
 
     if (params[:type] == "verbose")
-	render :json => user.as_json({:include => [:events_attended], :methods => [:recent_photos]})
+	render :json => @user.as_json({:include => [:events_attended], :methods => [:recent_photos]})
     else
     	render :json => @user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
     end
