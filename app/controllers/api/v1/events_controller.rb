@@ -59,13 +59,14 @@ class Api::V1::EventsController < ApplicationController
         event = Event.find(params[:id])
         if current_user.id == event.user_id
             # User is the event creator, has delete priveleges
-            uids = params[:uids]
-            uid_array = []
-            uid_array = uids.split(",")
-            uid_array.each do |uid|
-                user = User.where(:uid => uid)
-                attendee = Attendee.where(:user_id => user.id, :event_id => params[:id])
-                attendee.destroy
+            ids = params[:ids]
+            id_array = []
+            id_array = ids.split(",")
+            id_array.each do |id|
+                attendee = Attendee.where(:user_id => id, :event_id => params[:id])
+                if !attendee.nil?
+                    attendee.destroy
+                end
             end
         end
     end
