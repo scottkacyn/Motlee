@@ -9,8 +9,15 @@ class LeadsController < ApplicationController
     end
 
     def create
-        @leads = Leads.create(params[:leads])
-        redirect_to(@leads)
+        lead = Leads.new(params[:leads])
+        newlead = Leads.where(:email => lead.email).first
+
+        if newlead.nil?
+            @leads = Leads.create(params[:leads])
+            redirect_to(@leads)
+        else
+            redirect_to(newlead)
+        end
     end
 
 end

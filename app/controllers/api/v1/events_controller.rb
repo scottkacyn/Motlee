@@ -56,18 +56,17 @@ class Api::V1::EventsController < ApplicationController
     # POST
     # /api/events/:id/unjoin
     def unjoin
-        event = Event.find(params[:id])
+        event = Event.find(params[:event_id])
         if current_user.id == event.user_id
             # User is the event creator, has delete priveleges
-            ids = params[:ids]
-            id_array = []
-            id_array = ids.split(",")
-            id_array.each do |id|
-                attendee = Attendee.where(:user_id => id, :event_id => params[:id])
-                if !attendee.nil?
-                    attendee.destroy
-                end
+            mids = params[:ids]
+            mid_array = []
+            mid_array = mids.split(",")
+            mid_array.each do |mid|
+                @attendee = Attendee.where(:user_id => mid, :event_id => params[:event_id])
+                @attendee.destroy
             end
+            render :json => {:message => "Removed attendees from the event"}
         end
     end
 
