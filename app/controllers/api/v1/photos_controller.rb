@@ -49,6 +49,7 @@ class Api::V1::PhotosController < ApplicationController
           @photo = Photo.find(params[:id])
           if (@photo.user_id == current_user.id)
             @photo.destroy
+            @event.update_attributes(:updated_at => @photo.updated_at)
             render :json => @photo
           else
             render :status => :forbidden

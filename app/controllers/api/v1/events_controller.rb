@@ -68,6 +68,7 @@ class Api::V1::EventsController < ApplicationController
                     Attendee.destroy(@attendee)
                 end
             end
+            event.update_attributes(:updated_at => Time.now)
             render :json => {:message => "Removed attendees from the event"}
         else
             render :status => 500
@@ -116,9 +117,11 @@ class Api::V1::EventsController < ApplicationController
             end
 
             # Render a response so the devices are happy
+            @event.update_attributes(:updated_at => Time.now)
             render :json => {:message => "Attendees were added to the event"}
         else
-            @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, params[:event_id]).first
+            event = Event.find(params[:event_id])
+            @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, event.id).first
             if @attendee.nil?
                 # If user has not been added, create new Attendee object
                 @attendee = Attendee.create(:user_id => current_user.id, :event_id => params[:event_id], :rsvp_status => 1)
@@ -127,6 +130,7 @@ class Api::V1::EventsController < ApplicationController
                 token = params[:access_token]
                 url = "http://www.motleeapp.com/events/" + params[:event_id]
                 Resque.enqueue(PublishFacebookJoin, token, url)
+                event.update_attributes(:updated_at => @attendee.updated_at)
                 render :json => {:message => url, :token => token}
             end
         end
