@@ -68,6 +68,8 @@ class Api::V1::EventsController < ApplicationController
                 Attendee.destroy(@attendee)
             end
             render :json => {:message => "Removed attendees from the event"}
+        else
+            render :json => {:message => "Only the event creator may remove attendees."}
         end
     end
 
