@@ -69,7 +69,7 @@ class Api::V1::EventsController < ApplicationController
             end
             render :json => {:message => "Removed attendees from the event"}
         else
-            render :status => :500
+            render :status => 500
         end
     end
 
