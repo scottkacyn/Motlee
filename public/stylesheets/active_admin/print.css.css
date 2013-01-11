@@ -99,7 +99,7 @@ body.active_admin sup, body.active_admin sub {
   line-height: 0; }
 body.active_admin abbr,
 body.active_admin acronym {
-  border-bottom: 1px dotted #666; }
+  border-bottom: 1px dotted #666666; }
 body.active_admin address {
   margin: 0 0 1.5em;
   font-style: italic; }
@@ -109,7 +109,7 @@ body.active_admin pre {
   margin: 1.5em 0;
   white-space: pre; }
 body.active_admin pre, body.active_admin code, body.active_admin tt {
-  font: 1em 'andale mono', 'lucida console', monospace;
+  font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5; }
 body.active_admin li ul,
 body.active_admin li ol {
@@ -240,7 +240,7 @@ body.active_admin table {
       body.active_admin table thead th a {
         text-decoration: none; }
   body.active_admin table th, body.active_admin table td {
-    padding: .5em 1em; }
+    padding: 0.5em 1em; }
     body.active_admin table th .member_link, body.active_admin table td .member_link {
       display: none; }
   body.active_admin table td {
@@ -256,7 +256,7 @@ body.active_admin .index_grid td {
   body.active_admin .index_grid td img {
     max-width: 1in; }
 body.active_admin .panel {
-  border-bottom: thick solid #ccc;
+  border-bottom: thick solid #cccccc;
   margin-bottom: 3em;
   padding-bottom: 2em;
   page-break-inside: avoid; }
@@ -293,7 +293,7 @@ body.active_admin .attributes_table {
 body.active_admin #filters_sidebar_section {
   display: none; }
 body.active_admin form fieldset {
-  border-top: thick solid #ccc;
+  border-top: thick solid #cccccc;
   padding-top: 2em;
   margin-bottom: 2em; }
   body.active_admin form fieldset:last-child {

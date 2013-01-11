@@ -106,7 +106,7 @@ body.active_admin sup, body.active_admin sub {
   line-height: 0; }
 body.active_admin abbr,
 body.active_admin acronym {
-  border-bottom: 1px dotted #666; }
+  border-bottom: 1px dotted #666666; }
 body.active_admin address {
   margin: 0 0 1.5em;
   font-style: italic; }
@@ -116,7 +116,7 @@ body.active_admin pre {
   margin: 1.5em 0;
   white-space: pre; }
 body.active_admin pre, body.active_admin code, body.active_admin tt {
-  font: 1em 'andale mono', 'lucida console', monospace;
+  font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5; }
 body.active_admin li ul,
 body.active_admin li ol {
@@ -315,6 +315,7 @@ body.active_admin form {
   /* Reset margins & Padding */
   /* Nested Fieldsets and Legends */
   /* Text Fields */
+  /* semantic_errors */
   /* Buttons */ }
   body.active_admin form ul, body.active_admin form ol, body.active_admin form li, body.active_admin form fieldset, body.active_admin form legend, body.active_admin form input, body.active_admin form textarea, body.active_admin form select, body.active_admin form p {
     margin: 0;
@@ -349,8 +350,8 @@ body.active_admin form {
         border-right-color: #d4d4d4;
         border-bottom-color: #cdcdcd;
         border-left-color: #d4d4d4;
-        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
+        -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
+        box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
         font-size: 1.0em;
         font-weight: bold;
         line-height: 18px;
@@ -438,13 +439,13 @@ body.active_admin form {
       font-style: italic;
       color: #666;
       margin: 0.5em 0 0 20%; }
-    body.active_admin form fieldset > ol > li.date fieldset ol li, body.active_admin form fieldset > ol > li.time fieldset ol li, body.active_admin form fieldset > ol > li.datetime fieldset ol li {
+    body.active_admin form fieldset > ol > li.date fieldset ol li, body.active_admin form fieldset > ol > li.time fieldset ol li, body.active_admin form fieldset > ol > li.datetime fieldset ol li, body.active_admin form fieldset > ol > li.date_select fieldset ol li {
       float: left;
       width: auto;
       margin: 0 0.5em 0 0; }
-      body.active_admin form fieldset > ol > li.date fieldset ol li label, body.active_admin form fieldset > ol > li.time fieldset ol li label, body.active_admin form fieldset > ol > li.datetime fieldset ol li label {
+      body.active_admin form fieldset > ol > li.date fieldset ol li label, body.active_admin form fieldset > ol > li.time fieldset ol li label, body.active_admin form fieldset > ol > li.datetime fieldset ol li label, body.active_admin form fieldset > ol > li.date_select fieldset ol li label {
         display: none; }
-      body.active_admin form fieldset > ol > li.date fieldset ol li input, body.active_admin form fieldset > ol > li.time fieldset ol li input, body.active_admin form fieldset > ol > li.datetime fieldset ol li input {
+      body.active_admin form fieldset > ol > li.date fieldset ol li input, body.active_admin form fieldset > ol > li.time fieldset ol li input, body.active_admin form fieldset > ol > li.datetime fieldset ol li input, body.active_admin form fieldset > ol > li.date_select fieldset ol li input {
         display: inline;
         margin: 0;
         padding: 0; }
@@ -468,7 +469,6 @@ body.active_admin form {
         body.active_admin form fieldset > ol > li.boolean label input {
           margin: 0 0.5em 0 0.2em; }
     body.active_admin form fieldset > ol > li p.inline-errors {
-      text-transform: capitalize;
       color: #932419;
       font-weight: bold;
       margin: 0.3em 0 0 20%; }
@@ -482,6 +482,21 @@ body.active_admin form {
         display: list-item; }
     body.active_admin form fieldset > ol > li.error input[type=text], body.active_admin form fieldset > ol > li.error input[type=password], body.active_admin form fieldset > ol > li.error input[type=email], body.active_admin form fieldset > ol > li.error input[type=url], body.active_admin form fieldset > ol > li.error input[type=tel], body.active_admin form fieldset > ol > li.error textarea {
       border: 1px solid #932419; }
+  body.active_admin form ul.errors {
+    background: #fae6e4;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #932419;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px;
+    list-style: square; }
+    body.active_admin form ul.errors li {
+      margin-left: 15px;
+      padding: 0;
+      border: none;
+      display: list-item; }
   body.active_admin form input[type=submit] {
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
@@ -501,8 +516,8 @@ body.active_admin form {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#838a90', endColorstr='#414549');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#838a90', endColorstr='#414549');
     text-shadow: black 0 1px 0;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset;
+    -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset, false, false, false, false, false, false, false);
     border: solid 1px #484e53;
     border-color: #484e53;
     border-top-color: #616a71;
@@ -521,8 +536,8 @@ body.active_admin form {
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8b9297', endColorstr='#484d51');
       -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8b9297', endColorstr='#484d51'); }
     body.active_admin form input[type=submit]:not(.disabled):active {
-      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white;
+      -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white, false, false, false, false, false, false, false);
       background: #71797f;
       background: -webkit-gradient(linear, left top, left bottom, from(#71797f), to(#35383b));
       background: -moz-linear-gradient(-90deg, #71797f, #35383b);
@@ -553,8 +568,8 @@ body.active_admin form {
       background: -moz-linear-gradient(-90deg, white, #e7e7e7);
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
       -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
-      -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
+      -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
       border: solid 1px #c7c7c7;
       border-color: #c7c7c7;
       border-top-color: lightgrey;
@@ -573,8 +588,8 @@ body.active_admin form {
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1');
         -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1'); }
       body.active_admin form fieldset.buttons li.cancel a:not(.disabled):active, body.active_admin form fieldset.actions li.cancel a:not(.disabled):active {
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
+        -webkit-box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
+        box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
         border-color: #b9b9b9;
         border-top-color: #c2c2c2;
         border-right-color: #b9b9b9;
@@ -646,8 +661,8 @@ body.active_admin form.filter_form a.clear_filters_btn {
   background: -moz-linear-gradient(-90deg, white, #e7e7e7);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
   -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
+  -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
+  box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
   border: solid 1px #c7c7c7;
   border-color: #c7c7c7;
   border-top-color: lightgrey;
@@ -666,8 +681,8 @@ body.active_admin form.filter_form a.clear_filters_btn {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1'); }
   body.active_admin form.filter_form a.clear_filters_btn:not(.disabled):active {
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
+    -webkit-box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
     border-color: #b9b9b9;
     border-top-color: #c2c2c2;
     border-right-color: #b9b9b9;
@@ -686,6 +701,7 @@ body.active_admin .comments .active_admin_comment {
   body.active_admin .comments .active_admin_comment .active_admin_comment_meta {
     width: 130px;
     float: left;
+    overflow: hidden;
     font-size: 0.9em;
     color: #767e84; }
     body.active_admin .comments .active_admin_comment .active_admin_comment_meta .active_admin_comment_author {
@@ -859,8 +875,8 @@ body.active_admin .popover {
   position: absolute;
   background-color: white;
   padding: 2px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset;
-  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset;
+  -webkit-box-shadow: compact(rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset, false, false, false, false, false, false, false);
+  box-shadow: compact(rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset, false, false, false, false, false, false, false);
   background-color: #5e6469;
   background: #686e74;
   background: -webkit-gradient(linear, left top, left bottom, from(#686e74), to(#52575c));
@@ -906,8 +922,8 @@ body.active_admin .popover {
     display: block;
     background-color: #FFF;
     border: solid 1px #464a4e;
-    -webkit-box-shadow: #6a7176 0px 1px 0px 0px;
-    box-shadow: #6a7176 0px 1px 0px 0px;
+    -webkit-box-shadow: compact(#6a7176 0px 1px 0px 0px, false, false, false, false, false, false, false, false);
+    box-shadow: compact(#6a7176 0px 1px 0px 0px, false, false, false, false, false, false, false, false);
     border-radius: 3px;
     margin: 0;
     overflow: hidden;
@@ -975,8 +991,8 @@ body.active_admin table.index_table {
     border-right-color: #d4d4d4;
     border-bottom-color: #cdcdcd;
     border-left-color: #d4d4d4;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
+    -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
     font-size: 1.0em;
     font-weight: bold;
     line-height: 18px;
@@ -1035,7 +1051,7 @@ body.active_admin .panel_contents table {
     -webkit-box-shadow: none;
     text-shadow: white 0 1px 0;
     text-transform: uppercase;
-    border-bottom: 1px solid #ccc; }
+    border-bottom: 1px solid #cccccc; }
   body.active_admin .panel_contents table tr.odd td {
     background: #ecedee; }
   body.active_admin .panel_contents table tr.even td {
@@ -1087,7 +1103,7 @@ body.active_admin .blank_slate_container {
     -moz-border-radius: 3px;
     border-radius: 3px;
     -webkit-font-smoothing: antialiased;
-    border: 1px dashed #DADADA;
+    border: 1px dashed #dadada;
     color: #AAA;
     display: inline-block;
     font-size: 1.2em;
@@ -1138,8 +1154,8 @@ body.active_admin .dropdown_menu {
     background: -moz-linear-gradient(-90deg, white, #e7e7e7);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
+    -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
     border: solid 1px #c7c7c7;
     border-color: #c7c7c7;
     border-top-color: lightgrey;
@@ -1161,8 +1177,8 @@ body.active_admin .dropdown_menu {
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1');
       -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1'); }
     body.active_admin .dropdown_menu .dropdown_menu_button:not(.disabled):active {
-      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
+      -webkit-box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
       border-color: #b9b9b9;
       border-top-color: #c2c2c2;
       border-right-color: #b9b9b9;
@@ -1180,7 +1196,7 @@ body.active_admin .dropdown_menu {
       height: 0;
       border-width: 3px 3px 0;
       border-style: solid;
-      border-color: #FFF transparent;
+      border-color: white transparent;
       right: 12px;
       top: 45%; }
     body.active_admin .dropdown_menu .dropdown_menu_button:after {
@@ -1190,7 +1206,7 @@ body.active_admin .dropdown_menu {
       height: 0;
       border-width: 3px 3px 0;
       border-style: solid;
-      border-color: #777 transparent;
+      border-color: #777777 transparent;
       right: 12px;
       top: 45%; }
   body.active_admin .dropdown_menu .dropdown_menu_nipple {
@@ -1229,8 +1245,8 @@ body.active_admin .dropdown_menu {
     position: absolute;
     background-color: white;
     padding: 2px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset;
-    box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset;
+    -webkit-box-shadow: compact(rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset, false, false, false, false, false, false, false);
+    box-shadow: compact(rgba(0, 0, 0, 0.4) 0 1px 3px, #838a90 0px 1px 0px 0px inset, false, false, false, false, false, false, false);
     background-color: #5e6469;
     background: #686e74;
     background: -webkit-gradient(linear, left top, left bottom, from(#686e74), to(#52575c));
@@ -1245,8 +1261,8 @@ body.active_admin .dropdown_menu {
       display: block;
       background-color: #FFF;
       border: solid 1px #464a4e;
-      -webkit-box-shadow: #6a7176 0px 1px 0px 0px;
-      box-shadow: #6a7176 0px 1px 0px 0px;
+      -webkit-box-shadow: compact(#6a7176 0px 1px 0px 0px, false, false, false, false, false, false, false, false);
+      box-shadow: compact(#6a7176 0px 1px 0px 0px, false, false, false, false, false, false, false, false);
       border-radius: 3px;
       margin: 0;
       overflow: hidden;
@@ -1325,8 +1341,8 @@ body.active_admin a.button, body.active_admin a:link.button, body.active_admin a
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#838a90', endColorstr='#414549');
   -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#838a90', endColorstr='#414549');
   text-shadow: black 0 1px 0;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset;
+  -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset, false, false, false, false, false, false, false);
+  box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset, false, false, false, false, false, false, false);
   border: solid 1px #484e53;
   border-color: #484e53;
   border-top-color: #616a71;
@@ -1344,8 +1360,8 @@ body.active_admin a.button, body.active_admin a:link.button, body.active_admin a
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8b9297', endColorstr='#484d51');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8b9297', endColorstr='#484d51'); }
   body.active_admin a.button:not(.disabled):active, body.active_admin a:link.button:not(.disabled):active, body.active_admin a:visited.button:not(.disabled):active, body.active_admin input[type=submit]:not(.disabled):active {
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white;
+    -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white, false, false, false, false, false, false, false);
     background: #71797f;
     background: -webkit-gradient(linear, left top, left bottom, from(#71797f), to(#35383b));
     background: -moz-linear-gradient(-90deg, #71797f, #35383b);
@@ -1390,8 +1406,8 @@ body.active_admin .pagination {
     background: -moz-linear-gradient(-90deg, white, #e7e7e7);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
+    -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
     border: solid 1px #c7c7c7;
     border-color: #c7c7c7;
     border-top-color: lightgrey;
@@ -1410,8 +1426,8 @@ body.active_admin .pagination {
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1');
       -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1'); }
     body.active_admin .pagination a:not(.disabled):active {
-      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
+      -webkit-box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
       border-color: #b9b9b9;
       border-top-color: #c2c2c2;
       border-right-color: #b9b9b9;
@@ -1441,8 +1457,8 @@ body.active_admin .pagination {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#838a90', endColorstr='#414549');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#838a90', endColorstr='#414549');
     text-shadow: black 0 1px 0;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset;
+    -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0px rgba(255, 255, 255, 0.2) inset, false, false, false, false, false, false, false);
     border: solid 1px #484e53;
     border-color: #484e53;
     border-top-color: #616a71;
@@ -1460,8 +1476,8 @@ body.active_admin .pagination {
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8b9297', endColorstr='#484d51');
       -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8b9297', endColorstr='#484d51'); }
     body.active_admin .pagination span.page.current:not(.disabled):active {
-      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white;
+      -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.4) inset, 0 1px 0 0px white, false, false, false, false, false, false, false);
       background: #71797f;
       background: -webkit-gradient(linear, left top, left bottom, from(#71797f), to(#35383b));
       background: -moz-linear-gradient(-90deg, #71797f, #35383b);
@@ -1503,8 +1519,8 @@ body.active_admin .section, body.active_admin .panel {
     border-right-color: #d4d4d4;
     border-bottom-color: #cdcdcd;
     border-left-color: #d4d4d4;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
+    -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
     font-size: 1.0em;
     font-weight: bold;
     line-height: 18px;
@@ -1523,7 +1539,7 @@ body.active_admin .section, body.active_admin .panel {
     padding: 3px 15px 15px 15px; }
   body.active_admin .section hr, body.active_admin .panel hr {
     border: none;
-    border-bottom: 1px solid #E8E8E8; }
+    border-bottom: 1px solid #e8e8e8; }
 body.active_admin .sidebar_section {
   background: #f4f4f4;
   -webkit-border-radius: 4px;
@@ -1546,8 +1562,8 @@ body.active_admin .sidebar_section {
     border-right-color: #d4d4d4;
     border-bottom-color: #cdcdcd;
     border-left-color: #d4d4d4;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
+    -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
     font-size: 1.0em;
     font-weight: bold;
     line-height: 18px;
@@ -1566,7 +1582,7 @@ body.active_admin .sidebar_section {
     padding: 3px 15px 15px 15px; }
   body.active_admin .sidebar_section hr {
     border: none;
-    border-bottom: 1px solid #E8E8E8; }
+    border-bottom: 1px solid #e8e8e8; }
 body.active_admin .columns {
   margin-bottom: 10px; }
 body.active_admin .scopes li .count {
@@ -1589,8 +1605,9 @@ body.active_admin .status_tag {
     background: #d45f53; }
 body.active_admin .table_tools {
   display: block;
-  margin-bottom: 14px;
-  width: 100%; }
+  margin-bottom: 16px;
+  width: 100%;
+  height: 20px; }
 body.active_admin .table_tools .table_tools_button + .table_tools_button {
   margin-left: 6px; }
 body.active_admin .table_tools .table_tools_button + .table_tools_segmented_control {
@@ -1615,8 +1632,8 @@ body.active_admin a.table_tools_button, body.active_admin .table_tools .dropdown
   background: -moz-linear-gradient(-90deg, white, #e7e7e7);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
   -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
+  -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
+  box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
   border: solid 1px #c7c7c7;
   border-color: #c7c7c7;
   border-top-color: lightgrey;
@@ -1650,8 +1667,8 @@ body.active_admin a.table_tools_button, body.active_admin .table_tools .dropdown
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1'); }
   body.active_admin a.table_tools_button:not(.disabled):active, body.active_admin .table_tools .dropdown_menu_button:not(.disabled):active {
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
+    -webkit-box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
     border-color: #b9b9b9;
     border-top-color: #c2c2c2;
     border-right-color: #b9b9b9;
@@ -1674,8 +1691,8 @@ body.active_admin a.table_tools_button, body.active_admin .table_tools .dropdown
     border-right-color: #c8c8c8;
     border-bottom-color: #c3c3c3;
     border-left-color: #c8c8c8;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17) inset;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17) inset;
+    -webkit-box-shadow: compact(0 1px 1px 0 rgba(0, 0, 0, 0.17) inset, false, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 1px 0 rgba(0, 0, 0, 0.17) inset, false, false, false, false, false, false, false, false);
     background: white;
     background: -webkit-gradient(linear, left top, left bottom, from(white), to(#e8e8e8));
     background: -moz-linear-gradient(-90deg, white, #e8e8e8);
@@ -1708,8 +1725,8 @@ body.active_admin .table_tools_segmented_control {
       background: -moz-linear-gradient(-90deg, #f0f0f0, #fdfdfd);
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f0f0', endColorstr='#fdfdfd');
       -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f0f0', endColorstr='#fdfdfd');
-      -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1) inset;
-      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1) inset;
+      -webkit-box-shadow: compact(0 1px 1px 0 rgba(0, 0, 0, 0.1) inset, false, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 1px 0 rgba(0, 0, 0, 0.1) inset, false, false, false, false, false, false, false, false);
       cursor: default; }
       body.active_admin .table_tools_segmented_control li.selected a:hover {
         background: #f0f0f0;
@@ -1743,8 +1760,8 @@ body.active_admin table.dashboard {
       border-right-color: #d4d4d4;
       border-bottom-color: #cdcdcd;
       border-left-color: #d4d4d4;
-      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
+      -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
       font-size: 1.0em;
       font-weight: bold;
       line-height: 18px;
@@ -1763,7 +1780,7 @@ body.active_admin table.dashboard {
       padding: 3px 15px 15px 15px; }
     body.active_admin table.dashboard .dashboard_section hr {
       border: none;
-      border-bottom: 1px solid #E8E8E8; }
+      border-bottom: 1px solid #e8e8e8; }
 body.active_admin.logged_out {
   background: #e8e9ea; }
   body.active_admin.logged_out #content_wrapper {
@@ -1788,8 +1805,8 @@ body.active_admin.logged_out {
     border-right-color: #d4d4d4;
     border-bottom-color: #cdcdcd;
     border-left-color: #d4d4d4;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
+    -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
     font-size: 1.0em;
     font-weight: bold;
     line-height: 18px;
@@ -1803,8 +1820,8 @@ body.active_admin.logged_out {
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6a7176', endColorstr='#4d5256');
     border-bottom: 1px solid #44484b;
     text-shadow: black 0 1px 0;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.3), false, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.3), false, false, false, false, false, false, false, false);
     border: none;
     color: #fff;
     margin: -13px -30px 20px -30px; }
@@ -1876,8 +1893,8 @@ body.active_admin #title_bar {
   border-right-color: #d4d4d4;
   border-bottom-color: #cdcdcd;
   border-left-color: #d4d4d4;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset;
+  -webkit-box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
+  box-shadow: compact(0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px white inset, false, false, false, false, false, false, false);
   font-size: 1.0em;
   font-weight: bold;
   line-height: 18px;
@@ -1888,8 +1905,8 @@ body.active_admin #title_bar {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+  -webkit-box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.37), false, false, false, false, false, false, false, false);
+  box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.37), false, false, false, false, false, false, false, false);
   display: table;
   border-bottom-color: #EEE;
   width: 100%;
@@ -1940,8 +1957,8 @@ body.active_admin #title_bar {
     background: -moz-linear-gradient(-90deg, white, #e7e7e7);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#e7e7e7');
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset;
+    -webkit-box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
+    box-shadow: compact(0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(255, 255, 255, 0.8) inset, false, false, false, false, false, false, false);
     border: solid 1px #c7c7c7;
     border-color: #c7c7c7;
     border-top-color: lightgrey;
@@ -1962,8 +1979,8 @@ body.active_admin #title_bar {
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1');
       -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#f1f1f1'); }
     body.active_admin #title_bar .action_items a:not(.disabled):active {
-      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee;
+      -webkit-box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
+      box-shadow: compact(0 1px 2px rgba(0, 0, 0, 0.22) inset, 0 1px 0 0px #eeeeee, false, false, false, false, false, false, false);
       border-color: #b9b9b9;
       border-top-color: #c2c2c2;
       border-right-color: #b9b9b9;
