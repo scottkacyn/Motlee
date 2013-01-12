@@ -55,7 +55,7 @@ module ProcessNewUserInvite
         @attendee = Attendee.create(:user_id => user.id, :event_id => event_id, :rsvp_status => 1)
 
         event_url = "http://www.motleeapp.com/events/" + event_id
-        profile_url = "http://www.motleeapp.com/users/" + user.id
+        profile_url = "http://www.motleeapp.com/users/" + user.id.to_s
 
         # Scrape the two URLs so that the scraper info is up-to-date
         #
