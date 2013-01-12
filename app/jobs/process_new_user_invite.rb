@@ -66,7 +66,7 @@ module ProcessNewUserInvite
         #
         Curl.post("https://graph.facebook.com/me/motleeapp:invite",
                     {:access_token => access_token,
-                     :event => "http://www.motleeapp.com/events/" + event_id,
-                     :profile => "http://www.motleeapp.com/users/" + user.id})
+                     :event => event_url,
+                     :profile => profile_url})
     end
 end
