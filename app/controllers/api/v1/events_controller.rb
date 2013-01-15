@@ -152,7 +152,8 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def destroy
-        respond_with Event.destroy(params[:id])    
+        #respond_with Event.destroy(params[:id])
+        render :json => params[:id].as_json
     end
 
 end
