@@ -41,7 +41,7 @@ class Api::V1::EventsController < ApplicationController
         if (@event.name.blank?)
             return
         end
-        
+        @event.is_deleted = false 
         location = Location.find_or_create_with_params(params[:location])
         @event.location_id = location.nil? ? 0 : location.id;
         
