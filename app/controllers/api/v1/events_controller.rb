@@ -152,8 +152,9 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def destroy
-        #respond_with Event.destroy(params[:id])
-        render :json => params[:id].as_json
+        @event = Event.find(params[:id])
+        @event.update_attributes(:is_deleted => true)
+        render :json => @event.as_json
     end
 
 end
