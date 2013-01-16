@@ -16,8 +16,6 @@ Motlee::Application.routes.draw do
       resources :likes
     end
     resources :photos do
-      resources :comments
-      resources :likes
     end
     resources :fomos
   end
