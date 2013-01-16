@@ -50,7 +50,7 @@ class Api::V1::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    head :ok
+    render :json => @comment.as_json
   end
 
 private
