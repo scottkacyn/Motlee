@@ -54,7 +54,7 @@ Motlee::Application.routes.draw do
           match ':event_id/unjoin' => 'events#unjoin', :via => :post
 	end
 	resources :photos do
-	  resources :comments do 
+	  resources :comments 
 	  resources :likes
 	end
       end
