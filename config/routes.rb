@@ -52,12 +52,9 @@ Motlee::Application.routes.draw do
 	  match 'fbfriends' => 'events#fb_friends', :via => :get
 	  match ':event_id/join' => 'events#join', :via => :post
           match ':event_id/unjoin' => 'events#unjoin', :via => :post
-	  match ':event_id/fomos' => 'fomos#create', :via => :post
-	  #match ':event_id/photos' => 'photos#index', :via => :get
-	  #match ':event_id/photos/new' => 'photos#create', :via => :post
 	end
 	resources :photos do
-	  resources :comments
+	  resources :comments do 
 	  resources :likes
 	end
       end
