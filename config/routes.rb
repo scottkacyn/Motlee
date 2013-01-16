@@ -22,7 +22,6 @@ Motlee::Application.routes.draw do
     resources :fomos
   end
   resources :locations
-  resources :comments, :only => [:index]
 
   # PAGES - get
   get "pages/index"
@@ -58,10 +57,6 @@ Motlee::Application.routes.draw do
 	  match ':event_id/fomos' => 'fomos#create', :via => :post
 	  #match ':event_id/photos' => 'photos#index', :via => :get
 	  #match ':event_id/photos/new' => 'photos#create', :via => :post
-	end
-        resources :stories do
-	  resources :comments
-	  resources :likes
 	end
 	resources :photos do
 	  resources :comments
