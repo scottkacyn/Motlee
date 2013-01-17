@@ -106,7 +106,8 @@ class Api::V1::EventsController < ApplicationController
                             token = params[:access_token]
                             event_url = "http://www.motleeapp.com/events/" + params[:event_id]
                             profile_url = "https://www.facebook.com/" + (motlee_user.uid).to_s
-                            Resque.enqueue(PublishFacebookInvite, token, event_url, profile_url)
+                            #Commenting out Facebook Open Graph action
+                            #Resque.enqueue(PublishFacebookInvite, token, event_url, profile_url)
                         end
                     end
                 end
