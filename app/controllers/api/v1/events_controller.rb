@@ -84,9 +84,15 @@ class Api::V1::EventsController < ApplicationController
 
             @motlee_users = []
             @non_motlee_users = []
+			
+			# Build out the attendee string for Facebook Tag
+			attendee_string = ""
 
             @uid_array.each do |uid|
                 motlee_user = User.where(:uid => uid).first
+
+				attendee_string = "#{attendee_string},#{uid}"				
+	
                 if motlee_user.nil?
                     token = params[:access_token]
                     event_id = params[:event_id]
@@ -103,15 +109,21 @@ class Api::V1::EventsController < ApplicationController
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
                         if (motlee_user.id != current_user.id)
                             Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
-                            token = params[:access_token]
-                            event_url = "http://www.motleeapp.com/events/" + params[:event_id]
-                            profile_url = "https://www.facebook.com/" + (motlee_user.uid).to_s
+                            #token = params[:access_token]
+                            #event_url = "http://www.motleeapp.com/events/" + params[:event_id]
+                            #profile_url = "https://www.facebook.com/" + (motlee_user.uid).to_s
                             #Commenting out Facebook Open Graph action
                             #Resque.enqueue(PublishFacebookInvite, token, event_url, profile_url)
                         end
                     end
                 end
             end
+
+			if (params[:post_to_fb] == "true")
+		
+				Resque.equeue(PublishFacebookAttend, params[:access_token], params[:event_id], attendee_string)
+	
+			end
 
             # Render a response so the devices are happy
             @event.update_attributes(:updated_at => Time.now)
