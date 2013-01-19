@@ -30,7 +30,7 @@ class Api::V1::EventsController < ApplicationController
                :event => @event.as_json({:methods => [:owner, :attendee_count], 
                :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
                :stories => {}, 
-               :people_attending => {:only => [:id, :uid, :name]}}})}
+               :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})}
     end
 
     # POST
