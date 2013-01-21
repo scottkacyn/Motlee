@@ -121,7 +121,7 @@ class Api::V1::EventsController < ApplicationController
 
 			if (params[:post_to_fb] == "true")
 		
-				Resque.equeue(PublishFacebookAttend, params[:access_token], params[:event_id], attendee_string)
+				Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], attendee_string)
 	
 			end
 
