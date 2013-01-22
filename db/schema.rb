@@ -81,6 +81,13 @@ ActiveRecord::Schema.define(:version => 20130119031208) do
     t.boolean  "is_deleted"
   end
 
+  create_table "fb_og_attends", :force => true do |t|
+    t.integer  "event_id"
+    t.string   "fb_attend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "fomos", :force => true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
