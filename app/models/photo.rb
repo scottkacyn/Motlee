@@ -10,7 +10,7 @@ class Photo < ActiveRecord::Base
 	  :styles => { :thumbnail => "200x200#",
 		       :compressed => "720x720#" },
   	  :storage => :s3,
-	  :bucket => 'motlee-development-photos',
+	  :bucket => 'motlee-staging-photos',
 	  :s3_credentials => {
 	  	:access_key_id => "AKIAIZEAHVEKVBBVZAVQ",
 		:secret_access_key => "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",
