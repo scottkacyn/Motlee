@@ -125,7 +125,10 @@ class Api::V1::EventsController < ApplicationController
 
             # Render a response so the devices are happy
             @event.update_attributes(:updated_at => Time.now)
-            render :json => {:message => "Attendees were added to the event"}
+            
+            render :json => @event.as_json({:methods => [:owner, :attendee_count], 
+               :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
+               :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
         else
             event = Event.find(params[:event_id])
             @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, event.id).first
