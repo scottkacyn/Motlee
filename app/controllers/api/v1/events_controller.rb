@@ -91,8 +91,11 @@ class Api::V1::EventsController < ApplicationController
             @uid_array.each do |uid|
                 motlee_user = User.where(:uid => uid).first
 
-				attendee_string = "#{attendee_string},#{uid}"				
-	
+                if attendee_string == "" or attendee_string.nil?
+                    attendee_string = uid.to_s
+                else
+                    attendee_string = attendee_string + "," + uid.to_s
+                end
                 if motlee_user.nil?
                     token = params[:access_token]
                     event_id = params[:event_id]
@@ -109,11 +112,6 @@ class Api::V1::EventsController < ApplicationController
                         @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
                         if (motlee_user.id != current_user.id)
                             Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
-                            #token = params[:access_token]
-                            #event_url = "http://www.motleeapp.com/events/" + params[:event_id]
-                            #profile_url = "https://www.facebook.com/" + (motlee_user.uid).to_s
-                            #Commenting out Facebook Open Graph action
-                            #Resque.enqueue(PublishFacebookInvite, token, event_url, profile_url)
                         end
                     end
                 end
