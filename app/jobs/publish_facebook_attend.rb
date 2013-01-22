@@ -24,8 +24,8 @@ module PublishFacebookAttend
             "fb:explicitly_shared" => true,
             :tags => attendees})
 
-            parsed_json = ActiveSupport::JSON.decode(json)
-            newFbAttend = FbOgAttend.create(:event_id => event_id, :fb_attend_id => parsed_json["id"])
+            result = JSON.parse(json.body_str)
+            newFbAttend = FbOgAttend.create(:event_id => event_id, :fb_attend_id => result["id"])
         else
             Curl.post("https://graph.facebook.com/#{@fbOgAttend.fb_attend_id}",
             {:access_token => token,
