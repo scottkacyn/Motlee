@@ -12,9 +12,9 @@ module PublishFacebookAttend
         Curl.post("https://graph.facebook.com?id=#{event_url}&scrape=true");
 
         #Double check this, Scott, I think this is rigth
-        fbOgAttend = FbOgAttend.where(:event_id => event_id).first
+        @fbOgAttend = FbOgAttend.where(:event_id => event_id).first
 
-        if fbOgAttend.nil?
+        if @fbOgAttend.nil?
 
             # Process the Facebook Open Graph action
             #
@@ -27,7 +27,7 @@ module PublishFacebookAttend
             parsed_json = ActiveSupport::JSON.decode(json)
             newFbAttend = FbOgAttend.create(:event_id => event_id, :fb_attend_id => parsed_json["id"])
         else
-            Curl.post("https://graph.facebook.com/#{fbOgAttend.fb_attend_id}",
+            Curl.post("https://graph.facebook.com/#{@fbOgAttend.fb_attend_id}",
             {:access_token => token,
             :event => event_url,
             "fb:explicitly_shared" => true,
