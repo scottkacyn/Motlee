@@ -15,6 +15,7 @@ class Photo < ActiveRecord::Base
 	  	:access_key_id => "AKIAIZEAHVEKVBBVZAVQ",
 		:secret_access_key => "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",
   	  }
+  process_in_background :image
   
   belongs_to :user
   belongs_to :event
