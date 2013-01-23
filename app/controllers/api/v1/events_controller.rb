@@ -68,7 +68,9 @@ class Api::V1::EventsController < ApplicationController
             end
         end
         event.update_attributes(:updated_at => Time.now)
-        render :json => {:message => "Removed attendees from the event"}
+        render :json => event.as_json({:methods => [:owner, :attendee_count], 
+           :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
+           :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
     end
 
     # POST
