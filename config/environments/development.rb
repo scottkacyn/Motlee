@@ -25,6 +25,9 @@ Motlee::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
+  ENV['S3_BUCKET'] = 'motlee-development-photos'
+  ENV['S3_KEY'] = 'AKIAIZEAHVEKVBBVZAVQ'
+  ENV['S3_SECRET'] = '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'
   ENV["REDISTOGO_URL"] = 'redis://redistogo:9918b9ce59e2deadf87b3412ad13adc2@spadefish.redistogo.com:9258/'
 
 end

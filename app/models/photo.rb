@@ -4,19 +4,16 @@ class Photo < ActiveRecord::Base
   
   COORDINATE_DELTA = 0.05	
 
-#TODO TAKE OUT THE HARD CORDED AWS INFORMATION YOU JACKASS
-
   has_attached_file :image,
 	  :styles => { :thumbnail => "200x200#",
 		       :compressed => "720x720#" },
   	  :storage => :s3,
-	  :bucket => 'motlee-staging-photos',
+	  :bucket => ENV['S3_BUCKET'],
 	  :s3_credentials => {
-	  	:access_key_id => "AKIAIZEAHVEKVBBVZAVQ",
-		:secret_access_key => "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",
-  	  }
-  process_in_background :image
+	  	:access_key_id => ENV['S3_KEY'],
+		:secret_access_key => ENV['S3_SECRET'] }
   
+  process_in_background :image
   belongs_to :user
   belongs_to :event
 
