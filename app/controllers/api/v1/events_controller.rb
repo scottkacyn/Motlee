@@ -87,8 +87,8 @@ class Api::V1::EventsController < ApplicationController
             @motlee_users = []
             @non_motlee_users = []
 			
-			# Build out the attendee string for Facebook Tag
-			attendee_string = ""
+            # Build out the attendee string for Facebook Tag
+            attendee_string = ""
 
             @uid_array.each do |uid|
                 motlee_user = User.where(:uid => uid).first
@@ -119,11 +119,9 @@ class Api::V1::EventsController < ApplicationController
                 end
             end
 
-			if (params[:post_to_fb] == "true")
-		
-				Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], attendee_string)
-	
-			end
+            if (params[:post_to_fb] == "true")
+                Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], attendee_string)
+            end
 
             # Render a response so the devices are happy
             @event.update_attributes(:updated_at => Time.now)
@@ -137,13 +135,10 @@ class Api::V1::EventsController < ApplicationController
             if @attendee.nil?
                 # If user has not been added, create new Attendee object
                 @attendee = Attendee.create(:user_id => current_user.id, :event_id => params[:event_id], :rsvp_status => 1)
-
-                # Add a Facebook Open Graph post
-                token = params[:access_token]
-                url = "http://www.motleeapp.com/events/" + params[:event_id]
-                Resque.enqueue(PublishFacebookJoin, token, url)
-                event.update_attributes(:updated_at => @attendee.updated_at)
-                render :json => {:message => url, :token => token}
+                
+                if (params[:post_to_fb] == "true")
+                    Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], nil)
+                end
             end
         end
     end
