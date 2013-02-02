@@ -34,17 +34,23 @@ class Api::V1::UsersController < ApplicationController
 
   def notifications
     if (params[:type].nil? or params[:type] == "unread")
-        
         key = "#{params[:user_id]}:unread"
     	render :json => REDIS.lrange(key, 0, -1)
-  
     elsif (params[:type] == "all")
-
 	render :json => Notifications.get_notifications_mark_read(params[:user_id])	
-
     end
-
   end
+
+  def destroy
+    auth_token = params[:auth_token]
+    if (auth_token == current_user.authentication_token)
+        current_user.destroy
+        render :json => current_user.as_json
+    else
+        render :status => :forbidden
+    end
+  end
+
 
   # api/users/<user id>/events
   # ...

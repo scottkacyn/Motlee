@@ -53,20 +53,5 @@ module ProcessNewUserInvite
                            :password => Devise.friendly_token[0,20]
                           )
         @attendee = Attendee.create(:user_id => user.id, :event_id => event_id, :rsvp_status => 1)
-
-        event_url = "http://www.motleeapp.com/events/" + event_id
-        profile_url = "http://www.motleeapp.com/users/" + user.id.to_s
-
-        # Scrape the two URLs so that the scraper info is up-to-date
-        #
-        Curl.post("https://graph.facebook.com?id=#{event_url}&scrape=true");
-        Curl.post("https://graph.facebook.com?id=#{profile_url}&scrape=true");
-        
-        # Process the Facebook Open Graph action
-        #
-        Curl.post("https://graph.facebook.com/me/motleeapp:invite",
-                    {:access_token => access_token,
-                     :event => event_url,
-                     :profile => profile_url})
     end
 end
