@@ -10,9 +10,8 @@ class Api::V1::EventsController < ApplicationController
         lat, lon = params[:lat], params[:lon]
         if lat and lon
             events = events.nearby(lat.to_f, lon.to_f)
-        else
         end
-        render :json => events.as_json(:include => [:location, :photos, :stories, :people_attending], :methods => [:owner, :attendee_count, :is_attending])
+        render :json => events.as_json(:include => [:location, :photos, :people_attending], :methods => [:owner, :attendee_count, :is_attending])
     end
 
     # GET

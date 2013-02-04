@@ -42,13 +42,14 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    auth_token = params[:auth_token]
-    if (auth_token == current_user.authentication_token)
-        current_user.destroy
-        render :json => current_user.as_json
-    else
-        render :status => :forbidden
-    end
+    render :status => :success
+    #auth_token = params[:auth_token]
+    #if (auth_token == current_user.authentication_token)
+    #    current_user.destroy
+    #    render :json => current_user.as_json
+    #else
+    #    render :status => :forbidden
+    #end
   end
 
 
