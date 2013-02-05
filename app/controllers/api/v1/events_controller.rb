@@ -29,7 +29,7 @@ class Api::V1::EventsController < ApplicationController
                :event => @event.as_json({:methods => [:owner, :attendee_count], 
                :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
                :stories => {}, 
-               :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})}
+               :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :sign_in_count]}}})}
     end
 
     # POST
@@ -73,7 +73,7 @@ class Api::V1::EventsController < ApplicationController
         event.update_attributes(:updated_at => Time.now)
         render :json => event.as_json({:methods => [:owner, :attendee_count], 
            :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
-           :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
+           :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :sign_in_count]}}})
     end
 
     # POST
