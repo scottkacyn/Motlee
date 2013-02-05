@@ -120,13 +120,9 @@ class Api::V1::EventsController < ApplicationController
             
             # Render a response so the devices are happy
             @event.update_attributes(:updated_at => Time.now)
-
             if (params[:post_to_fb] == "true")
                 Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], attendee_string)
-                render :json =>:q
-
             end
-
             
             render :json => @event.as_json({:methods => [:owner, :attendee_count], 
                :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
