@@ -85,18 +85,10 @@ class Api::V1::EventsController < ApplicationController
 
             @motlee_users = []
             @non_motlee_users = []
-			
-            # Build out the attendee string for Facebook Tag
-            attendee_string = ""
 
             @uid_array.each do |uid|
                 motlee_user = User.where(:uid => uid).first
 
-                if attendee_string == "" or attendee_string.nil?
-                    attendee_string = uid.to_s
-                else
-                    attendee_string = attendee_string + "," + uid.to_s
-                end
                 if motlee_user.nil?
                     token = params[:access_token]
                     event_id = params[:event_id]
@@ -121,12 +113,13 @@ class Api::V1::EventsController < ApplicationController
             # Render a response so the devices are happy
             @event.update_attributes(:updated_at => Time.now)
             if (params[:post_to_fb] == "true")
-                Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], attendee_string)
+                Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], @uids)
+                render :json => {:message => "Posted to Resque method"}
+            else
+                render :json => @event.as_json({:methods => [:owner, :attendee_count], 
+                   :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
+                   :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
             end
-            
-            render :json => @event.as_json({:methods => [:owner, :attendee_count], 
-               :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
-               :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
         else
             event = Event.find(params[:event_id])
             @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, event.id).first
