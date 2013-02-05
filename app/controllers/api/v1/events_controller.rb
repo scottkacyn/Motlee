@@ -114,12 +114,10 @@ class Api::V1::EventsController < ApplicationController
             @event.update_attributes(:updated_at => Time.now)
             if (params[:post_to_fb] == "true")
                 Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], @uids)
-                render :json => {:message => "Posted to Resque method"}
-            else
-                render :json => @event.as_json({:methods => [:owner, :attendee_count], 
+            end
+            render :json => @event.as_json({:methods => [:owner, :attendee_count], 
                    :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
                    :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
-            end
         else
             event = Event.find(params[:event_id])
             @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, event.id).first
