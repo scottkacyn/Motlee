@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
       user_ids = users.collect do |user|
           user.id
       end.push(self.id)
-      events = Event.where("updated_at > ?", updated_at).where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, users)
+      events = Event.where("updated_at > ?", updated_at).where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f' AND is_deleted = 'f')", self.id, user_ids)
   end
 
   def recent_photos

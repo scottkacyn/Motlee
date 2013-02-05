@@ -31,7 +31,7 @@ class Event < ActiveRecord::Base
 	where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).
 	where("start_time < ?", Time.now).
 	where("end_time > ?", Time.now).
-	limit(10)
+	limit(20)
   }
 
 end
