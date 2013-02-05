@@ -138,6 +138,7 @@ class Api::V1::EventsController < ApplicationController
                     Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], nil)
                 end
             end
+            render :json => event.as_json
         end
     end
 

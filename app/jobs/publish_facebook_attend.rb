@@ -5,15 +5,11 @@ module PublishFacebookAttend
     @queue = :facebook_attend
 
     def self.perform(token, event_id, attendees)
-        event_url = "http://www.motleeapp.com/events/" + event_id
-
+        event_url = "http://staging.motleeapp.com/events/" + event_id
         # Scrape the two URLs so that the scraper info is up-to-date
         #
         Curl.post("https://graph.facebook.com?id=#{event_url}&scrape=true");
-
-        #Double check this, Scott, I think this is rigth
         @fbOgAttend = FbOgAttend.where(:event_id => event_id).first
-
         if @fbOgAttend.nil?
 
             # Process the Facebook Open Graph action
