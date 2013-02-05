@@ -47,7 +47,7 @@ class Api::V1::EventsController < ApplicationController
         if @event.save
             @attendee = Attendee.create(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
             if (params[:post_to_fb] == "true")
-                Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], nil)
+                Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], "")
             end
             render :json => @event.as_json(:include => :location), :status => :created
         else
@@ -121,18 +121,6 @@ class Api::V1::EventsController < ApplicationController
             render :json => @event.as_json({:methods => [:owner, :attendee_count], 
                    :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
                    :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
-        else
-            event = Event.find(params[:event_id])
-            @attendee = Attendee.where("user_id = ? AND event_id = ?", current_user.id, event.id).first
-            if @attendee.nil?
-                # If user has not been added, create new Attendee object
-                @attendee = Attendee.create(:user_id => current_user.id, :event_id => params[:event_id], :rsvp_status => 1)
-                
-                if (params[:post_to_fb] == "true")
-                    Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], nil)
-                end
-            end
-            render :json => event.as_json
         end
     end
 
