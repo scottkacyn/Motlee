@@ -17,7 +17,6 @@ module PublishFacebookAttend
             json = Curl.post("https://graph.facebook.com/me/motleeapp:attend",
             {:access_token => token,
             :event => @event_url,
-            "fb:explicitly_shared" => true,
             :tags => attendees})
 
             result = JSON.parse(json.body_str)
@@ -26,7 +25,6 @@ module PublishFacebookAttend
             Curl.post("https://graph.facebook.com/#{@fbOgAttend.fb_attend_id}",
             {:access_token => token,
             :event => @event_url,
-            "fb:explicitly_shared" => true,
             :tags => attendees})
         end
     end
