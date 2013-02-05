@@ -4,7 +4,12 @@ module PublishFacebookAttend
 
     @queue = :facebook_attend
 
-    def self.perform(@token, @event_id, @attendees)
+    def self.perform(token, event_id, attendees)
+
+        @token = token
+        @event_id = event_id
+        @attendees = attendees
+
         @event_url = "http://staging.motleeapp.com/events/" + @event_id
         # Scrape the two URLs so that the scraper info is up-to-date
         #
