@@ -7,7 +7,6 @@ module PublishFacebookAttend
     def self.perform(token, event_id, attendees)
         @event_url = "https://www.motleeapp.com/events/" + event_id
         # Scrape the two URLs so that the scraper info is up-to-date
-        #
         Curl.post("https://graph.facebook.com?id=#{@event_url}&scrape=true");
         @fbOgAttend = FbOgAttend.where(:event_id => event_id).first
         if @fbOgAttend.nil?

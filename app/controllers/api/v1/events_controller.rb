@@ -46,6 +46,9 @@ class Api::V1::EventsController < ApplicationController
         
         if @event.save
             @attendee = Attendee.create(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
+            if (params[:post_to_fb] == "true")
+                Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], nil)
+            end
             render :json => @event.as_json(:include => :location), :status => :created
         else
             render :json => @event.errors, :status => :unprocessable_entity
