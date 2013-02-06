@@ -6,7 +6,7 @@ class Photo < ActiveRecord::Base
 
   has_attached_file :image,
 	  :styles => { :thumbnail => "200x200#",
-		       :compressed => "720x720#" },
+		       :compressed => "800x800#" },
   	  :storage => :s3,
 	  :bucket => ENV['S3_BUCKET'],
 	  :s3_credentials => {
