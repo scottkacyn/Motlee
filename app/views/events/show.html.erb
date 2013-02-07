@@ -32,7 +32,7 @@
         <div class="event_thumbnails">
             <% @photos.each do |photo| %>
                 <div class="event_photo">
-                <%= image_tag "https://s3.amazonaws.com/motlee-staging-photos/images/2/original/image.jpg" %>
+                <%= image_tag photo.image.url %>
                 <%= image_tag "https://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
                 <span><%= photo.user.name %></span>
                 <span class="photo_likes"><%= photo.likes.count %> Likes</span>
