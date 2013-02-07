@@ -29,11 +29,7 @@ body {
   font-weight: 100; }
 
 .bg_container {
-  background: #000;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background: #000000;
   min-width: 1400px;
   padding: 0;
   margin: 0;
@@ -43,7 +39,8 @@ body {
   width: 1000px;
   height: 100%;
   margin: 10px auto;
-  text-align: center; }
+  text-align: center; 
+  }
 
 #top-right-banner {
   position: absolute;
@@ -51,10 +48,55 @@ body {
   height: 235px;
   right: 0;
   top: 0;
-  background: url("/images/top-right-banner.png"); }
+  background: url("/images/top-right-banner.png"); 
+}
+
+.navigation_bar
+{
+  height: 44px;
+  width: 100%;
+  background: #000000;
+}
+
+.navigation_bar ul
+{
+  position: fixed;
+  right: 0;
+}
+
+#logo_small {
+    width: 93px;
+    height: 25px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#logo_small img {
+    margin-top: 10px;
+}
+
+.container_guy {
+  background: url("/images/backgroundWeb.png");
+  margin: 0;
+  padding: 0;
+}
+
+.container_inset {
+  background: url("/images/containerInset.png");
+  width: 1006px;
+  min-height: 800px;
+  -moz-box-shadow: 0 0 5px #111;
+  -webkit-box-shadow: 0 0 5px #111;
+  box-shadow: 0 0 5px #111;
+  margin: 0 auto;
+}
 
 #top {
   background: url("/images/MotleeSplash-Header.png") no-repeat black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   height: 600px;
   width: 1400px;
   margin: 0px auto; }
