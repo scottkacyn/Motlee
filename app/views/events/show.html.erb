@@ -7,18 +7,37 @@
   <meta property="og:image"       content="http://sphotos-a.xx.fbcdn.net/hphotos-ash4/417107_306342359470634_1693223354_n.png" /> 
   <meta property="og:description" content="Check out the photos from this event" /> 
 <% end %>
-<div class="navigation_bar">
-    <div id="logo_small">
-    <a href="/"><img src="/images/logoWeb.png"/></a>
+<header class="navigation_bar">
+    <div class="navigation_bar_choker">
+        <h1 class="logo">
+            <a href="/">Motlee</a>
+        </h1>
+        <div class="navigation_bar_right">
+            <ul class="navigation_bar_actions">
+                <li id="userprofile" class="userprofile has_dropdown">
+                    <a href="#">
+                        <span class="img img-outset avatar" style="background-image: url(https://graph.facebook.com/<%= current_user.uid %>/picture);">
+                            <img src="https://graph.facebook.com/<%= current_user.uid %>/picture" alt>
+                            <b></b>
+                        </span>
+                        <strong><%= current_user.name %></strong>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul id="account_list">
-        <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" />
-    </ul>
-</div>
+</header>
 <div class="container_guy">
     <div class="container_inset">
-        <% @photos.each do |photo| %>
-            PENIS
-        <% end %>
+        <div class="event_thumbnails">
+            <% @photos.each do |photo| %>
+                <div class="event_photo">
+                <%= image_tag "https://s3.amazonaws.com/motlee-staging-photos/images/2/original/image.jpg" %>
+                <%= image_tag "https://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
+                <span><%= photo.user.name %></span>
+                <span class="photo_likes"><%= photo.likes.count %> Likes</span>
+                </div>
+            <% end %>
+        </div>
     </div>
 </div>
