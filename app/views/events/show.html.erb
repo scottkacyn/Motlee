@@ -32,12 +32,21 @@
         <div class="event_thumbnails">
             <% @photos.each do |photo| %>
                 <div class="event_photo">
-                <%= image_tag photo.image.url %>
+                <%= image_tag photo.image.url, :style => :compressed %>
                 <%= image_tag "https://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
                 <span><%= photo.user.name %></span>
                 <span class="photo_likes"><%= photo.likes.count %> Likes</span>
                 </div>
             <% end %>
+        </div>
+        <div class="event_info_container">
+            <ul class="event_info">
+                <li><%= @event.name %></li>
+                <li><%= @event.start_time.strftime("%a %B %d at %H:%I %p") %></li>
+                <li><%= @event.end_time.strftime("%a %B %d at %H:%I %p") %></li>
+                <li><%= @event.photos.count %> Photos</li>
+                <li><%= @event.attendees.count %> Attendees</li>
+            </ul>
         </div>
     </div>
 </div>

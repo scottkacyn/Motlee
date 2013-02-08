@@ -215,8 +215,58 @@ visibility: hidden;
   margin: 0 auto;
 }
 
+.event_info_container
+{
+    position: fixed;
+    margin-left: 750px;
+    width: 240px;
+    margin-top: 20px;
+    padding: 0 10px;
+    text-align: center;
+    -moz-box-shadow: -5px 5px #222;
+    -webkit-box-shadow: -5px 5px #222;
+    box-shadow: -5px 5px #222;
+    background: rgba(14, 11, 8, 0.82);
+    /*background: -webkit-gradient(linear,left bottom, left top, color-stop(0.82, rgb(14, 11, 8)), color-stop(0.81, rgb(44, 43, 42)));
+    background: -moz-linear-gradient(center bottom, rgb(14,11,8) 22%, rgb(44,43,42) 81%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#111111, endColorStr=#222222);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#111111, endColorstr=#222222)";
+    text-shadow: 0 -1px #000;*/
+}
+
+.event_info {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.event_info > li {
+    position: relative;
+    min-height: 44px;
+    line-height: 44px;
+    border-top: 1px solid #5786aa;
+    border-top-color: rgba(255,255,255,0.1);
+    border-bottom: 1px solid #06365f;
+    border-bottom-color: rgba(0,0,0,0.1);
+    color: #DDD;
+}
+
+.event_info > li:first-child
+{
+    border-top: none;
+}
+
+.event_info span.subtle-text {
+    font-size: 10px;
+    color: #555;
+    position: absolute;
+    left: 110px;
+    top: -16px;
+}
+
 .event_thumbnails
 {
+    float: left;
     width: 720px;
     margin: 0;
     padding: 10px;
@@ -224,7 +274,6 @@ visibility: hidden;
 
 .event_thumbnails .event_photo {
     float: left;
-    /*background: url("/images/polaroid.png");*/
     background: #222222;
     width: 200px;
     padding: 10px;
