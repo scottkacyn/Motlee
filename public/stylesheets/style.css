@@ -36,7 +36,7 @@ body {
   overflow: hidden; }
 
 .bg_container .content {
-  width: 1000px;
+  max-width: 1020px;
   height: 100%;
   margin: 10px auto;
   text-align: left; 
@@ -206,26 +206,20 @@ visibility: hidden;
 }
 
 .container_inset {
-  background: url("/images/containerInset.png");
-  width: 1006px;
   min-height: 1000px;
-  -moz-box-shadow: 0 0 5px #111;
-  -webkit-box-shadow: 0 0 5px #111;
-  box-shadow: 0 0 5px #111;
+  min-width: 320px;
+  max-width: 1020px;
   margin: 0 auto;
 }
 
 .event_info_container
 {
-    position: fixed;
-    margin-left: 750px;
-    width: 240px;
-    margin-top: 20px;
+    position: relative;
+    min-width: 320px;
+    max-width: 1020px;
+    margin: 0 auto;
     padding: 0 10px;
     text-align: center;
-    -moz-box-shadow: -5px 5px #222;
-    -webkit-box-shadow: -5px 5px #222;
-    box-shadow: -5px 5px #222;
     background: rgba(14, 11, 8, 0.82);
 }
 
@@ -251,6 +245,10 @@ visibility: hidden;
     border-top: none;
 }
 
+.event_info > li.subitem {
+    display: none;
+}
+
 .event_info span.subtle-text {
     font-size: 10px;
     color: #555;
@@ -262,15 +260,14 @@ visibility: hidden;
 .event_thumbnails
 {
     float: left;
-    width: 720px;
     margin: 0;
-    padding: 10px;
+    padding: 0;
 }
 
 .event_thumbnails .event_photo {
     float: left;
     background: #222222;
-    width: 200px;
+    width: 300px;
     padding: 10px;
     margin: 10px;
     -moz-box-shadow: 0 0 10px #111;
@@ -300,8 +297,8 @@ visibility: hidden;
 }
 
 .event_thumbnails img {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
 }
 
 #top {
@@ -368,13 +365,12 @@ visibility: hidden;
 .salmon_bar {
   height: 3px;
   width: 100%;
-  border-bottom: 1px solid #000;
   border-top: 1px solid #111;
-background-color: #f05541;
-background: -webkit-gradient(linear,left bottom, left top, color-stop(0.22, rgb(240,85,65)), color-stop(0.81, rgb(249,85,65)));
-background: -moz-linear-gradient(center bottom, rgb(240,85,65) 22%, rgb(249,85,65) 81%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#f05541, endColorStr=#ff9009);
--ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#f05541, endColorstr=#ff9009)";
+background-color: #2B333A;
+background: -webkit-gradient(linear,left bottom, left top, color-stop(0.22, rgb(43,51,58)), color-stop(0.81, rgb(43,85,90)));
+background: -moz-linear-gradient(center bottom, rgb(43,51,58) 22%, rgb(43,85,90) 81%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#2B333A, endColorStr=#222);
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#2B333A, endColorstr=#222)";
 }
 
 #info {
