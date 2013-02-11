@@ -9,17 +9,17 @@
     </div>
 </div>
 <div id="bottom">
-	<div class="content">
-		<div id="interest-form">
-                    <%= form_for @leads, :url => {:controller => "leads", :action => "create"}, :class => "form-inline" do |f| %>
-                        <%= f.text_field :email, :class => "input-xlarge", :placeholder => "email@example.com" %>
-                        <button type="submit" class="btn btn-primary btn-large">Submit</button>
-                    <% end %>
-                    <span>
-                        Let us notify you when Motlee launches by entering your email above!
-                    </span>
-		</div>
-	</div>
+    <div class="content">
+            <div id="interest-form">
+                <%= form_for @leads, :url => {:controller => "leads", :action => "create"}, :class => "form-inline" do |f| %>
+                    <%= f.text_field :email, :class => "input-xlarge", :placeholder => "email@example.com" %>
+                    <button type="submit" class="btn btn-primary btn-large">Submit</button>
+                <% end %>
+                <span>
+                    Let us notify you when Motlee launches by entering your email above!
+                </span>
+            </div>
+    </div>
 </div>
 <script type="text/javascript">
 
