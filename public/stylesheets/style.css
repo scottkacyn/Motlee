@@ -20,16 +20,13 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background: transparent;
   text-decoration: none; }
 
-html {
-  background: #000; }
-
 body {
-  background: #000;
+  background: #222;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100; }
 
 .bg_container {
-  background: #000000;
+  background: url("/images/satinweave.png");
   min-width: 1400px;
   padding: 0;
   margin: 0;
@@ -200,15 +197,14 @@ visibility: hidden;
 }
 
 .container_guy {
-  background: url("/images/backgroundWeb.png") repeat-x #151515;
   margin: 0;
   padding: 0;
-}
+  border-bottom: 5px solid #f05541; }
 
 .container_inset {
-  min-height: 1000px;
   min-width: 320px;
   max-width: 1020px;
+  min-height: 500px;
   margin: 0 auto;
 }
 
@@ -216,11 +212,14 @@ visibility: hidden;
 {
     position: relative;
     min-width: 320px;
-    max-width: 1020px;
-    margin: 0 auto;
+    max-width: 520px;
+    margin: 10px auto;
     padding: 0 10px;
     text-align: center;
-    background: rgba(14, 11, 8, 0.82);
+    background-color: #C25541;
+    -moz-box-shadow: 0 0 10px #777;
+    -webkit-box-shadow: 0 0 10px #777;
+    box-shadow: 0 0 10px #777;
 }
 
 .event_info {
@@ -237,7 +236,7 @@ visibility: hidden;
     border-top-color: rgba(255,255,255,0.1);
     border-bottom: 1px solid #06365f;
     border-bottom-color: rgba(0,0,0,0.1);
-    color: #DDD;
+    color: #FFF;
 }
 
 .event_info > li:first-child
@@ -266,13 +265,13 @@ visibility: hidden;
 
 .event_thumbnails .event_photo {
     float: left;
-    background: #222222;
+    background: #FFF;
     width: 300px;
     padding: 10px;
     margin: 10px;
-    -moz-box-shadow: 0 0 10px #111;
-    -webkit-box-shadow: 0 0 10px #111;
-    box-shadow: 0 0 10px #111;
+    -moz-box-shadow: 0 0 10px #BBB;
+    -webkit-box-shadow: 0 0 10px #BBB;
+    box-shadow: 0 0 10px #BBB;
 }
 
 .event_thumbnails .event_photo .event_photo_taker {
@@ -363,14 +362,11 @@ visibility: hidden;
   border-bottom: 2px solid #000; }
 
 .salmon_bar {
-  height: 3px;
+  height: 7px;
   width: 100%;
-  border-top: 1px solid #111;
-background-color: #2B333A;
-background: -webkit-gradient(linear,left bottom, left top, color-stop(0.22, rgb(43,51,58)), color-stop(0.81, rgb(43,85,90)));
-background: -moz-linear-gradient(center bottom, rgb(43,51,58) 22%, rgb(43,85,90) 81%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#2B333A, endColorStr=#222);
--ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#2B333A, endColorstr=#222)";
+  background-color: #2B333A;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #FFF;
 }
 
 #info {
