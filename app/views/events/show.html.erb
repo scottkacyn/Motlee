@@ -27,13 +27,16 @@
         </div>
     </div>
 </header>
-<div class="salmon_bar"></div>
 <div class="event_info_container">
     <ul class="event_info">
-        <li class="topitem"><%= @event.name %></li>
-        <li class="subitem"><%= @event.start_time.strftime("%a %B %d at %H:%I %p") %></li>
-        <li class="subitem"><%= @event.end_time.strftime("%a %B %d at %H:%I %p") %></li>
-        <li class="subitem"><%= @event.attendees.count %> Attendees</li>
+        <li class="topitem"><%= @event.name %><img id="event_info_img" src="/images/down_arrow.png" style="margin-top:10px; right:10px; position:absolute;"/></li>
+        <li class="subitem">Start Time: <%= @event.start_time.strftime("%B %d, %H:%I %p") %></li>
+        <li class="subitem">End Time: <%= @event.end_time.strftime("%B %d, %H:%I %p") %></li>
+        <li class="subitem">
+          <% @event.attendees.each do |attendee| %>
+            <img src="http://graph.facebook.com/<%= attendee.user.uid %>/picture" alt="<%= attendee.user.name %>" width="40" height="40" style="padding:10px; position:relative;"/>
+          <% end %>
+        </li>
     </ul>
 </div>
 <div class="container_guy">
@@ -50,3 +53,16 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(window).load(function() {
+        $(".topitem").click(function() {
+            if ($(".subitem").is(":visible")) {
+              $(".subitem").hide();
+              $("#event_info_img").attr("src", "/images/down_arrow.png");
+            } else {
+              $(".subitem").fadeIn(200);
+              $("#event_info_img").attr("src", "/images/up_arrow.png");
+            }
+        });
+    });
+</script>

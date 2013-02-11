@@ -21,7 +21,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   text-decoration: none; }
 
 body {
-  background: #222;
+  background: #2B333A;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100; }
 
@@ -53,11 +53,7 @@ body {
   position: relative;
   height: 44px;
   width: 100%;
-  background-color: #111111;
-  background: -webkit-gradient(linear,left bottom, left top, color-stop(0.22, rgb(14, 11, 8)), color-stop(0.81, rgb(44, 43, 42)));
-  background: -moz-linear-gradient(center bottom, rgb(14,11,8) 22%, rgb(44,43,42) 81%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#111111, endColorStr=#222222);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#111111, endColorstr=#222222)";
+  background: #2B333A;
   text-shadow: 0 -1px #000;
 }
 
@@ -197,29 +193,25 @@ visibility: hidden;
 }
 
 .container_guy {
-  margin: 0;
+  margin: 50px 0;
   padding: 0;
   border-bottom: 5px solid #f05541; }
 
 .container_inset {
   min-width: 320px;
   max-width: 1020px;
-  min-height: 500px;
+  min-height: 800px;
   margin: 0 auto;
 }
 
 .event_info_container
 {
-    position: relative;
+    position: absolute;
     min-width: 320px;
-    max-width: 520px;
-    margin: 10px auto;
-    padding: 0 10px;
+    width: 100%;
+    margin: 0 auto 10px auto;
     text-align: center;
-    background-color: #C25541;
-    -moz-box-shadow: 0 0 10px #777;
-    -webkit-box-shadow: 0 0 10px #777;
-    box-shadow: 0 0 10px #777;
+    border-top: 1px solid #000;
 }
 
 .event_info {
@@ -229,6 +221,7 @@ visibility: hidden;
 }
 
 .event_info > li {
+    background-color: #968F87;
     position: relative;
     min-height: 44px;
     line-height: 44px;
@@ -237,11 +230,23 @@ visibility: hidden;
     border-bottom: 1px solid #06365f;
     border-bottom-color: rgba(0,0,0,0.1);
     color: #FFF;
+    width: 300px;
+    margin: 0 auto;
 }
 
 .event_info > li:first-child
 {
+    width: 100%;
     border-top: none;
+}
+
+.event_info > li:last-child
+{
+    line-height: 16px;
+}
+
+.event_info > li.topitem:hover {
+    cursor: pointer;
 }
 
 .event_info > li.subitem {
@@ -362,9 +367,9 @@ visibility: hidden;
   border-bottom: 2px solid #000; }
 
 .salmon_bar {
-  height: 7px;
+  height: 4px;
   width: 100%;
-  background-color: #2B333A;
+  background-color: #C25541;
   border-top: 1px solid #333;
   border-bottom: 1px solid #FFF;
 }
