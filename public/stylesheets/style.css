@@ -55,6 +55,7 @@ body {
   width: 100%;
   background: #2B333A;
   text-shadow: 0 -1px #000;
+  border-bottom: 1px solid #222;
 }
 
 .navigation_bar .logo {
@@ -195,7 +196,7 @@ visibility: hidden;
 .container_guy {
   margin: 50px 0;
   padding: 0;
-  border-bottom: 5px solid #f05541; }
+}
 
 .container_inset {
   min-width: 320px;
@@ -211,7 +212,7 @@ visibility: hidden;
     width: 100%;
     margin: 0 auto 10px auto;
     text-align: center;
-    border-top: 1px solid #000;
+    border-top-color: rgba(255,255,255,0.1);
 }
 
 .event_info {
@@ -221,7 +222,7 @@ visibility: hidden;
 }
 
 .event_info > li {
-    background-color: #968F87;
+    background-color: #3A3836;
     position: relative;
     min-height: 44px;
     line-height: 44px;
