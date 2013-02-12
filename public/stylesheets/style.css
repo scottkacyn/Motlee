@@ -271,7 +271,7 @@ visibility: hidden;
 
 .event_thumbnails .event_photo {
     float: left;
-    background: #FFF;
+    background: url("/images/polaroid.png");
     width: 300px;
     padding: 10px;
     margin: 10px;
