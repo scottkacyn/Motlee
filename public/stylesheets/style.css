@@ -20,14 +20,19 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   background: transparent;
   text-decoration: none; }
 
+html, body {
+  min-height: 100%;
+}
+
 body {
-  background: #2B333A;
+  background: #000;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100; }
 
 .bg_container {
   background: url("/images/satinweave.png");
   min-width: 1400px;
+  min-height: 100%;
   padding: 0;
   margin: 0;
   overflow: hidden; }
@@ -312,8 +317,8 @@ visibility: hidden;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 600px;
-  width: 1400px;
+  height: 617px;
+  width: 1440px;
   margin: auto; }
 
 #social_container {
@@ -328,8 +333,8 @@ visibility: hidden;
   width: 208px;
   height: 312px;
   background: transparent;
-  left: 854px;
-  top: 144px; }
+  left: 878px;
+  top: 147px; }
 
 .rotating-item {
   position: absolute;
@@ -362,7 +367,7 @@ visibility: hidden;
   border-bottom: 1px solid #111; }
 
 #bottom {
-  top: 600px;
+  top: 620px;
   background: url("/images/LP-BG-Bottom.png");
   width: 100%;
   border-bottom: 2px solid #000; }
