@@ -169,6 +169,10 @@ span.img-outset b {
 box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), inset 0 1px 0 rgba(255,255,255,.3);
 }
 
+#appbadges {
+    margin-left: 270px;
+}
+
 .navigation_bar_actions > li:hover {
     background-color: #222;
 }

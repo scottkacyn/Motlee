@@ -16,8 +16,8 @@
             <ul class="navigation_bar_actions">
                 <li id="userprofile" class="userprofile has_dropdown">
                     <a href="#">
-                        <span class="img img-outset avatar" style="background-image: url(https://graph.facebook.com/<%= current_user.uid %>/picture);">
-                            <img src="https://graph.facebook.com/<%= current_user.uid %>/picture" alt>
+                        <span class="img img-outset avatar" style="background-image: url(http://graph.facebook.com/<%= current_user.uid %>/picture);">
+                            <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" alt>
                             <b></b>
                         </span>
                         <strong><%= current_user.name %></strong>
@@ -46,7 +46,7 @@
             <% @photos.each do |photo| %>
                 <div class="event_photo">
                 <%= image_tag photo.image.url, :style => :compressed %>
-                <%= image_tag "https://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
+                <%= image_tag "http://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
                 <span><%= photo.user.name %></span>
                 <span class="photo_likes"><%= photo.likes.count %> Likes</span>
                 </div>
@@ -65,5 +65,15 @@
               $("#event_info_img").attr("src", "/images/up_arrow.png");
             }
         });
+    });
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 44) {
+            $(".event_info_container").css("position", "fixed");
+            $(".event_info_container").css("top", "0"); 
+        } else {
+            $(".event_info_container").css("position", "absolute");
+            $(".event_info_container").css("top", "");
+        }
     });
 </script>
