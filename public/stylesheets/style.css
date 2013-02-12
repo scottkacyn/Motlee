@@ -222,6 +222,7 @@ visibility: hidden;
     margin: 0 auto 10px auto;
     text-align: center;
     border-top-color: rgba(255,255,255,0.1);
+    z-index: 1000;
 }
 
 .event_info {
