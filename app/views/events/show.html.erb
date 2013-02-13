@@ -45,7 +45,7 @@
         <div class="event_thumbnails">
             <% @photos.each do |photo| %>
                 <div class="event_photo">
-                <%= image_tag photo.image.url, :style => :compressed %>
+                <%= image_tag photo.image.url, :style => :compressed, :onClick => "showBigPhoto('#{photo.image.url}')" %>
                 <%= image_tag "http://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
                 <span><%= photo.user.name %></span>
                 <span class="photo_likes"><%= photo.likes.count %> Likes</span>
@@ -54,8 +54,21 @@
         </div>
     </div>
 </div>
+<div class="photoViewer">
+    <div class="bigPhotoContainer">
+        <a id="hidePhotoButton" onClick='$(".photoViewer").fadeOut(300)'>
+            <img src="/images/remove.png" width="25" height="25" />
+        </a>
+        <div class="bigPhoto">
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     $(window).load(function() {
+        // Vertically center the Big Photo
+        $(".bigPhotoContainer").css("margin-top", ($(window).height()-500)/2);
+
+        // Make the event info sticky bar clickable
         $(".topitem").click(function() {
             if ($(".subitem").is(":visible")) {
               $(".subitem").hide();
@@ -76,4 +89,10 @@
             $(".event_info_container").css("top", "");
         }
     });
+
+    function showBigPhoto(url) {
+        var background = "url(" + url + ") no-repeat center center fixed";
+        $(".bigPhoto").css("background", background);
+        $(".photoViewer").fadeIn(100);
+    }
 </script>
