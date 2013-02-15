@@ -14,14 +14,21 @@
         </h1>
         <div class="navigation_bar_right">
             <ul class="navigation_bar_actions">
-                <li id="userprofile" class="userprofile has_dropdown">
-                    <a href="#">
+                <li id="link_profile" class="link-profile has-dropdown">
+                    <a href="javascript:;">
                         <span class="img img-outset avatar" style="background-image: url(http://graph.facebook.com/<%= current_user.uid %>/picture);">
                             <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" alt>
                             <b></b>
                         </span>
-                        <strong><%= current_user.name %></strong>
+                        <strong id="username"><%= current_user.name %></strong>
                     </a>
+                    <div class="dropdown">
+                        <ul role="navigation">
+                            <li><a href="/users/<%= current_user.id %>">View Profile</a></li>
+                            <li><a href="/users/edit">Edit Profile</a></li>
+                            <li><a href="/users/sign_out">Log Out</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -64,6 +71,23 @@
     </div>
 </div>
 <script type="text/javascript">
+    function openDropdown(e) {
+        $(e.target)
+            .parents('.has-dropdown')
+            .toggleClass("dropdown-open")
+            .children('a').toggleClass("link-active");
+    }
+
+    $(document).ready(function() {
+        $(".has-dropdown > a").click(openDropdown);
+        var $html = $('html');
+        if ($.browser.msie) {
+            $html.addClass('msie');
+        } else if ($.browser.opera) {
+            $html.addClass('opera');
+        }
+    });
+
     $(window).load(function() {
         // Vertically center the Big Photo
         $(".bigPhotoContainer").css("margin-top", ($(window).height()-500)/2);
