@@ -1,0 +1,10 @@
+<% if current_user.id < 4 %>
+    <!-- User is Scott, Nick, or Zack -->
+    <h2>Motlee Stats</h2>
+    <h3>Total Reach: <%= @users.count %></h3>
+    <h3>Total Users: <%= @actives.count %></h3>
+    <h3>Events Created: <%= @events.count %></h3>
+    <h3>Photos Taken: <%= @photos.count %></h3>
+<% else %>
+    <h2>You do not have permission to view this page</h2>
+<% end %>
