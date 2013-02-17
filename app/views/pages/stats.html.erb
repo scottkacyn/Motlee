@@ -5,6 +5,20 @@
     <h3>Total Users: <%= @actives.count %></h3>
     <h3>Events Created: <%= @events.count %></h3>
     <h3>Photos Taken: <%= @photos.count %></h3>
+
+    <table>
+        <th>Power Users</th>
+        <tr>
+            <td>Name</td>
+            <td>Logins</td>
+        </tr>
+        <% @actives.each do |user| %>
+            <tr>
+                <td><%= user.name %></td>
+                <td><%= user.sign_in_count %></td>
+            </tr>
+        <% end %>
+    </table>
 <% else %>
     <h2>You do not have permission to view this page</h2>
 <% end %>
