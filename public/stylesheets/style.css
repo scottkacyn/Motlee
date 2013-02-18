@@ -426,6 +426,18 @@ visibility: hidden;
   border-bottom: 1px solid #FFF;
 }
 
+#stats_container
+{
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    -moz-box-shadow: 5px 5px 5px #eee;
+    -webkit-box-shadow: 5px 5px 5px #eee;
+}
+
 #info {
   padding: 40px;
   font-size: 36px;

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :show
 
   # GET /events
   def index
@@ -15,7 +15,6 @@ class EventsController < ApplicationController
 
     @photos = @event.photos
     @stories = @event.stories
-    @story = Story.new
   end
 
   # GET /events/new

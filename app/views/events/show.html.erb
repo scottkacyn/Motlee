@@ -14,22 +14,28 @@
         </h1>
         <div class="navigation_bar_right">
             <ul class="navigation_bar_actions">
-                <li id="link_profile" class="link-profile has-dropdown">
-                    <a href="javascript:;">
-                        <span class="img img-outset avatar" style="background-image: url(http://graph.facebook.com/<%= current_user.uid %>/picture);">
-                            <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" alt>
-                            <b></b>
-                        </span>
-                        <strong id="username"><%= current_user.name %></strong>
-                    </a>
-                    <div class="dropdown">
-                        <ul role="navigation">
-                            <li><a href="/users/<%= current_user.id %>">View Profile</a></li>
-                            <li><a href="/users/edit">Edit Profile</a></li>
-                            <li><a href="/users/sign_out">Log Out</a></li>
-                        </ul>
-                    </div>
-                </li>
+                <% if current_user %>
+                    <li id="link_profile" class="link-profile has-dropdown">
+                        <a href="javascript:;">
+                            <span class="img img-outset avatar" style="background-image: url(http://graph.facebook.com/<%= current_user.uid %>/picture);">
+                                <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" alt>
+                                <b></b>
+                            </span>
+                            <strong id="username"><%= current_user.name %></strong>
+                        </a>
+                        <div class="dropdown">
+                            <ul role="navigation">
+                                <li><a href="/users/<%= current_user.id %>">View Profile</a></li>
+                                <li><a href="/users/edit">Edit Profile</a></li>
+                                <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+                            </ul>
+                        </div>
+                    </li>
+                <% else %>
+                    <li id="link_profile" class="link-profile">
+                        <a href="/users/auth/facebook"><strong id="username">Sign in with Facebook</strong></a>
+                    </li>
+                <% end %>
             </ul>
         </div>
     </div>
