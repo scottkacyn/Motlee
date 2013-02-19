@@ -1,7 +1,6 @@
-require 'resque/tasks'
-
 Dir["#{Rails.root}/app/jobs/*.rb"].each { |file| require file }
 
+require 'resque/tasks'
 task "resque:setup" => :environment do
   ENV['QUEUE'] = '*'
 
