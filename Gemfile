@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 source 'http://gemcutter.org'
 
-gem 'rails', '3.0.19'
+gem 'rails', '~> 3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'activerecord', "~> 3.2.9"
+gem 'activerecord', '~> 3.2.12'
 gem 'jquery-rails'
 gem 'dispatcher'
 gem 'pg'
