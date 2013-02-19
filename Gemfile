@@ -24,7 +24,7 @@ gem 'rmagick'
 gem 'cocaine', '~>0.3.2'
 gem 'newrelic_rpm'
 gem 'redis'
-gem 'resque'
+gem 'resque', :require => "resque/server"
 gem 'delayed_paperclip'
 
 # Use unicorn as the web server
