@@ -40,6 +40,6 @@ module Motlee
     config.filter_parameters += [:password]
 
     # Don't load db on precompile - set for Heroku
-    # config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = false
   end
 end
