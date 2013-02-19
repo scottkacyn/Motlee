@@ -6,6 +6,7 @@ gem 'rails', '3.0.19'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'activerecord', "~> 3.2.9"
 gem 'jquery-rails'
 gem 'dispatcher'
 gem 'pg'
