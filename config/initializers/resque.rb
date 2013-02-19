@@ -1,4 +1,14 @@
+require 'resque/tasks'
+
 Dir["#{Rails.root}/app/jobs/*.rb"].each { |file| require file }
 
-Resque.before_fork = Proc.new { 
-     ActiveRecord::Base.verify_active_connections! }
+task "resque:setup" => :environment do
+  ENV['QUEUE'] = '*'
+
+  Resque.after_fork do |worker|
+    ActiveRecord::Base.establish_connection
+  end
+end
+
+desc "Alias for resque:work (To run workers on Heroku)"
+task "jobs:work" => "resque:work"
