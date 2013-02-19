@@ -1,6 +1,5 @@
 require 'resque'
 
-
   module AddEventNotification
     @queue = :notification
 
