@@ -1,4 +1,4 @@
 Dir["#{Rails.root}/app/jobs/*.rb"].each { |file| require file }
-uri = URI.parse(ENV["REDISTOGO_URL"])
-REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-Resque.redis = REDIS
+
+Resque.before_fork = Proc.new { 
+     ActiveRecord::Base.verify_active_connections! }
