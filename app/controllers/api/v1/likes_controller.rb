@@ -6,7 +6,7 @@ class Api::V1::LikesController < ApplicationController
 
   def index
     @likes = @likeable.likes
-    render :json => @likes
+    render :json => @likes.as_json(:methods => :owner)
   end
 
   def new
