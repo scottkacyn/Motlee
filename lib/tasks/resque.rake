@@ -1,6 +1,10 @@
 require 'resque/tasks'
 task "resque:setup" => :environment do
     ENV['QUEUE'] = '*'
+
+    Resque.before_fork = Proc.new { 
+         ActiveRecord::Base.verify_active_connections!
+    } 
     
     Resque.after_fork do
         defined?(ActiveRecord::Base) and
