@@ -15,7 +15,10 @@ class Api::V1::PhotosController < ApplicationController
 	  else
             if !@event.nil?
               @photos = @event.photos
-              render :json => @photos.as_json(:include => [:comments, :likes], :methods => [:owner])
+              render :json => @photos.as_json(
+                    {:methods => [:owner],
+                     :include => {:comments => {:methods => [:owner]},
+                                  :likes => {:methods => [:owner]}}})
             else
               @photos = Photo.all
               render :json => @photos.as_json
