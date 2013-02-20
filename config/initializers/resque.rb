@@ -1,3 +1,5 @@
+puts "initializers/resque.rb"
+
 Dir["/app/app/jobs/*.rb"].each { |file| require file }
 
 uri = URI.parse(ENV["REDISTOGO_URL"])

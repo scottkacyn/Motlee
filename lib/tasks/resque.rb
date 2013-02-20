@@ -1,5 +1,7 @@
 require 'resque/tasks'
 
+puts "lib/tasks/resque.rb"
+
 task "resque:setup" => :environment do
     ENV['QUEUE'] = '*'
     
