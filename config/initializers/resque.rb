@@ -1,2 +1,11 @@
 Dir["/app/app/jobs/*.rb"].each { |file| require file }
-Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
+
+Resque.before_fork do
+    defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.connection.disconnect!
+end
+
+Resque.after_fork do
+    defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.establish_connection
+end
