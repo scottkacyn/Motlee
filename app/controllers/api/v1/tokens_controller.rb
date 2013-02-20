@@ -69,7 +69,7 @@ class Api::V1::TokensController < ApplicationController
                                :birthday => birthday,
                                :username => username,
                                :gender => gender,
-                               :is_activated => 't',
+                               :is_activated => true,
                                :picture => "https://graph.facebook.com/" + uid + "/picture",
                                :password => Devise.friendly_token[0,20]
                               )

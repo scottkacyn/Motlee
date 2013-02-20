@@ -49,7 +49,7 @@ module ProcessNewUserInvite
                            :birthday => birthday,
                            :username => username,
                            :gender => gender,
-                           :is_activated => 'f',
+                           :is_activated => false,
                            :picture => "https://graph.facebook.com/" + uid + "/picture",
                            :password => Devise.friendly_token[0,20]
                           )

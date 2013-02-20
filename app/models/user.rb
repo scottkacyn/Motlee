@@ -5,8 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :provider, :uid,
-                  :name, :first_name, :last_name, :username, :birthday, :gender, :picture, :sign_in_count
+  attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :first_name, :last_name, :username, :birthday, :gender, :picture, :sign_in_count, :is_activated
   
   
   # Setup ActiveRecord associations with other models
@@ -32,6 +31,7 @@ class User < ActiveRecord::Base
       :username => auth.info.username,
       :picture => "https://graph.facebook.com/" + auth.uid + "/picture",
       :email => auth.info.email,
+      :is_activated => true,
       :password => Devise.friendly_token[0,20]
       )
     end
