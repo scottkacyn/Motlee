@@ -8,6 +8,7 @@ task "resque:setup" => :environment do
     if ENV['NEW_RELIC_APP_NAME']
         NewRelic::Agent.manual_start :app_name => ENV['NEW_RELIC_APP_NAME']
     end
+
     Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }    
 end
 
