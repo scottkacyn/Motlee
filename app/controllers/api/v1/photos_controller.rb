@@ -30,7 +30,10 @@ class Api::V1::PhotosController < ApplicationController
         # Returns information for a particular photo
 	def show
             @photo = Photo.find(params[:id])
-            render :json => @photo.as_json(:include => [:comments, :likes], :methods => [:owner])
+            render :json => @photo.as_json(
+                    {:methods => [:owner],
+                     :include => {:comments => {:methods => [:owner]},
+                                  :likes => {:methods => [:owner]}}})
 	end
 	
         # POST /photos
