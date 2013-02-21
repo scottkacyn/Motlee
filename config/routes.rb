@@ -3,7 +3,7 @@ require 'resque/server'
 
 Motlee::Application.routes.draw do
 
-  mount Resque::Server, :at => "/resque"
+  mount Resque::Server.new, :at => "/resque"
 
   devise_for :users, :controllers => { :sessions => 'users/sessions', :omniauth_callbacks => 'users/omniauth_callbacks' }
 
