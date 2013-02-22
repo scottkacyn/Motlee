@@ -33,12 +33,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-	@attendee = Attendee.new(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
-	if @attendee.save
-		# Success
-	else
-		# Failure
-	end
+        @attendee = Attendee.create(:user_id => @event.user_id, :event_id => @event.id, :rsvp_status => 1)
         format.html { redirect_to(@event, :notice => 'Event was successfully created.') }
       else
         format.html { render :action => "new" }

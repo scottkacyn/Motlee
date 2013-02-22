@@ -28,6 +28,7 @@ Motlee::Application.configure do
   ENV['S3_BUCKET'] = 'motlee-staging-photos'
   ENV['S3_KEY'] = 'AKIAIZEAHVEKVBBVZAVQ'
   ENV['S3_SECRET'] = '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'
+  ENV['SUPERUSER_ID'] = '1'
   ENV["REDISTOGO_URL"] = 'redis://redistogo:9918b9ce59e2deadf87b3412ad13adc2@spadefish.redistogo.com:9258/'
 
 end

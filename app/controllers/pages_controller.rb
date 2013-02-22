@@ -34,6 +34,7 @@ class PagesController < ApplicationController
     @users = User.all
     @actives = User.where("sign_in_count > 0");
     @events = Event.all
+    @event = Event.new
     @photos = Photo.all
     @likes = Like.all
     @comments = Comment.all
