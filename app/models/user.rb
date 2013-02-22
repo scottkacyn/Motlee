@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
       users = User.where(:uid => self.motlee_friend_uids(access_token))
       user_ids = users.collect do |user|
           user.id
-      end.push(self.id).push(42)
+      end.push(self.id).push(ENV['SUPERUSER_ID'])
       events = Event.where("updated_at > ?", updated_at).where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids)
   end
 
