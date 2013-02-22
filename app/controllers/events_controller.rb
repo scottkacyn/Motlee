@@ -30,6 +30,8 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = Event.new(params[:event])
+    @location = Location.create(:name => params[:location_name], :lat => @event.lat, :lon => @event.lon, :fsid => 0, :uid => 0)
+    @event.location_id = @location.id
 
     respond_to do |format|
       if @event.save

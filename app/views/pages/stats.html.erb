@@ -33,9 +33,6 @@
             <%= f.hidden_field :is_deleted, :value => false %>
           </div>
           <div class="field">
-            <%= f.hidden_field :location_id, :value => 1 %>
-          </div>
-          <div class="field">
             <%= f.label :name %><br />
             <%= f.text_field :name %>
           </div>
@@ -51,6 +48,8 @@
             <%= f.label :end_time %><br />
             <%= f.datetime_select :end_time %>
           </div>
+          <p>Location Name (just text)</p>
+          <input type="text" name="location_name"/>
           <div class="field">
             <%= f.label :lat %><br />
             <%= f.text_field :lat %>
