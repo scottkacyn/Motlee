@@ -29,8 +29,7 @@ class Event < ActiveRecord::Base
   scope :nearby, lambda { |lat,lon|
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
 	where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).
-	where("start_time < ?", Time.now).
-	where("end_time > ?", Time.now).
+        where("updated_at > ?", (Time.now - 6.hours)).
 	limit(20)
   }
 

@@ -76,5 +76,4 @@ class User < ActiveRecord::Base
   def settings
     settings = Setting.where(:user_id => self.id)
   end
-
 end

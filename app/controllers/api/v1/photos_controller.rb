@@ -44,7 +44,27 @@ class Api::V1::PhotosController < ApplicationController
 	  @photo.event_id = @event.id
 
 	  if @photo.save
-	    @event.update_attributes(:updated_at => @photo.updated_at)
+
+            @photos = @event.photos
+            cart_x = @photos.collect do |photo|
+                Math.cos(photo.lat * (Math.pi / 180)) * Math.cos(photo.lon * (Math.pi / 180))
+            end
+            cart_y = @photos.collect do |photo|
+                Math.cos(photo.lat * (Math.pi / 180)) * Math.sin(photo.lon * (Math.pi / 180))
+            end
+            cart_z = @photos.collect do |photo|
+                Math.sin(photo.lat * (Math.pi / 180))
+            end
+
+            avg_x = cart_x.inject(:+) / cart_x.length
+            avg_y = cart_y.inject(:+) / cart_y.length
+            avg_z = cart_z.inject(:+) / cart_z.length
+
+            t_lon = Math.atan2(avg_y, avg_x) * (180 / Math.pi)
+            hyp = Math.sqrt((avg_x * avg_x) + (avg_y * avg_y))
+            t_lat = Math.atan2(avg_z, hyp) * (180 / Math.pi)
+
+	    @event.update_attributes(:updated_at => @photo.updated_at, :lat => t_lat, :lon => t_lon)
  	    render :json => @photo, :status => :created
 	  else
 	    render :json => @photo.errors, :status => :unprocessable_entity
