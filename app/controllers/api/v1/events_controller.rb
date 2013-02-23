@@ -137,7 +137,7 @@ class Api::V1::EventsController < ApplicationController
             end
         end
 
-        render :json => @event.as_json
+        render :json => @event.as_json(:include => :location)
     end
 
     def destroy
