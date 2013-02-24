@@ -57,7 +57,7 @@
     <div class="container_inset">
         <div class="event_thumbnails">
             <% @photos.each do |photo| %>
-                <div class="event_photo">
+                <div class="event_photo" id="event_photo_<%= photo.id %>">
                 <%= image_tag photo.image.url, :onClick => "showBigPhoto('#{photo.image.url}')" %>
                 <%= image_tag "http://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
                 <span><%= photo.user.name %></span>
