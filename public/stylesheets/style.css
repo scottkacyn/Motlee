@@ -326,6 +326,13 @@ visibility: hidden;
     height: 300px;
 }
 
+.big_photo
+{
+    width: 800px;
+    height: 800px;
+    margin: 20px auto;
+}
+
 #top {
   background: url("/images/MotleeSplash-Header.png") no-repeat black;
   -webkit-background-size: cover;
