@@ -6,7 +6,7 @@ class Api::V1::EventsController < ApplicationController
     # GET
     # /api/events
     def index
-        events = current_user.all_events(params[:uids], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"))
+        events = current_user.all_events(params[:access_token], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"))
         lat, lon = params[:lat], params[:lon]
         if lat and lon
             events = events.nearby(lat.to_f, lon.to_f)
