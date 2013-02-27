@@ -122,7 +122,8 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def share 
-        render :status => 200
+        @event = Event.find(params[:event_id])
+        render :json => @event.as_json
     end
 
     def update
