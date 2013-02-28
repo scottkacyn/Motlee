@@ -18,6 +18,7 @@ gem 'omniauth-facebook'
 gem 'fb_graph'
 gem 'curb'
 gem 'json'
+gem 'debugger'
 gem 'paperclip', '~>2.6.0'
 gem 'aws-sdk', '~>1.3.4'
 gem 'rmagick'
@@ -27,6 +28,7 @@ gem 'redis'
 gem 'sass-rails'
 gem 'resque', :require => "resque/server"
 gem 'delayed_paperclip'
+gem 'gcm_on_rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'

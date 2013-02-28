@@ -9,6 +9,10 @@ require 'resque'
         current_date = DateTime.now
         @notification_value = "#{inviter_user.name} invited you to #{event.name}|event|#{event.id}|#{inviter_user.id}|#{current_date}"
         Notifications.add_notification(invitee_user_id, @notification_value)
+
+		log = Logger.new(STDOUT)
+		log.debug "about to call PushNotification"
+		PushNotification.add_event_notification(invitee_user_id, event, inviter_user)
     end
   end
 

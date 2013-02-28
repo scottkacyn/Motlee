@@ -4,7 +4,7 @@ require 'resque/server'
 Motlee::Application.routes.draw do
 
   mount Resque::Server.new, :at => "/resque"
-
+  
   devise_for :users, :controllers => { :sessions => 'users/sessions', :omniauth_callbacks => 'users/omniauth_callbacks' }
 
   resources :users
@@ -58,9 +58,10 @@ Motlee::Application.routes.draw do
       resources :photos, :only => :index
       resources :users do
 	collection do
-	  match ':user_id/friends' => 'users#friends', :via => :get
-          match ':user_id/notifications' => 'users#notifications', :via => :get
-          match ':user_id/settings' => 'settings#index', :via => :get
+		match ':user_id/device' => 'users#device', :via => :post
+	    match ':user_id/friends' => 'users#friends', :via => :get
+        match ':user_id/notifications' => 'users#notifications', :via => :get
+        match ':user_id/settings' => 'settings#index', :via => :get
 	end
       end
       resources :locations, :only => [:index, :new, :create]

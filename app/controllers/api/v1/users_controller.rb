@@ -52,6 +52,25 @@ class Api::V1::UsersController < ApplicationController
     #end
   end
 
+  # POST api/users/<user_id>/device
+  def device
+
+	a_device = Device.where(:user_id => params[:user_id], :device_id => params[:device_id]).first
+	
+	log = Logger.new(STDOUT)
+	log.debug "about to check a_device"
+	log.debug "type #{params[:type]}"
+	if (a_device.nil?)
+
+		log.debug "a_device is null. about to create"
+
+		Device.create(:user_id => params[:user_id], :device_id => params[:device_id], :device_type => params[:type])
+
+	end
+
+	render :json => params[:device_id]
+
+  end
 
   # api/users/<user id>/events
   # ...
