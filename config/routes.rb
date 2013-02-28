@@ -5,8 +5,6 @@ Motlee::Application.routes.draw do
 
   mount Resque::Server.new, :at => "/resque"
   
-  ActiveAdmin.routes(self)
-  devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, :controllers => { :sessions => 'users/sessions', :omniauth_callbacks => 'users/omniauth_callbacks' }
 
   resources :users
