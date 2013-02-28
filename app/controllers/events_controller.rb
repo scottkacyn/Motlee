@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_filter :authenticate_user!, :except => :show
+  before_filter :ensure_admin_routing
 
   # GET /events
   def index
@@ -65,4 +65,11 @@ class EventsController < ApplicationController
       format.html { redirect_to(events_url) }
     end
   end
+
+private
+
+  def ensure_admin_routing
+    (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless (current_user.id < 4))
+  end
+    
 end

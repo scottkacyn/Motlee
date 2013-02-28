@@ -1,4 +1,7 @@
 class LocationsController < ApplicationController
+
+  before_filter :ensure_admin_routing
+
   # GET /locations
   # GET /locations.xml
   def index
@@ -79,5 +82,11 @@ class LocationsController < ApplicationController
       format.html { redirect_to(locations_url) }
       format.xml  { head :ok }
     end
+  end
+
+private
+
+  def ensure_admin_routing
+    (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless (current_user.id < 4))
   end
 end
