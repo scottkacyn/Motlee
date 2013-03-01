@@ -10,6 +10,12 @@ class Api::V1::EventsController < ApplicationController
         lat, lon = params[:lat], params[:lon]
         if lat and lon
             events = events.nearby(lat.to_f, lon.to_f)
+
+            events.collect do |event|
+                if event.photos.count > 0
+                    event
+                end
+            end
         end
         render :json => events.as_json(:include => {:location => {}, :photos => {:methods => :owner}, :people_attending => {}}, :methods => [:owner, :attendee_count, :is_attending])
     end
