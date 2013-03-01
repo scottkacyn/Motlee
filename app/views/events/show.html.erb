@@ -56,7 +56,7 @@
 <div class="container_guy">
     <div class="container_inset">
         <div class="event_thumbnails">
-            <% @photos.each do |photo| %>
+            <% @event.photos.each do |photo| %>
                 <div class="event_photo" id="event_photo_<%= photo.id %>">
                 <a href="/events/<%= @event.id %>/photos/<%= photo.id %>">
                     <%= image_tag photo.image.url %>

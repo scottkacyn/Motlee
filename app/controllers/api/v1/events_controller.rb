@@ -42,7 +42,7 @@ class Api::V1::EventsController < ApplicationController
         end
         @event.is_deleted = false 
         location = Location.find_or_create_with_params(params[:location])
-        @event.location_id = location.nil? ? 0 : location.id;
+        @event.location_id = (location.nil?) ? 0 : location.id;
         
         if @event.save
             @attendee = Attendee.create(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
@@ -112,9 +112,6 @@ class Api::V1::EventsController < ApplicationController
             
             # Render a response so the devices are happy
             @event.update_attributes(:updated_at => Time.now)
-            if (params[:post_to_fb] == "true")
-                Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], @uids)
-            end
             render :json => @event.as_json({:methods => [:owner, :attendee_count], 
                    :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
                    :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
@@ -123,11 +120,16 @@ class Api::V1::EventsController < ApplicationController
 
     def share 
         @event = Event.find(params[:event_id])
+        uids = ""
+        for attendee in @event.attendees
+            uids = uids + attendee.user.uid.to_s + ","
+        end
+        Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], uids)
         render :json => @event.as_json
     end
 
     def update
-        @event = Event.update(params[:id], params[:event])
+        @event = current_user.events.update(params[:id], params[:event])
 
         if params[:location]
             location = Location.find_or_create_with_params(params[:location])
@@ -142,7 +144,7 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def destroy
-        @event = Event.find(params[:id])
+        @event = current_user.events.find(params[:id])
         @event.update_attributes(:is_deleted => true)
         render :json => @event.as_json
     end
