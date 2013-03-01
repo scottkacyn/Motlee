@@ -48,6 +48,15 @@
     </ul>
 </div>
 <div class="container_guy">
+    <h2>Friends</h2>
+    <ul>
+        <% for friendship in @user.friendships %>
+            <li>
+                <%= friendship.friend.name %>
+                (<%= link_to "remove", friendship, :method => :delete %>)
+            </li>
+        <% end %>
+    </ul>
     <div class="container_inset">
         <div class="event_thumbnails">
             <% @user.photos.each do |photo| %>
@@ -63,16 +72,6 @@
         </div>
     </div>
 </div>
-<!--
-<div class="photoViewer">
-    <div class="bigPhotoContainer">
-        <a id="hidePhotoButton" onClick='$(".photoViewer").fadeOut(300)'>
-            <img src="/images/remove.png" width="25" height="25" />
-        </a>
-        <div class="bigPhoto">
-        </div>
-    </div>
-</div>-->
 <script type="text/javascript">
     function openDropdown(e) {
         $(e.target)

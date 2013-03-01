@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   has_many :attendees
   has_one :setting
   has_many :events_attended, :through => :attendees, :source => :event
+  has_many :friendships
+  has_many :friends, :through => :friendships
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -66,7 +70,8 @@ class User < ActiveRecord::Base
       user_ids = users.collect do |user|
           user.id
       end.push(self.id).push(ENV['SUPERUSER_ID'])
-      events = Event.where("updated_at > ?", updated_at).where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids)
+      events = Event.where("updated_at > ?", updated_at)
+                    .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids)
   end
 
   def recent_photos
