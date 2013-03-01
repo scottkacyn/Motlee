@@ -43,7 +43,7 @@ class Api::V1::PhotosController < ApplicationController
 	  @photo.user_id = current_user.id
 	  @photo.event_id = @event.id
 
-	  if @photo.save
+	  if @photo.save and (@photo.lat != 0 and @photo.lon != 0 and @photo.lat != -1 and @photo.lon != -1)
 
             @photos = @event.photos
             cart_x = @photos.collect do |photo|
