@@ -1,0 +1,51 @@
+<div id="live_container">
+    <% @event.photos.each do |photo| %>
+        <img id="photo_<%= photo.id %>" class="slideshow-item" src="<%= photo.image.url %>" height="100%"/>
+    <% end %>
+</div>
+<script type="text/javascript">
+    $(window).load(function() {
+
+        $(".bg_container").css("background", "#000");
+
+        var ScreenSlider =
+        {
+            init: function()
+            {
+                //initial fade-in time (in milliseconds)
+                var initialFadeIn = 1000;
+     
+                //interval between items (in milliseconds)
+                var itemInterval = 5000;
+     
+                //cross-fade time (in milliseconds)
+                var fadeTime = 2500;
+     
+                //count number of items
+                var numberOfItems = $('.slideshow-item').length;
+     
+                //set current item
+                var currentItem = 0;
+     
+                //show first item
+                $('.slideshow-item').eq(currentItem).fadeIn(initialFadeIn);
+     
+                //loop through the items
+                var infiniteLoop = setInterval(function(){
+                    $('.slideshow-item').eq(currentItem).fadeOut(fadeTime);
+     
+                    if(currentItem == numberOfItems -1){
+                        location.reload(true);
+                    }else{
+                        currentItem++;
+                    }
+                    $('.slideshow-item').eq(currentItem).fadeIn(fadeTime);
+     
+                }, itemInterval);
+            }
+        };
+     
+        ScreenSlider.init();
+     
+    });      
+</script>

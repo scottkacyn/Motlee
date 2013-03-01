@@ -40,4 +40,8 @@ class PagesController < ApplicationController
     @comments = Comment.all
   end
 
+  def live
+    @event = Event.find(params[:event_id])
+  end
+
 end

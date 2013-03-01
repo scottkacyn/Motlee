@@ -364,6 +364,11 @@ visibility: hidden;
   left: 0;
   display: none; }
 
+.slideshow-item {
+    position: absolute;
+    display: none;
+}
+
 #phone {
   position: absolute; }
 
