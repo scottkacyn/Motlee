@@ -25,12 +25,14 @@ Motlee::Application.routes.draw do
   get "pages/jobs"
   get "pages/stats"
   get "pages/api"
+  get "pages/godview"
   get "pages/live"
 
   # PAGES - match
   match 'about' => 'pages#about', :via => :get
   match 'terms' => 'pages#terms', :via => :get
   match 'stats' => 'pages#stats', :via => :get
+  match 'godview' => 'pages#godview', :via => :get
   match 'support' => 'pages#support', :via => :get
   match 'privacy' => 'pages#privacy', :via => :get
   match 'company' => 'pages#company', :via => :get

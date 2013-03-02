@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  before_filter :authenticate_user!, :only => :stats
+  before_filter :authenticate_user!, :only => [:stats, :godview]
 
   def index
     @leads = Leads.new
@@ -37,6 +37,10 @@ class PagesController < ApplicationController
     @event = Event.new
     @photos = Photo.all.count
     @latest = Photo.order("created_at DESC").limit(100)
+  end
+
+  def godview
+    @photos = Photo.order("created_at DESC").limit(500)
   end
 
   def live
