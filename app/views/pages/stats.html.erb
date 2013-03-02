@@ -4,11 +4,22 @@
         <h2>Motlee Stats</h2>
         <h3>Total Reach: <%= @users.count %></h3>
         <h3>Total Users: <%= @actives.count %></h3>
-        <h3>Events Created: <%= @events.count %></h3>
-        <h3>Photos Taken: <%= @photos.count %></h3>
-        <h3>Photos Liked: <%= @likes.count %></h3>
-        <h3>Photo Comments: <%= @comments.count %></h3>
+        <h3>Events: <%= @events.count %></h3>
+        <h3>Photos: <%= @photos %></h3>
 
+        ####<br />
+        
+        <h1>Most Recent Photos</h1>
+    
+        <ul style="width=1000px; text-align:center; margin:0 auto;">
+        <% @latest.each do |photo| %>
+            <li id="<%= photo.id %>" style="float:left;">
+                <img src="<%= photo.image.url(:thumbnail) %>" width="100" />
+            </li>
+        <% end %>
+        </ul>
+        <div style="clear:both;"></div>
+        <br />
         
         <%= form_for(@event) do |f| %>
 

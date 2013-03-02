@@ -59,7 +59,7 @@
             <% @event.photos.each do |photo| %>
                 <div class="event_photo" id="event_photo_<%= photo.id %>">
                 <a href="/events/<%= @event.id %>/photos/<%= photo.id %>">
-                    <%= image_tag photo.image.url %>
+                    <%= image_tag photo.image.url(:thumbnail) %>
                 </a>
                 <%= image_tag "http://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
                 <span><%= photo.user.name %></span>

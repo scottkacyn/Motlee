@@ -35,9 +35,8 @@ class PagesController < ApplicationController
     @actives = User.where("sign_in_count > 0");
     @events = Event.all
     @event = Event.new
-    @photos = Photo.all
-    @likes = Like.all
-    @comments = Comment.all
+    @photos = Photo.all.count
+    @latest = Photo.order("created_at DESC").limit(10)
   end
 
   def live
