@@ -36,7 +36,7 @@ class PagesController < ApplicationController
     @events = Event.all
     @event = Event.new
     @photos = Photo.all.count
-    @latest = Photo.order("created_at DESC").limit(10)
+    @latest = Photo.order("created_at DESC").limit(100)
   end
 
   def live

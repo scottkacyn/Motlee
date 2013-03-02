@@ -11,7 +11,7 @@
         
         <h1>Most Recent Photos</h1>
     
-        <ul style="width=1000px; text-align:center; margin:0 auto;">
+        <ul style="width=1000px; text-align:center; margin:0 auto; list-style:none;">
         <% @latest.each do |photo| %>
             <li id="<%= photo.id %>" style="float:left;">
                 <img src="<%= photo.image.url(:thumbnail) %>" width="100" />
