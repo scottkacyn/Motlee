@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :show
 
   # GET /events
   def index
@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   # GET /events/1
   def show
-    @event = current_user.events_attended.find(params[:id])
+    @event = Event.find(params[:id])
   end
 
   # POST /events
