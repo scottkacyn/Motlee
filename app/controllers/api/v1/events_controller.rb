@@ -77,8 +77,8 @@ class Api::V1::EventsController < ApplicationController
     # Allows you to add a user to an event as an attendee
     # Requires :uids param which is an array of Facebook UIDs
     def join
+        @event = Event.find(params[:event_id])
         if (params[:type] == "invite")
-            @event = Event.find(params[:event_id])
             @uids = params[:uids]
             @uid_array = []
             @uid_array = @uids.split(",")
@@ -108,14 +108,15 @@ class Api::V1::EventsController < ApplicationController
                         end
                     end
                 end
-            end
-            
-            # Render a response so the devices are happy
-            @event.update_attributes(:updated_at => Time.now)
-            render :json => @event.as_json({:methods => [:owner, :attendee_count], 
-                   :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
-                   :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
+            end    
+        else
+            @attendee = Attendee.create(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1)
         end
+        # Render a response so the devices are happy
+        @event.update_attributes(:updated_at => Time.now)
+        render :json => @event.as_json({:methods => [:owner, :attendee_count], 
+               :include => {:photos => {:include => {:comments => {}, :likes => {}}}, 
+               :people_attending => {:only => [:id, :uid, :name, :sign_in_count]}}})
     end
 
     def share 
