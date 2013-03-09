@@ -1,78 +1,57 @@
 <% content_for :head do %>
 <head>
 <% end %>
-<div id="top">
-    <div id="screenshot_container">
-        <img id="ss-1" class="rotating-item" src="/images/MyEvents_I4.png" width="214"/>
-        <img id="ss-2" class="rotating-item" src="/images/Grid_I4.png" width="214"/>
-        <img id="ss-3" class="rotating-item" src="/images/NearbyView_I4.png" width="214"/>
+
+<div id="splash_container">
+    <div id="share">
+        <img src="/images/MotleeWeb1.png"/>
+        <div class="splashtext">
+            <h1>share. together.</h1>
+            <p>Motlee makes it easy for groups of friends to share photos at events.</p>
+            <a class="btn btn-large btn-primary">Download Motlee!</a>
+        </div>
     </div>
-    <div id="appbadges">
-        <a href="https://itunes.apple.com/app/motlee/id598056592?mt=8" target="_blank">
-            <img alt="iPhone app on App Store" src="/images/app_store_badge.png" width="172" />
-        </a>
-        <br/><br/>
-        <a href="https://play.google.com/store/apps/details?id=com.motlee.android" target="_blank">
-          <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
-        </a>
+    <div class="stickynav">
+        <ul>
+            <li><a href="#one" onclick="makeActive('one')">SHARE</a><br/><span id="bullet-one" class="bullet">&bull;</span></li>
+            <li><a href="#two" onclick="makeActive('two')">DISCOVER</a><br/><span id="bullet-two" class="bullet">&bull;</span></li>
+            <li><a href="#three" onclick="makeActive('three')">REMEMBER</a><br/><span id="bullet-three" class="bullet">&bull;</span></li>
+            <li><a href="#four" onclick="makeActive('four')">Get the app!</a><br/><span id="bullet-four" class="bullet">&bull;</span></li>
+        </ul>   
     </div>
-</div>
-<div id="bottom">
-    <div class="content">
-            <div id="interest-form">
-                <%= form_for @leads, :url => {:controller => "leads", :action => "create"}, :class => "form-inline" do |f| %>
-                    <%= f.text_field :email, :class => "input-xlarge", :placeholder => "email@example.com" %>
-                    <button type="submit" class="btn btn-primary btn-large">Submit</button>
-                <% end %>
-                <span>
-                    Let us notify you when Motlee launches by entering your email above!
-                </span>
-            </div>
+    <div id="splash_middle">
+        <div id="one"></div>
+        <div class="splashtext">
+            <h1>share with friends.</h1>
+            <p>When you create an event and invite your friends, everybody's photos go into a single place.</p>
+        </div>
+        <img src="/images/MotleeWeb2.png"/>
+    </div>
+    <div id="splash_bottom">
+        <div id="two"></div>
+        <img src="/images/MotleeWeb3.png"/> 
+        <div class="splashtext">
+            <h1>discover your city.</h1>
+            <p>Public events are displayed on a map, so you can see all of the interesting things happening nearby with the people and places you care about.</p>
+        </div>
+    </div>
+    <div id="splash_cellar">
+        <div id="three"></div>
+        <div class="splashtext">
+            <h1>keep memories.</h1>
+            <p>After the event is over, you and your friends' photos will always be available on your phone and online.</p>
+        </div>
+        <img src="/images/MotleeWeb4.png"/>
+    </div>
+    <div id="splash_download">
+        <div id="four"></div>
+        <div class="splashtext">
+            <h1>whatcha waitin' for?</h1>
+            <p>Download the app and join our sharing revolution!</p>
+            <a class="btn btn-large btn-blue" href="https://itunes.apple.com/app/motlee/id598056592?mt=8" target="_blank">iPhone</a> <span style="color:#BBB; font-size:20px; padding:0 20px;"> & </span>
+            <a class="btn btn-large btn-blue" href="https://play.google.com/store/apps/details?id=com.motlee.android" target="_blank">Android</a>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
-    $(window).load(function() {
-
-        $(".bg_container").css("background", "#000");
-
-        var ScreenSlider =
-        {
-            init: function()
-            {
-                //initial fade-in time (in milliseconds)
-                var initialFadeIn = 1000;
-     
-                //interval between items (in milliseconds)
-                var itemInterval = 5000;
-     
-                //cross-fade time (in milliseconds)
-                var fadeTime = 2500;
-     
-                //count number of items
-                var numberOfItems = $('.rotating-item').length;
-     
-                //set current item
-                var currentItem = 0;
-     
-                //show first item
-                $('.rotating-item').eq(currentItem).fadeIn(initialFadeIn);
-     
-                //loop through the items
-                var infiniteLoop = setInterval(function(){
-                    $('.rotating-item').eq(currentItem).fadeOut(fadeTime);
-     
-                    if(currentItem == numberOfItems -1){
-                        currentItem = 0;
-                    }else{
-                        currentItem++;
-                    }
-                    $('.rotating-item').eq(currentItem).fadeIn(fadeTime);
-     
-                }, itemInterval);
-            }
-        };
-     
-        ScreenSlider.init();
-     
-    });      
 </script>

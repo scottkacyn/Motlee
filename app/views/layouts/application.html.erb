@@ -6,6 +6,7 @@
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
   <meta name="google-site-verification" content="Q6BlJWjWuU9gCQat1sQet2SIPaJR8wLcXe-YyEqa7Lg" />
+  <meta name="apple-itunes-app" content="app-id=598056592">
   <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -22,7 +23,99 @@
 </head>
 <body>
     <div class="bg_container">
+        <header class="navigation_bar">
+            <div class="navigation_bar_choker">
+                <h1 class="logo">
+                    <a href="/">Motlee</a>
+                </h1>
+                <div class="navigation_bar_right">
+                    <ul class="navigation_bar_actions">
+                        <% if current_user %>
+                            <li id="link_profile" class="link-profile has-dropdown">
+                                <a href="javascript:;">
+                                    <span class="img img-outset avatar" style="background-image: url(http://graph.facebook.com/<%= current_user.uid %>/picture);">
+                                        <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" alt>
+                                        <b></b>
+                                    </span>
+                                    <strong id="username"><%= current_user.name %></strong>
+                                </a>
+                                <div class="dropdown">
+                                    <ul role="navigation">
+                                        <li><a href="/users/<%= current_user.id %>">View Profile</a></li>
+                                        <li><a href="/users/edit">Edit Profile</a></li>
+                                        <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        <% else %>
+                            <li id="link_profile" class="link-profile">
+                                <a href="/users/auth/facebook"><strong id="username">Sign in with Facebook</strong></a>
+                            </li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        </header>
         <%= yield %>
+        <div id="footer">
+            <!--<img src="/images/app_store_badge.png"/>
+            <br />
+            <a href="https://play.google.com/store/apps/details?id=com.motlee.android">
+                <img alt="Android app on Google Play"
+                src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+            </a>-->
+        </div>
     </div>
 </body>
 </html>
+<script type="text/javascript">
+    function openDropdown(e) {
+        $(e.target)
+            .parents('.has-dropdown')
+            .toggleClass("dropdown-open")
+            .children('a').toggleClass("link-active");
+    }
+
+    $(document).ready(function() {
+        $(".has-dropdown > a").click(openDropdown);
+        var $html = $('html');
+        if ($.browser.msie) {
+            $html.addClass('msie');
+        } else if ($.browser.opera) {
+            $html.addClass('opera');
+        }
+    });
+
+    $(window).load(function() {
+        // Make the event info sticky bar clickable
+        $(".topitem").click(function() {
+            if ($(".subitem").is(":visible")) {
+              $(".subitem").hide();
+              $("#event_info_img").attr("src", "/images/down_arrow.png");
+            } else {
+              $(".subitem").fadeIn(200);
+              $("#event_info_img").attr("src", "/images/up_arrow.png");
+            }
+        });
+    });
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 44) {
+            $(".event_info_container").css("position", "fixed");
+            $(".event_info_container").css("top", "0"); 
+        } else {
+            $(".event_info_container").css("position", "absolute");
+            $(".event_info_container").css("top", "");
+        }
+
+        if ($(window).scrollTop() > 610) {
+            $(".stickynav").css("position", "fixed");
+            $(".stickynav").css("top", "0");
+            $("#share").css("margin-bottom", "100px");
+        } else {
+            $(".stickynav").css("position", "relative");
+            $(".stickynav").css("top", "");
+            $("#share").css("margin-bottom", "");
+        }
+    });
+</script>
