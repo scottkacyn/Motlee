@@ -54,4 +54,19 @@
     </div>
 </div>
 <script type="text/javascript">
+    function makeActive(link) {
+        if (link == "one") {
+            $("#splash_middle").hide();
+            $("#splash_middle").fadeIn(1000);
+        } else if (link == "two") {
+            $("#splash_bottom").hide();
+            $("#splash_bottom").fadeIn(1000);
+        } else if (link == "three") {
+            $("#splash_cellar").hide();
+            $("#splash_cellar").fadeIn(1000);
+        } else {
+            $("#splash_download").hide();
+            $("#splash_download").fadeIn(1000);
+        }
+    }
 </script>
