@@ -30,7 +30,7 @@ class Event < ActiveRecord::Base
         where("updated_at > ?", (Time.now - 6.hours)).
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
 	where("lon BETWEEN ? AND ?", lon - COORDINATE_DELTA, lon + COORDINATE_DELTA).
-        where("id = ANY (SELECT event_id FROM photos WHERE created_at > ?)", (Time.now - 6.hours)).
+        where("id = ANY (SELECT event_id FROM photos WHERE created_at > ?)", (Time.now - 24.hours)).
 	limit(20)
   }
 
