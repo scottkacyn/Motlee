@@ -339,8 +339,9 @@ visibility: hidden;
 
 .big_photo
 {
-    width: 600px;
-    height: 600px;
+    width: 700px;
+    height: 700px;
+    text-align: center;
     margin: 20px auto;
 }
 
