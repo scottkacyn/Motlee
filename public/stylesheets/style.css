@@ -30,6 +30,7 @@ body {
   font-weight: 100; }
 
 .bg_container {
+  position: relative;
   background: url("/images/satinweave.png");
   min-width: 1400px;
   padding: 0;
@@ -209,14 +210,15 @@ visibility: hidden;
 }
 
 .container_guy {
+  position: relative;
   margin: 50px 0;
   padding: 0;
 }
 
 .container_inset {
+  position: relative;
   min-width: 320px;
   max-width: 1020px;
-  min-height: 800px;
   margin: 0 auto;
 }
 
@@ -288,6 +290,9 @@ visibility: hidden;
     float: left;
     margin: 0;
     padding: 0;
+}
+
+.event_thumbnails:after {
     clear: both;
 }
 
