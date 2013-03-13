@@ -284,9 +284,11 @@ visibility: hidden;
 
 .event_thumbnails
 {
+    position: relative;
     float: left;
     margin: 0;
     padding: 0;
+    clear: both;
 }
 
 .event_thumbnails .event_photo {
