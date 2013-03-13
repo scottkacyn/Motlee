@@ -41,8 +41,8 @@
                                 </a>
                                 <div class="dropdown">
                                     <ul role="navigation">
-                                        <li><a href="/users/<%= current_user.id %>">View Profile</a></li>
-                                        <li><a href="/users/edit">Edit Profile</a></li>
+                                        <li><a href="/events">My Threads</a></li>
+                                        <li><a href="/users/<%= current_user.id %>">My Profile</a></li>
                                         <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
                                     </ul>
                                 </div>
@@ -58,12 +58,30 @@
         </header>
         <%= yield %>
         <div id="footer">
-            <!--<img src="/images/app_store_badge.png"/>
-            <br />
-            <a href="https://play.google.com/store/apps/details?id=com.motlee.android">
-                <img alt="Android app on Google Play"
-                src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
-            </a>-->
+            <div class="footer_wrapper">
+                <ul class="footer_column">
+                    <img src="/images/logoWeb.png"/>
+                    <li class="footer_header">&copy; Flashbulb, LLC 2012</li><br/>
+                    <a href="https://itunes.apple.com/app/motlee/id598056592"><img src="/images/app_store_badge.png"/></a><br/><br/>
+                    <a href="https://play.google.com/store/apps/details?id=com.motlee.android">
+                      <img alt="Android app on Google Play"
+                             src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+                    </a>
+                </ul>
+                <ul class="footer_column">
+                    <li class="footer_header">about</li>
+                    <li><a href="/about">Motlee</a></li>
+                    <li><a href="/support">Support</a></li>
+                    <li><a href="http://blog.motleeapp.com" target="_blank">Blog</a></li>
+                    <li><a href="/privacy">Privacy</a></li>
+                    <li><a href="/terms">Terms</a></li>
+                </ul>
+                <ul class="footer_column">
+                    <li class="footer_header">company</li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/jobs">Careers</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </body>
@@ -83,39 +101,6 @@
             $html.addClass('msie');
         } else if ($.browser.opera) {
             $html.addClass('opera');
-        }
-    });
-
-    $(window).load(function() {
-        // Make the event info sticky bar clickable
-        $(".topitem").click(function() {
-            if ($(".subitem").is(":visible")) {
-              $(".subitem").hide();
-              $("#event_info_img").attr("src", "/images/down_arrow.png");
-            } else {
-              $(".subitem").fadeIn(200);
-              $("#event_info_img").attr("src", "/images/up_arrow.png");
-            }
-        });
-    });
-
-    $(window).scroll(function() {
-        if ($(window).scrollTop() > 44) {
-            $(".event_info_container").css("position", "fixed");
-            $(".event_info_container").css("top", "0"); 
-        } else {
-            $(".event_info_container").css("position", "absolute");
-            $(".event_info_container").css("top", "");
-        }
-
-        if ($(window).scrollTop() > 610) {
-            $(".stickynav").css("position", "fixed");
-            $(".stickynav").css("top", "0");
-            $("#share").css("margin-bottom", "100px");
-        } else {
-            $(".stickynav").css("position", "relative");
-            $(".stickynav").css("top", "");
-            $("#share").css("margin-bottom", "");
         }
     });
 </script>

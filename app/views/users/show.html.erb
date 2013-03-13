@@ -6,57 +6,7 @@
   <meta property="og:title"  content="<%= @user.name %>" /> 
   <meta property="og:image"  content="https://graph.facebook.com/<%= @user.uid %>/picture?type=square&width=200&height=200" />
 <% end %>
-<header class="navigation_bar">
-    <div class="navigation_bar_choker">
-        <h1 class="logo">
-            <a href="/">Motlee</a>
-        </h1>
-        <div class="navigation_bar_right">
-            <ul class="navigation_bar_actions">
-                <% if current_user %>
-                    <li id="link_profile" class="link-profile has-dropdown">
-                        <a href="javascript:;">
-                            <span class="img img-outset avatar" style="background-image: url(http://graph.facebook.com/<%= current_user.uid %>/picture);">
-                                <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" alt>
-                                <b></b>
-                            </span>
-                            <strong id="username"><%= current_user.name %></strong>
-                        </a>
-                        <div class="dropdown">
-                            <ul role="navigation">
-                                <li><a href="/users/<%= current_user.id %>">View Profile</a></li>
-                                <li><a href="/users/edit">Edit Profile</a></li>
-                                <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
-                            </ul>
-                        </div>
-                    </li>
-                <% else %>
-                    <li id="link_profile" class="link-profile">
-                        <a href="/users/auth/facebook"><strong id="username">Sign in with Facebook</strong></a>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
-    </div>
-</header>
-<div class="event_info_container">
-    <ul class="event_info">
-        <li class="topitem"><%= @user.name %><img id="event_info_img" src="/images/down_arrow.png" width="20" height="20" style="margin-top:12px; margin-left:5px; position:absolute;"/></li>
-        <li class="subitem">Events Attended: <%= @user.events_attended.count %></li>
-        <li class="subitem">Photos Taken: <%= @user.photos.count %></li>
-        <li class="subitem"></li>
-    </ul>
-</div>
 <div class="container_guy">
-    <h2>Friends</h2>
-    <ul>
-        <% for friendship in @user.friendships %>
-            <li>
-                <%= friendship.friend.name %>
-                (<%= link_to "remove", friendship, :method => :delete %>)
-            </li>
-        <% end %>
-    </ul>
     <div class="container_inset">
         <div class="event_thumbnails">
             <% @user.photos.each do |photo| %>
@@ -72,44 +22,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function openDropdown(e) {
-        $(e.target)
-            .parents('.has-dropdown')
-            .toggleClass("dropdown-open")
-            .children('a').toggleClass("link-active");
-    }
-
-    $(document).ready(function() {
-        $(".has-dropdown > a").click(openDropdown);
-        var $html = $('html');
-        if ($.browser.msie) {
-            $html.addClass('msie');
-        } else if ($.browser.opera) {
-            $html.addClass('opera');
-        }
-    });
-
-    $(window).load(function() {
-        // Make the event info sticky bar clickable
-        $(".topitem").click(function() {
-            if ($(".subitem").is(":visible")) {
-              $(".subitem").hide();
-              $("#event_info_img").attr("src", "/images/down_arrow.png");
-            } else {
-              $(".subitem").fadeIn(200);
-              $("#event_info_img").attr("src", "/images/up_arrow.png");
-            }
-        });
-    });
-
-    $(window).scroll(function() {
-        if ($(window).scrollTop() > 44) {
-            $(".event_info_container").css("position", "fixed");
-            $(".event_info_container").css("top", "0"); 
-        } else {
-            $(".event_info_container").css("position", "absolute");
-            $(".event_info_container").css("top", "");
-        }
-    });
-</script>

@@ -7,39 +7,6 @@
   <meta property="og:image"       content="http://sphotos-a.xx.fbcdn.net/hphotos-ash4/417107_306342359470634_1693223354_n.png" /> 
   <meta property="og:description" content="<%= @photo.owner[0][:name] %>'s photo at <%= @event.name %>" /> 
 <% end %>
-<header class="navigation_bar">
-    <div class="navigation_bar_choker">
-        <h1 class="logo">
-            <a href="/">Motlee</a>
-        </h1>
-        <div class="navigation_bar_right">
-            <ul class="navigation_bar_actions">
-                <% if current_user %>
-                    <li id="link_profile" class="link-profile has-dropdown">
-                        <a href="javascript:;">
-                            <span class="img img-outset avatar" style="background-image: url(http://graph.facebook.com/<%= current_user.uid %>/picture);">
-                                <img src="http://graph.facebook.com/<%= current_user.uid %>/picture" alt>
-                                <b></b>
-                            </span>
-                            <strong id="username"><%= current_user.name %></strong>
-                        </a>
-                        <div class="dropdown">
-                            <ul role="navigation">
-                                <li><a href="/users/<%= current_user.id %>">View Profile</a></li>
-                                <li><a href="/users/edit">Edit Profile</a></li>
-                                <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
-                            </ul>
-                        </div>
-                    </li>
-                <% else %>
-                    <li id="link_profile" class="link-profile">
-                        <a href="/users/auth/facebook"><strong id="username">Sign in with Facebook</strong></a>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
-    </div>
-</header>
 <div class="event_info_container">
     <ul class="event_info">
         <li class="topitem"><%= @event.name %><img id="event_info_img" src="/images/down_arrow.png" width="20" height="20" style="margin-top:12px; margin-left:5px; position:absolute;"/></li>
@@ -57,27 +24,11 @@
     <div class="container_inset">
         <div class="big_photo" id="photo_<%= @photo.id %>">
             <br /><a href="/events/<%= @event.id %>">Back to Event</a><br /><br />
-            <%= image_tag @photo.image.url, :width => 800, :height => 800 %>
+            <%= image_tag @photo.image.url, :width => 600, :height => 600 %>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    function openDropdown(e) {
-        $(e.target)
-            .parents('.has-dropdown')
-            .toggleClass("dropdown-open")
-            .children('a').toggleClass("link-active");
-    }
-
-    $(document).ready(function() {
-        $(".has-dropdown > a").click(openDropdown);
-        var $html = $('html');
-        if ($.browser.msie) {
-            $html.addClass('msie');
-        } else if ($.browser.opera) {
-            $html.addClass('opera');
-        }
-    });
 
     $(window).load(function() {
         // Make the event info sticky bar clickable

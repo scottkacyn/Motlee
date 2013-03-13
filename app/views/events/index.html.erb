@@ -1,34 +1,17 @@
-<h1>Listing events</h1>
-
-<table class="table table-striped">
-  <tr>
-    <th>Owner</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Start time</th>
-    <th>End time</th>
-    <th>Location</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @events.each do |event| %>
-  <tr>
-    <% @owner = User.find(event.user_id) %>
-    <td><%= @owner.name %></td>
-    <td><%= event.name %></td>
-    <td><%= event.description %></td>
-    <td><%= event.start_time %></td>
-    <td><%= event.end_time %></td>
-    <td><%= event.location_id %></td>
-    <td><%= link_to 'Show', event %></td>
-    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-    <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Event', new_event_path %>
+<div class="container_guy">
+    <div class="container_inset">
+        <div class="event_thumbnails" style="text-align:center;">
+            <% @events.each do |event| %>
+                <% @photos = event.photos.limit(1) %>
+                    <% @photos.each do |photo| %>
+                        <div class="event_photo" id="event_photo_<%= photo.id %>">
+                        <a href="/events/<%= event.id %>">
+                            <%= image_tag photo.image.url(:thumbnail) %>
+                        </a>
+                        <h2><%= photo.event.name %></h2>
+                        </div>
+                    <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

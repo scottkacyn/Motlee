@@ -36,3 +36,28 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    $(window).load(function() {
+        // Make the event info sticky bar clickable
+        $(".topitem").click(function() {
+            if ($(".subitem").is(":visible")) {
+              $(".subitem").hide();
+              $("#event_info_img").attr("src", "/images/down_arrow.png");
+            } else {
+              $(".subitem").fadeIn(200);
+              $("#event_info_img").attr("src", "/images/up_arrow.png");
+            }
+        });
+    });
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 44) {
+            $(".event_info_container").css("position", "fixed");
+            $(".event_info_container").css("top", "0"); 
+        } else {
+            $(".event_info_container").css("position", "absolute");
+            $(".event_info_container").css("top", "");
+        }
+    });
+</script>

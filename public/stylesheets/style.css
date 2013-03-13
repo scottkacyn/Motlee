@@ -221,6 +221,10 @@ visibility: hidden;
   margin: 0 auto;
 }
 
+.container_inset h3 {
+    padding: 20px 0;
+}
+
 .event_info_container
 {
     position: absolute;
@@ -329,8 +333,8 @@ visibility: hidden;
 
 .big_photo
 {
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     margin: 20px auto;
 }
 
@@ -354,7 +358,7 @@ visibility: hidden;
 }
 
 .splashtext {
-    width: 500px;
+    width: 530px;
 }
 
 .splashtext h1 {
@@ -363,7 +367,7 @@ visibility: hidden;
 }
 
 .splashtext p {
-    font-size: 30px;
+    font-size: 24px;
     padding-bottom: 40px;
 }
 
@@ -490,6 +494,50 @@ visibility: hidden;
     min-height: 300px;
     background-color: #2A2A2A;
     width: 100%;
+}
+
+.footer_wrapper {
+    width: 900px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.footer_column
+{
+    width: 33%;
+    min-height: 260px;
+    float: left;
+    list-style: none;
+    text-align: center;
+    border-right: 1px solid #111;
+    border-left: 1px solid #333;
+}
+
+.footer_header {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.footer_column:first-child {
+    border-left: none;
+}
+
+.footer_column:last-child {
+    border-right: none;
+}
+
+.footer_column > li {
+    width: 100%;
+    line-height: 30px;
+}
+
+.footer_column > li a {
+    color: #999;
+    font-size: 14px;
+}
+
+.footer_column > li a:hover {
+    color: #F05541;
 }
 
 .rotating-item {
@@ -635,15 +683,15 @@ font-weight: normal;
 }
 
 .btn.btn-blue {
-background-color: #C25541;
+background-color: #f05541;
 text-shadow: 0 -1px #C98B20;
 font-weight: normal;
-border: 1px solid #555;
+border: 1px solid #FFFFFF;
 }
 
 .btn.btn-large {
 padding: 8px 20px 8px 22px;
-font-size: 30px;
+font-size: 24px;
 }
 
 .btn:hover {
@@ -651,7 +699,7 @@ background-color: #f05541;
 }
 
 .btn.btn-blue:hover {
-background-color: #777;
+background-color: #C25541;
 }
 
 h1, h2, h3, h4, h5, h6 {
