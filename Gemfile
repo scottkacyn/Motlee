@@ -26,9 +26,11 @@ gem 'cocaine', '~>0.3.2'
 gem 'newrelic_rpm'
 gem 'redis'
 gem 'sass-rails'
+gem 'configatron'
 gem 'resque', :require => "resque/server"
 gem 'delayed_paperclip'
 gem 'gcm_on_rails'
+gem 'apn_on_rails', :git => 'https://github.com/natescherer/apn_on_rails.git', :branch => 'rails3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
