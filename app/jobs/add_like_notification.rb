@@ -1,6 +1,5 @@
 require 'resque'
 
-
   module AddLikeNotification
     @queue = :notification
 
