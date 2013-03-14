@@ -21,7 +21,7 @@ class PushNotification
         notification.alert = message
         notification.save
 
-        rake apn:notifications:deliver
+        response = APN::Notification.send_notifications
     end
 
     def self.send_to_GCM(device_id, message, inviter_id, event_id)
