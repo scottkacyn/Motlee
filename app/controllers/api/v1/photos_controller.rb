@@ -45,6 +45,17 @@ class Api::V1::PhotosController < ApplicationController
 
 	  if @photo.save and (@photo.lat != 0 and @photo.lon != 0 and @photo.lat != -1 and @photo.lon != -1)
 
+			if (!params[:post_to_fb].nil?)
+
+				if (params[:post_to_fb] == "true")
+
+					if (!params[:access_token].nil?)
+
+						Resque.enqueue(PublishFacebookPhoto, params[:access_token], @photo.id)
+		 			end
+				end
+	  		end
+
             @photos = @event.photos
             cart_x = @photos.collect do |photo|
                 Math.cos(photo.lat * (Math::PI / 180)) * Math.cos(photo.lon * (Math::PI / 180))
