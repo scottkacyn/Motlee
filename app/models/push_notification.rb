@@ -13,7 +13,7 @@ class PushNotification
     end
 
     def self.send_to_APNS(device_id, message)
-        device = APN::Device.where(:token => device_id).first_or_create 
+        device = APN::Device.create(:token => device_id) 
         notification = APN::Notification.new   
         notification.device = device   
         notification.badge = 1
@@ -21,7 +21,7 @@ class PushNotification
         notification.alert = message
         notification.save
 
-        #response = APN::Notification.send_notifications
+        response = APN::Notification.send_notifications
     end
 
     def self.send_to_GCM(device_id, message, inviter_id, event_id)
