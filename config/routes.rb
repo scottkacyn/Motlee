@@ -63,6 +63,7 @@ Motlee::Application.routes.draw do
       resources :photos, :only => :index
       resources :users do
 	collection do
+            match 'device' => 'users#device', :via => :post
             match ':user_id/device' => 'users#device', :via => :post
 	    match ':user_id/friends' => 'users#friends', :via => :get
         match ':user_id/notifications' => 'users#notifications', :via => :get
