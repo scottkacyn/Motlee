@@ -1,2 +1,2 @@
-require 'apn_on_rails_tasks'
+require 'apn_on_rails'
 task "apn:notifications:deliver"
