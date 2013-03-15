@@ -4,8 +4,8 @@
 #   configatron.file.storage = :s3
 
 # production (delivery):
-configatron.apn.host => 'gateway.push.apple.com'
-configatron.apn.cert => File.join(RAILS_ROOT, 'config', 'apple_push_notification_production.pem')
+configatron.apn.host = 'gateway.push.apple.com'
+configatron.apn.cert = File.join(RAILS_ROOT, 'config', 'apple_push_notification_production.pem')
 
-configatron.apn.feedback.host => 'feedback.push.apple.com'
-configatron.apn.feedback.cert => File.join(RAILS_ROOT, 'config', 'apple_push_notification_production.pem')
+configatron.apn.feedback.host = 'feedback.push.apple.com'
+configatron.apn.feedback.cert = File.join(RAILS_ROOT, 'config', 'apple_push_notification_production.pem')
