@@ -13,7 +13,7 @@ class PushNotification
     end
 
     def self.send_to_APNS(device_id, message)
-        device = APN::Device.create(:token => device_id) 
+        device = APN::Device.where(:token => device_id).first_or_create
         notification = APN::Notification.new   
         notification.device = device   
         notification.badge = 1
