@@ -52,7 +52,7 @@ class Api::V1::UsersController < ApplicationController
     #end
   end
 
-  # POST api/users/device
+  # POST api/users/<user id>/device
   def device
     device = Device.where(:user_id => current_user.id, :device_id => params[:device_id], :device_type => params[:type]).first_or_create
     render :json => device.as_json

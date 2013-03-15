@@ -30,7 +30,7 @@ gem 'configatron'
 gem 'resque', :require => "resque/server"
 gem 'delayed_paperclip'
 gem 'gcm_on_rails'
-gem 'apn_on_rails'
+gem 'urbanairship'
 
 # Use unicorn as the web server
 # gem 'unicorn'
