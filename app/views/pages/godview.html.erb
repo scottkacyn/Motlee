@@ -1,7 +1,7 @@
 <% if current_user.id < 4 %>
     <ul style="width=100%; text-align:center; margin:0 auto; list-style:none;">
     <% @photos.each do |photo| %>
-        <li id="<%= photo.id %>" style="float:left; width:10%;">
+        <li id="<%= photo.id %>" style="float:left; width:1%;">
             <img src="<%= photo.image.url(:thumbnail) %>" width="100%" />
         </li>
     <% end %>
