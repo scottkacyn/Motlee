@@ -40,7 +40,7 @@ class PagesController < ApplicationController
   end
 
   def godview
-    @photos = Photo.order("created_at DESC")
+    @photos = Photo.order("created_at DESC").limit(100)
   end
 
   def live
