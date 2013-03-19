@@ -44,32 +44,9 @@ class Api::V1::PhotosController < ApplicationController
 	  @photo.event_id = @event.id
             
 	  if @photo.save
-              if (@photo.lat != 0 and @photo.lon != 0 and @photo.lat != -1 and @photo.lon != -1)
-                @photos = @event.photos
-                cart_x = @photos.collect do |photo|
-                    Math.cos(photo.lat * (Math::PI / 180)) * Math.cos(photo.lon * (Math::PI / 180))
-                end
-                cart_y = @photos.collect do |photo|
-                    Math.cos(photo.lat * (Math::PI / 180)) * Math.sin(photo.lon * (Math::PI / 180))
-                end
-                cart_z = @photos.collect do |photo|
-                    Math.sin(photo.lat * (Math::PI / 180))
-                end
-
-                avg_x = cart_x.inject(:+) / cart_x.length
-                avg_y = cart_y.inject(:+) / cart_y.length
-                avg_z = cart_z.inject(:+) / cart_z.length
-
-                t_lon = Math.atan2(avg_y, avg_x) * (180 / Math::PI)
-                hyp = Math.sqrt((avg_x * avg_x) + (avg_y * avg_y))
-                t_lat = Math.atan2(avg_z, hyp) * (180 / Math::PI)
-
-                @event.update_attributes(:updated_at => @photo.updated_at, :lat => t_lat, :lon => t_lon)
-              else
-                @event.update_attributes(:updated_at => @photo.updated_at)
-              end
- 	      
-              render :json => @photo, :status => :created
+              Resque.enqueue(Triangulate, @event.id)
+              @event.update_attributes(:updated_at => @photo.updated_at)
+              render :json => @photo.as_json, :status => :created
 	  else
 	    render :json => @photo.errors, :status => :unprocessable_entity
           end	
