@@ -9,7 +9,10 @@ module Triangulate
         @photos = @event.photos.where("lat > 0 AND lon > 0")
 
         if (!@photos.nil?)
+            puts @photos.length
             cart_x = @photos.collect do |photo|
+                puts photo.lat
+                puts photo.lon
                 Math.cos(photo.lat * (Math::PI / 180)) * Math.cos(photo.lon * (Math::PI / 180))
             end
             cart_y = @photos.collect do |photo|
@@ -18,10 +21,6 @@ module Triangulate
             cart_z = @photos.collect do |photo|
                 Math.sin(photo.lat * (Math::PI / 180))
             end
-
-            puts cart_x.length
-            puts cart_x.inject(:+)
-            puts Math::PI
 
             avg_x = cart_x.inject(:+) / cart_x.length
             avg_y = cart_y.inject(:+) / cart_y.length
