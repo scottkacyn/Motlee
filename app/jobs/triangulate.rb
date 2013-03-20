@@ -5,21 +5,25 @@ module Triangulate
     @queue = :triangulate
 
     def self.perform(event_id)
-        @photos = Photo.where("event_id = ? AND lat > 0 AND lon > 0", event_id)
-        puts event_id
+        @photos = Photo.where(:event_id => event_id)
         puts @photos.length
-        puts 
-        if (@photos.length > 0)
-            cart_x = @photos.collect do |photo|
+        cart_x = @photos.collect do |photo|
+            if (photo.lat > 0 and photo.lon > 0)
                 Math.cos(photo.lat * (Math::PI / 180)) * Math.cos(photo.lon * (Math::PI / 180))
             end
-            cart_y = @photos.collect do |photo|
+        end
+        cart_y = @photos.collect do |photo|
+            if (photo.lat > 0 and photo.lon > 0)
                 Math.cos(photo.lat * (Math::PI / 180)) * Math.sin(photo.lon * (Math::PI / 180))
             end
-            cart_z = @photos.collect do |photo|
+        end
+        cart_z = @photos.collect do |photo|
+            if (photo.lat > 0 and photo.lon > 0)
                 Math.sin(photo.lat * (Math::PI / 180))
             end
+        end
 
+        if (cart_x.length > 0)
             avg_x = cart_x.inject(:+) / cart_x.length
             avg_y = cart_y.inject(:+) / cart_y.length
             avg_z = cart_z.inject(:+) / cart_z.length
