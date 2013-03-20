@@ -6,10 +6,11 @@ module Triangulate
 
     def self.perform(event_id)
         @photos = Photo.where("event_id = ? AND lat > 0 AND lon > 0", event_id)
+        puts event_id
+        puts @photos.length
+        puts 
         if (@photos.length > 0)
             cart_x = @photos.collect do |photo|
-                puts photo.lat
-                puts photo.lon
                 Math.cos(photo.lat * (Math::PI / 180)) * Math.cos(photo.lon * (Math::PI / 180))
             end
             cart_y = @photos.collect do |photo|
@@ -28,7 +29,7 @@ module Triangulate
             t_lat = Math.atan2(avg_z, hyp) * (180 / Math::PI)
 
             @event = Event.find(event_id)
-            puts @event.id
+            puts "Processed!"
             @event.update_attributes(:lat => t_lat, :lon => t_lon)
         end
     end
