@@ -27,6 +27,8 @@ module Triangulate
             hyp = Math.sqrt((avg_x * avg_x) + (avg_y * avg_y))
             t_lat = Math.atan2(avg_z, hyp) * (180 / Math::PI)
 
+            @event = Event.find(event_id)
+            puts @event.id
             @event.update_attributes(:lat => t_lat, :lon => t_lon)
         end
     end
