@@ -5,11 +5,8 @@ module Triangulate
     @queue = :triangulate
 
     def self.perform(event_id)
-        @event = Event.find(event_id)
-        @photos = @event.photos.where("lat > 0 AND lon > 0")
-
-        if (!@photos.nil?)
-            puts @photos.length
+        @photos = Photo.where("event_id = ? AND lat > 0 AND lon > 0", event_id)
+        if (@photos.length > 0)
             cart_x = @photos.collect do |photo|
                 puts photo.lat
                 puts photo.lon
