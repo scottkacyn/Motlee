@@ -5,7 +5,7 @@ module Triangulate
     @queue = :triangulate
 
     def self.perform(event_id)
-        @photos = Photo.where(:event_id => event_id).where('lat > 0')
+        @photos = Photo.where(:event_id => event_id).where('lat != 0').where('lon != 0')
         puts @photos.length
         cart_x = @photos.collect do |photo|
             Math.cos(photo.lat * (Math::PI / 180)) * Math.cos(photo.lon * (Math::PI / 180))
