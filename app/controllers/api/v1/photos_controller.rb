@@ -44,6 +44,8 @@ class Api::V1::PhotosController < ApplicationController
 	  @photo.event_id = @event.id
             
 	  if @photo.save
+              @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1).first_or_create
+              puts @attendee.name
               Resque.enqueue(Triangulate, @event.id)
               @event.update_attributes(:updated_at => @photo.updated_at)
               render :json => @photo.as_json, :status => :created
