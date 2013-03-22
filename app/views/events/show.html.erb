@@ -7,36 +7,57 @@
   <meta property="og:image"       content="http://sphotos-a.xx.fbcdn.net/hphotos-ash4/417107_306342359470634_1693223354_n.png" /> 
   <meta property="og:description" content="Check out the photos from this event" /> 
 <% end %>
-<div class="event_info_container">
-    <ul class="event_info">
-        <li class="topitem"><%= @event.name %><img id="event_info_img" src="/images/down_arrow.png" width="20" height="20" style="margin-top:12px; margin-left:5px; position:absolute;"/></li>
-        <li class="subitem">Start Time: <%= @event.start_time.strftime("%B %d, %H:%I %p") %></li>
-        <li class="subitem">End Time: <%= @event.end_time.strftime("%B %d, %H:%I %p") %></li>
-        <li class="subitem"><%= @event.attendees.count %> people are attending</li>
-        <li class="subitem">
-          <% @event.attendees.each do |attendee| %>
-            <img src="http://graph.facebook.com/<%= attendee.user.uid %>/picture" alt="<%= attendee.user.name %>" width="40" height="40" style="padding:10px 2px; position:relative;"/>
-          <% end %>
-        </li>
-    </ul>
-</div>
-<div class="container_guy">
-    <div class="container_inset">
-        <div class="event_thumbnails">
-            <% @event.photos.each do |photo| %>
-                <div class="event_photo" id="event_photo_<%= photo.id %>">
-                <a href="/events/<%= @event.id %>/photos/<%= photo.id %>">
-                    <%= image_tag photo.image.url(:thumbnail) %>
-                </a>
-                <%= image_tag "http://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
-                <span><%= photo.user.name %></span>
-                <span class="photo_likes"><%= photo.likes.count %> Likes</span>
-                </div>
-            <% end %>
+<% if current_user.nil? and @event.is_private %>
+    <div class="container_guy" style="min-height:400px;">
+        <div class="container_inset">
+            <div style="width:700px; margin:0 auto; text-align:center;">
+                <h1>Hold Up!</h1>
+                <h2 style="font-size:20px;">This is a private stream. Only people invited to this stream can view it. Please sign in using the "Sign in with Facebook" link in the top right of the screen.</h2>
+            </div>
         </div>
-        <div style="clear:both;"></div>
     </div>
-</div>
+<% elsif !(@event.is_private and !current_user.events_attended.include? @event) %>
+    <!-- The user does not have sufficient priveleges to view this event -->
+    <div class="container_guy" style="min-height:400px;">
+        <div class="container_inset">
+            <div style="width:700px; margin:0 auto; text-align:center;">
+                <h1>Not So Fast!</h1>
+                <h2 style="font-size:20px;">This is a private stream. Only people invited to this stream can view it. If you think you should be able to see this stream, please contact the creator or our support team at support@motleeapp.com.</h2>
+            </div>
+        </div>
+    </div>
+<% else %>
+    <div class="event_info_container">
+        <ul class="event_info">
+            <li class="topitem"><%= @event.name %><img id="event_info_img" src="/images/down_arrow.png" width="20" height="20" style="margin-top:12px; margin-left:5px; position:absolute;"/></li>
+            <li class="subitem">Start Time: <%= @event.start_time.strftime("%B %d, %H:%I %p") %></li>
+            <li class="subitem">End Time: <%= @event.end_time.strftime("%B %d, %H:%I %p") %></li>
+            <li class="subitem"><%= @event.attendees.count %> people are attending</li>
+            <li class="subitem">
+              <% @event.attendees.each do |attendee| %>
+                <img src="http://graph.facebook.com/<%= attendee.user.uid %>/picture" alt="<%= attendee.user.name %>" width="40" height="40" style="padding:10px 2px; position:relative;"/>
+              <% end %>
+            </li>
+        </ul>
+    </div>
+    <div class="container_guy">
+        <div class="container_inset">
+            <div class="event_thumbnails">
+                <% @event.photos.each do |photo| %>
+                    <div class="event_photo" id="event_photo_<%= photo.id %>">
+                    <a href="/events/<%= @event.id %>/photos/<%= photo.id %>">
+                        <%= image_tag photo.image.url(:thumbnail) %>
+                    </a>
+                    <%= image_tag "http://graph.facebook.com/" + photo.user.uid + "/picture", :class => "event_photo_taker" %>
+                    <span><%= photo.user.name %></span>
+                    <span class="photo_likes"><%= photo.likes.count %> Likes</span>
+                    </div>
+                <% end %>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+<% end %>
 <script type="text/javascript">
 
     $(window).load(function() {

@@ -1,3 +1,7 @@
-<h2>Sign in</h2>
-
-<%= render :partial => "devise/shared/links" %>
+<div class="container_guy">
+    <div class="container_inset">
+        <h1>Sign In</h1>
+        <p>You need to sign in before you are able to view this content.</p>
+        <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+    </div>
+</div>

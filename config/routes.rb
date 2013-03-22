@@ -5,7 +5,7 @@ Motlee::Application.routes.draw do
 
   mount Resque::Server.new, :at => "/resque"
   
-  devise_for :users, :controllers => { :sessions => 'users/sessions', :omniauth_callbacks => 'users/omniauth_callbacks' }
+  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
 
   resources :users
   resources :friendships
