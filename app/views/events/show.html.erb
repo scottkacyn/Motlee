@@ -7,7 +7,7 @@
   <meta property="og:image"       content="http://sphotos-a.xx.fbcdn.net/hphotos-ash4/417107_306342359470634_1693223354_n.png" /> 
   <meta property="og:description" content="Check out the photos from this event" /> 
 <% end %>
-<% if current_user.nil? and @event.is_private %>
+<% if (current_user.nil? and @event.is_private) %>
     <div class="container_guy" style="min-height:400px;">
         <div class="container_inset">
             <div style="width:700px; margin:0 auto; text-align:center;">
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-<% elsif !(@event.is_private and !current_user.events_attended.include? @event) %>
+<% elsif (@event.is_private and !current_user.events_attended.include? @event) %>
     <!-- The user does not have sufficient priveleges to view this event -->
     <div class="container_guy" style="min-height:400px;">
         <div class="container_inset">
