@@ -7,7 +7,9 @@ class Api::V1::EventsController < ApplicationController
     # /api/events
     def index
 
-        puts request.user_agent
+        if request.user_agent =~ /iPhone|iPad/i
+            puts "It's an iPhone!"
+        end
         
         events = current_user.all_events(params[:access_token], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"))
         lat, lon = params[:lat], params[:lon]
