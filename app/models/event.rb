@@ -11,6 +11,9 @@ class Event < ActiveRecord::Base
   has_many :people_attending, :through => :attendees, :source => :user
 
   def owner
+
+    puts "Finding the owner for this event"
+
     if (user_id == 0 || !user_id)
         return
     end

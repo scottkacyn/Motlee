@@ -6,11 +6,20 @@ class Api::V1::EventsController < ApplicationController
     # GET
     # /api/events
     def index
+    
+        puts "Got to events#index"
+
         events = current_user.all_events(params[:access_token], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"))
+
+        puts "Finished gettings the events"
+
         lat, lon = params[:lat], params[:lon]
         if lat and lon
             events = events.nearby(lat.to_f, lon.to_f)
         end
+
+        puts "Began rendering response"
+
         render :json => events.as_json(:include => {:location => {}, :photos => {:methods => :owner}, :people_attending => {}}, :methods => [:owner, :attendee_count, :is_attending])
     end
 

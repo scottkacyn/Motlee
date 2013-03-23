@@ -10,6 +10,9 @@ class Api::V1::TokensController < ApplicationController
 		return
 	end
 
+        # TEMPORARY LOGGING TO HELP DIAGNOSE SERVER SPEED ISSUES
+      puts "Starting call to Facebook to get user info /api/tokens"
+
       http = Curl.get("https://graph.facebook.com/app", {:access_token => access_token})
       http_response = http.body_str.to_json
 
@@ -21,10 +24,15 @@ class Api::V1::TokensController < ApplicationController
 	else
 	  # Now you at least know that the request came from Motlee
 	  # and not some other random Facebook app
+
+          puts "Starting new call to Facebook to get more user info" 
+
 	  http = Curl.get("https://graph.facebook.com/me", {:access_token => access_token})
 	  result = JSON.parse(http.body_str)
 	  uid = result['id']
 	  user = User.where(:uid => uid).first
+
+          put "Got user info from DB call"
 
 	  unless user  	
 	  # A Motlee entry has not yet been created. Create one now
@@ -82,8 +90,6 @@ class Api::V1::TokensController < ApplicationController
           render :json => { :user => user.as_json, :token => user.authentication_token }
         end
     end
-
-
 
     def destroy
       @user=User.find_by_authentication_token(params[:id])
