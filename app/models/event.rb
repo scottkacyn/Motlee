@@ -26,6 +26,11 @@ class Event < ActiveRecord::Base
     attendees.count
   end
 
+  def first_photos
+    @photos = photos.limit(3)
+    @photos.as_json(:methods => :owner)
+  end
+
   scope :nearby, lambda { |lat,lon|
         where("updated_at > ?", (Time.now - 24.hours)).
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
