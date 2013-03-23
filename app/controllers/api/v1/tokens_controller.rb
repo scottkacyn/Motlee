@@ -32,7 +32,7 @@ class Api::V1::TokensController < ApplicationController
 	  uid = result['id']
 	  user = User.where(:uid => uid).first
 
-          put "Got user info from DB call"
+          puts "Got user info from DB call"
 
 	  unless user  	
 	  # A Motlee entry has not yet been created. Create one now
