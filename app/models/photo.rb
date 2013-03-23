@@ -29,14 +29,7 @@ class Photo < ActiveRecord::Base
   }
   
   def owner
-
-          puts "Trying to get owner of photo"
-
-	  if (user_id == 0 || !user_id)
-		  return
-	  end
-	  @owner = User.find(user_id)
-	  [:id => @owner.id, :uid => @owner.uid, :name => @owner.name]
+    [:id => self.user_id]
   end
    
 end
