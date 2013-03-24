@@ -27,7 +27,6 @@ class Api::V1::CommentsController < ApplicationController
 
     if @comment.save
       Resque.enqueue(AddCommentNotification, @comment.id, @commentable.id)
-      @event.update_attributes(:updated_at => @comment.updated_at)
       render :json => @comment, :status => :created
     else
       render :json => @comment.errors, :status => :unprocessable_entity

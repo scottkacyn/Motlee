@@ -72,13 +72,11 @@ class User < ActiveRecord::Base
       end.push(self.id).push(ENV['SUPERUSER_ID'])
 
       if paging
-        puts "paging"
           events = Event.where("updated_at < ?", updated_at)
-                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(15)
+                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
       else
-        puts "regular"
           events = Event.where("updated_at > ?", updated_at)
-                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(15)
+                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
       end
   end
 
