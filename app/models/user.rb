@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
           user.id
       end.push(self.id).push(ENV['SUPERUSER_ID'])
       events = Event.where("updated_at > ?", updated_at)
-                    .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids)
+                    .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at ASC").limit(2)
   end
 
   def recent_photos
