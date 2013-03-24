@@ -65,13 +65,19 @@ class User < ActiveRecord::Base
     friends = User.where(:uid => uids)
   end
 
-  def all_events(access_token, updated_at)
+  def all_events(access_token, updated_at, paging)
       users = User.where(:uid => self.motlee_friend_uids(access_token))
       user_ids = users.collect do |user|
           user.id
       end.push(self.id).push(ENV['SUPERUSER_ID'])
-      events = Event.where("updated_at > ?", updated_at)
-                    .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at ASC").limit(2)
+
+      if paging
+          events = Event.where("updated_at < ?", updated_at)
+                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(2)
+      else
+          events = Event.where("updated_at > ?", updated_at)
+                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(2)
+      end
   end
 
   def recent_photos
