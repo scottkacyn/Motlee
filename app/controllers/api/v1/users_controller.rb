@@ -9,7 +9,7 @@ class Api::V1::UsersController < ApplicationController
     if (params[:type] == "verbose")
 	render :json => @user.as_json({:include => [:events_attended], :methods => [:recent_photos]})
     else
-    	render :json => @user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
+    	render :json => @user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid, :sign_in_count])
     end
   end
 
@@ -22,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
     if (params[:type] == "verbose")
 	render :json => user.as_json({:include => [:events_attended], :methods => [:recent_photos]})
     else
-    	render :json => user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid])
+    	render :json => user.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid, :sign_in_count])
     end
   end
 
