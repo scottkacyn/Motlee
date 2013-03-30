@@ -27,6 +27,7 @@ Motlee::Application.routes.draw do
   get "pages/api"
   get "pages/godview"
   get "pages/live"
+  get "pages/test"
 
   # PAGES - match
   match 'about' => 'pages#about', :via => :get
@@ -39,6 +40,7 @@ Motlee::Application.routes.draw do
   match 'contact' => 'pages#contact', :via => :get
   match 'jobs' => 'pages#jobs', :via => :get
   match 'api' => 'pages#api', :via => :get
+  match 'test' => 'pages#test', :via => :get
   match 'events/:event_id/live' => 'pages#live', :via => :get
 
   resources :leads, :only => [:index, :show, :create]

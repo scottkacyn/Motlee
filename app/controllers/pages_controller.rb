@@ -30,6 +30,9 @@ class PagesController < ApplicationController
   def support
   end
 
+  def test
+  end
+
   def stats
     @users = User.all
     @actives = User.where("sign_in_count > 0");
@@ -45,6 +48,7 @@ class PagesController < ApplicationController
 
   def live
     @event = Event.find(params[:event_id])
+    render :layout => "live"
   end
 
 end
