@@ -30,8 +30,9 @@
                 //loop through the items
                 var infiniteLoop = setInterval(function(){
                     $('.slideshow-item').eq(currentItem).fadeOut(fadeTime);
-     
+                    
                     if(currentItem == numberOfItems -1){
+                        currentItem = 0;
                         $.ajax({
                             url: document.URL,
                             cache: false
