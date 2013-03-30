@@ -47,7 +47,7 @@ class PagesController < ApplicationController
   end
 
   def live
-    @event = Event.find(params[:event_id])
+    @photos = Photo.where(:event_id => params[:event_id]).order("created_at DESC")
     render :layout => "live"
   end
 
