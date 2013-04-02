@@ -29,7 +29,7 @@ class Api::V1::UsersController < ApplicationController
 
   def friends
     users = current_user.motlee_friends(params[:access_token])
-    render :json => users.as_json
+    render :json => users.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid, :picture, :birthday, :created_at, :updated_at, :sign_in_count])
   end
 
   def notifications
