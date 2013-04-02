@@ -27,8 +27,7 @@ class Api::V1::EventsController < ApplicationController
 
         render :json => { :is_attending => is_attending,
                :event => @event.as_json({:methods => [:owner, :attendee_count], 
-               :include => {:photos => {:include => {:comments => {:methods => [:owner]}, :likes => {:methods => [:owner]}}, :methods => :owner}, 
-               :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :sign_in_count]}}})}
+               :include => {:photos => {:include => {:comments => {:methods => [:owner]}, :likes => {:methods => [:owner]}}, :methods => :owner}}})}
     end
 
     # POST
