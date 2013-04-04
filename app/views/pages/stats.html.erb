@@ -25,7 +25,7 @@
         <% @reports.each do |report| %>
             <% if report.reported_object == "Photo" %>
                 <% @photo = Photo.find(report.reported_object_id) %>
-                <img src="<%= @photo.image.urL(:thumbnail) %>" />
+                <img src="<%= @photo.image.url(:thumbnail) %>" />
             <% end %>
         <% end %>
         
