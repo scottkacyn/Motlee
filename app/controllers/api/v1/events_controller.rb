@@ -148,5 +148,10 @@ class Api::V1::EventsController < ApplicationController
         @event.update_attributes(:is_deleted => true)
         render :json => @event.as_json
     end
+    
+    def report
+      @report = Report.where(:object => "Stream", :object_id => params[:event_id], :user_id => current_user.id).first_or_create
+      render @report.as_json
+    end
 
 end

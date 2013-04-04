@@ -64,6 +64,11 @@ class Api::V1::PhotosController < ApplicationController
           end
         end
 
+        def report
+          @report = Report.where(:object => "Photo", :object_id => params[:photo_id], :user_id => current_user.id).first_or_create
+          render @report.as_json
+        end
+
 private
 
   def load_event_if_exists

@@ -20,6 +20,14 @@
         </ul>
         <div style="clear:both;"></div>
         <br />
+
+        <h1>Reported Shit</h1>
+        <% @reports.each do |report| %>
+            <% if report.object == "Photo" %>
+                <% @photo = Photo.find(report.object_id) %>
+                <img src="<%= @photo.image.urL(:thumbnail) %>" />
+            <% end %>
+        <% end %>
         
         <%= form_for(@event) do |f| %>
 

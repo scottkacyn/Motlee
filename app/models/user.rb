@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :likes
   has_many :attendees
+  has_many :reports
   has_one :setting
   has_many :events_attended, :through => :attendees, :source => :event
   has_many :friendships
