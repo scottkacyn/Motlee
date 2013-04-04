@@ -65,7 +65,7 @@ class Api::V1::PhotosController < ApplicationController
         end
 
         def report
-          @report = Report.where(:object => "Photo", :object_id => params[:photo_id], :user_id => current_user.id).first_or_create
+          @report = Report.where(:reported_object => "Photo", :reported_object_id => params[:photo_id], :user_id => current_user.id).first_or_create
           render @report.as_json
         end
 
