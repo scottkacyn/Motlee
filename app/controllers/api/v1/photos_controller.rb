@@ -53,8 +53,16 @@ class Api::V1::PhotosController < ApplicationController
           end	
 	end
 
+        def update_caption
+            @photo = current_user.photos.find(params[:id])
+            @photo.update_attributes(:caption => params[:caption], :updated_at => 'now()')
+
+            render :json => @photo.as_json
+        end
+
         def temp
             @photo = Photo.new
+            @photo.caption = '';
 	    @photo.user_id = current_user.id
 	    @photo.event_id = @event.id
 

@@ -61,6 +61,7 @@ Motlee::Application.routes.draw do
 	resources :photos do
           collection do
             match 'temp' => 'photos#temp', :via => :post
+            match ':id/update_caption' => 'photos#update_caption', :via => :post
             match ':photo_id/report' => 'photos#report', :via => :post
           end
 	  resources :comments 
