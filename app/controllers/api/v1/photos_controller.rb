@@ -53,6 +53,28 @@ class Api::V1::PhotosController < ApplicationController
           end	
 	end
 
+        def temp
+            @photo = Photo.new
+	    @photo.user_id = current_user.id
+	    @photo.event_id = @event.id
+
+            if @photo.save
+              render :json => @photo.as_json, :status => :created
+            else
+              render :json => @photo.errors, :status => :unprocessable_entity
+            end
+        end
+
+        # PUT /photos/1
+        # Updates a photo object
+        def update
+            @photo = current_user.photos.update(params[:id], params[:photo])
+            @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1).first_or_create
+            Resque.enqueue(Triangulate, @event.id)
+            @event.update_attributes(:updated_at => @photo.updated_at)
+            render :json => @photo.as_json, :status => :created
+        end
+
         def destroy
           @photo = Photo.find(params[:id])
           if (@photo.user_id == current_user.id)
