@@ -10,11 +10,11 @@ class Api::V1::PhotosController < ApplicationController
 	def index
 	  lat, lon = params[:lat], params[:lon]
 	  if lat and lon
-              @photos = Photo.nearby(lat.to_f, lon.to_f)
+              @photos = Photo.nearby(lat.to_f, lon.to_f).where("image_file_name IS NOT NULL")
               render :json => @photos._as_json
 	  else
             if !@event.nil?
-              @photos = @event.photos
+              @photos = @event.photos.where("image_file_name IS NOT NULL")
               render :json => @photos.as_json(
                     {:methods => [:owner],
                      :include => {:comments => {:methods => [:owner]},
