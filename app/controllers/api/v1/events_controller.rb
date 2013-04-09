@@ -11,14 +11,13 @@ class Api::V1::EventsController < ApplicationController
         if lat and lon
             events = events.nearby(lat.to_f, lon.to_f)
         end
-        render :json => events.as_json(:include => {:location => {}, :photos => {:conditions => "image_file_name IS NOT NULL", :methods => :owner}, :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :picture, :birthday, :created_at, :updated_at, :sign_in_count]}})
+        render :json => events.as_json(:include => {:location => {}, :photos => {:methods => :owner}, :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :picture, :birthday, :created_at, :updated_at, :sign_in_count]}})
     end
 
     # GET
     # /api/events/:id
     def show
         @event = Event.find(params[:id])
-        @photos = @event.photos.where("image_file_name IS NOT NULL")
         @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id).first
     
         is_attending = TRUE
@@ -27,8 +26,9 @@ class Api::V1::EventsController < ApplicationController
         end
 
         render :json => { :is_attending => is_attending,
-               :event => @event.as_json(:methods => [:owner, :attendee_count], :include => {:people_attending => {:only => [:id, :name, :first_name, :last_name, :sign_in_count]}}),
-               :photos => @photos.as_json(:include => {:comments => {:methods => [:owner]}, :likes => {:methods => [:owner]}}, :methods => :owner)}
+                          :event => @event.as_json({:methods => [:owner, :attendee_count], 
+                          :include => {:photos => {:include => {:comments => {:methods => [:owner]}, :likes => {:methods => [:owner]}}, :methods => :owner}, 
+                          :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :sign_in_count]}}})}
     end
     
     # POST

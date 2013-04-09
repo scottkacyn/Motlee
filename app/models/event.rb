@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
 
   COORDINATE_DELTA = 0.05
 
-  has_many :photos
+  has_many :photos, :conditions => 'image_file_name IS NOT NULL'
   has_many :stories
   has_one :user
   has_one :fb_og_attend
