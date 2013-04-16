@@ -26,7 +26,7 @@ class PushNotification
 
     def self.add_like_notification(like_user_id, photo, liker_user)
         devices = Device.where(:user_id => like_user_id)
-        notification_value = "#{commenter_user.name} liked your photo"
+        notification_value = "#{liker_user.name} liked your photo"
         devices.each do |device|
             if (device.device_type == "Apple")
                 PushNotification.send_to_APNS(device.device_id, notification_value)
