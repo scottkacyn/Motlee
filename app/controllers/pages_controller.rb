@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
 
+  before_filter :check_for_mobile
   before_filter :authenticate_user!, :only => [:stats, :godview]
 
   def index
