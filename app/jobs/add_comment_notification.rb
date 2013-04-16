@@ -18,9 +18,12 @@ module AddCommentNotification
 
         comments = Comment.where(:commentable_id => commentable_id)
 
-        @users_who_commented = comments.collect do |comment|
-            comment.user_id
-        end.uniq!
+        @users_who_commented = []
+        comments.each do |comment|
+            if !(@users_who_commented.include?(comment.user_id))
+                @users_who_commented << comment.user_id
+            end
+        end
 
         puts @users_who_commented
 
