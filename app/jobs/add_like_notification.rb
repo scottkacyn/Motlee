@@ -12,6 +12,7 @@ require 'resque'
 	if (commentable.user_id != owner_like.id)	
             @notification_value = "#{owner_like.name} liked your photo|photo_comment|#{commentable.id}|#{owner_like.id}|#{current_date}"
             Notifications.add_notification(commentable.user_id, @notification_value)
+	    PushNotification.add_like_notification(commentable.user_id, commentable, owner_like)
         end
     end
   end
