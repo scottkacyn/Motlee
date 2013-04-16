@@ -22,7 +22,9 @@ module AddCommentNotification
             comment.user_id
         end.uniq!
 
-        comments do |userComment|
+        puts @users_who_commented
+
+        comments.each do |userComment|
             if (owner_comment.id != userComment.user_id && owner_photo.id != userComment.user_id && @users_who_commented.include?(userComent.user_id))
                 @notification_value = "#{owner_comment.name} also commented on #{owner_photo.name}'s photo|photo_comment|#{commentable.id}|#{userComment.user_id}|#{current_date}"
                 Notifications.add_notification(commentable.user_id, @notification_value)
@@ -31,6 +33,8 @@ module AddCommentNotification
                 # Remove the ID from array of IDs so we don't send multiple notifications
                 # to users on a single comment
                 @users_who_commented.delete(userComment.user_id)
+
+                puts "Removed element: " + @users_who_commented
             end
         end
     end
