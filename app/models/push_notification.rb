@@ -38,7 +38,8 @@ class PushNotification
 
     def self.add_comment_on_comment_notification(comment_user_id, photo, commenter_user)
         devices = Device.where(:user_id => comment_user_id)
-        notification_value = "#{commenter_user.name} commented on a photo you commented on"
+        photo_taker = User.find(photo.user_id)
+        notification_value = "#{commenter_user.name} also commented on #{photo_taker.name}'s photo"
         devices.each do |device|
             if (device.device_type == "Apple")
                 PushNotification.send_to_APNS(device.device_id, notification_value)
