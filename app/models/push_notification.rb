@@ -76,7 +76,7 @@ class PushNotification
         notification.device = device
         notification.collapse_key = "new_comments_likes"
         notification.delay_while_idle = true
-        notification.data = {:registration_ids => ["#{device_id}"], :data => {:message_text => message, :user_id => commenter_id, :photo_id => event_id}}
+        notification.data = {:registration_ids => ["#{device_id}"], :data => {:message_text => message, :user_id => commenter_id, :photo_id => photo_id}}
         notification.save
 
         response = Gcm::Notification.send_notifications
