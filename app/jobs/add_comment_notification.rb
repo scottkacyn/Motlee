@@ -13,7 +13,7 @@ module AddCommentNotification
         if (commentable.user_id != owner_comment.id)	
             @notification_value = "#{owner_comment.name} commented on your photo|photo_comment|#{commentable.id}|#{owner_comment.id}|#{current_date}"
             Notifications.add_notification(commentable.user_id, @notification_value)
-	    PushNotification.add_comment_notification(commentable.user_id, photo, owner_comment)
+	    PushNotification.add_comment_notification(commentable.user_id, commentable, owner_comment)
         end
 
         comments = Comment.where(:commentable_id => commentable_id)
@@ -26,7 +26,7 @@ module AddCommentNotification
             if (owner_comment.id != userComment.user_id && owner_photo.id != userComment.user_id && @users_who_commented.include?(userComent.user_id))
                 @notification_value = "#{owner_comment.name} also commented on #{owner_photo.name}'s photo|photo_comment|#{commentable.id}|#{userComment.user_id}|#{current_date}"
                 Notifications.add_notification(commentable.user_id, @notification_value)
-                PushNotification.add_comment_notification(userComment.user_id, photo, owner_comment)
+                PushNotification.add_comment_notification(userComment.user_id, commentable, owner_comment)
 
                 # Remove the ID from array of IDs so we don't send multiple notifications
                 # to users on a single comment
