@@ -25,7 +25,7 @@ module AddCommentNotification
         puts @users_who_commented
 
         comments.each do |userComment|
-            if (owner_comment.id != userComment.user_id && owner_photo.id != userComment.user_id && @users_who_commented.include?(userComent.user_id))
+            if (owner_comment.id != userComment.user_id && owner_photo.id != userComment.user_id && @users_who_commented.include?(userComment.user_id))
                 @notification_value = "#{owner_comment.name} also commented on #{owner_photo.name}'s photo|photo_comment|#{commentable.id}|#{userComment.user_id}|#{current_date}"
                 Notifications.add_notification(commentable.user_id, @notification_value)
                 PushNotification.add_comment_notification(userComment.user_id, commentable, owner_comment)
