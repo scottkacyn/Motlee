@@ -1,4 +1,4 @@
-class Api::V1::SettingsController < ApplicationController
+class Api::V2::SettingsController < ApplicationController
     
     before_filter :authenticate_user!
     respond_to :json

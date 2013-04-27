@@ -1,4 +1,4 @@
-class Api::V1::FomosController < ApplicationController
+class Api::V2::FomosController < ApplicationController
   
   before_filter :load_event, :authenticate_user!
 

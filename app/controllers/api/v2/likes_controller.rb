@@ -1,4 +1,4 @@
-class Api::V1::LikesController < ApplicationController
+class Api::V2::LikesController < ApplicationController
   
   before_filter :load_likeable, :authenticate_user!
 

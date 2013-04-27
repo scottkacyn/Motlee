@@ -1,4 +1,4 @@
-class Api::V1::LocationsController < ApplicationController
+class Api::V2::LocationsController < ApplicationController
   
   before_filter :authenticate_user!
 

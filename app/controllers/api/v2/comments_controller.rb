@@ -1,4 +1,4 @@
-class Api::V1::CommentsController < ApplicationController
+class Api::V2::CommentsController < ApplicationController
 
   before_filter :load_commentable, :load_event
 

@@ -1,4 +1,4 @@
-class Api::V1::StoriesController < ApplicationController
+class Api::V2::StoriesController < ApplicationController
   
   before_filter :load_event_if_exists, :authenticate_user!
 
