@@ -1,4 +1,4 @@
-class Api::V1::RelationshipsController < ApplicationController
+class Api::V2::RelationshipsController < ApplicationController
   
   before_filter :authenticate_user!
 

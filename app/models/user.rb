@@ -22,8 +22,9 @@ class User < ActiveRecord::Base
                                    dependent: :destroy
   has_many :followed_users, :through => :relationships, :source => :followed
   has_many :followers, :through => :reverse_relationships, :source => :follower
-
+  has_many :attendees  
   has_many :events_attended, :through => :attendees, :source => :event
+  has_many :favorites
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -85,6 +86,18 @@ class User < ActiveRecord::Base
           events = Event.where("updated_at > ?", updated_at)
                         .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
       end
+  end
+
+  def attending?(event)
+    events_attended.find(event.id)
+  end
+
+  def follower_count
+    followers.count
+  end
+
+  def following_count
+    followed_users.count
   end
 
   def following?(other_user)

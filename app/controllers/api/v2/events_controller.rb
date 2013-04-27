@@ -1,4 +1,4 @@
-class Api::V1::EventsController < ApplicationController
+class Api::V2::EventsController < ApplicationController
   
     before_filter :authenticate_user!
     respond_to :json
@@ -18,18 +18,29 @@ class Api::V1::EventsController < ApplicationController
     # /api/events/:id
     def show
         @event = Event.find(params[:id])
-        @photos = @event.photos
+        @photos = @event.photos.paginate(:page => params[:page], :per_page => 15)
         @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id).first
-    
-        is_attending = TRUE
-        if @attendee.nil?
-            is_attending = FALSE
-        end
 
-        render :json => { :is_attending => is_attending,
-                          :event => @event.as_json({:methods => [:owner, :attendee_count], 
-                          :include => {:photos => {:include => {:comments => {:methods => [:owner]}, :likes => {:methods => [:owner]}}, :methods => :owner}, 
-                          :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :sign_in_count]}}})}
+        is_attending = (current_user.attending?(@event)) ? TRUE : FALSE
+    
+        render :json => {
+            :event => @event.as_json({
+                :root => false,
+                :methods => [:owner, :attendee_count],
+                :include => { :people_attending => {:only => [:id, :uid, :name, 
+                              :first_name, :last_name, :sign_in_count]} }
+            }),
+            :photos => @photos.as_json({
+                :root => false,
+                :methods => :owner,
+                :include => { :comments => {:methods => :owner},
+                              :likes => {:methods => :owner} }
+            }),
+            :is_attending => is_attending,
+            :page => params[:page],
+            :per_page => 15,
+            :total_photos => @photos.count
+        }
     end
     
     # POST
@@ -144,6 +155,13 @@ class Api::V1::EventsController < ApplicationController
         render :json => @event.as_json(:include => :location)
     end
 
+    def favorites
+      @events = current_user.favorites
+    end
+
+    def add_favorite
+    end
+
     def destroy
         @event = current_user.events.find(params[:id])
         @event.update_attributes(:is_deleted => true)
@@ -153,6 +171,13 @@ class Api::V1::EventsController < ApplicationController
     def report
       @report = Report.where(:reported_object => "Stream", :reported_object_id => params[:event_id], :user_id => current_user.id).first_or_create
       render :json => @report.as_json
+    end
+
+    def attendees
+      event = current_user.events.find(params[:id])
+      render :json => event.people_attending.as_json(
+        :only => [:id, :uid, :name, :first_name, :last_name, :is_private]
+      )
     end
 
 end

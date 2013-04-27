@@ -5,7 +5,7 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.xml
   def index
-    @photos = @event.photos.where("image_file_name IS NOT NULL")
+    @photos = @event.photos
 
     respond_to do |format|
       format.html # index.html.erb

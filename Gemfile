@@ -32,6 +32,7 @@ gem 'delayed_paperclip'
 gem 'gcm_on_rails'
 gem 'urbanairship'
 gem 'acts-as-taggable-on'
+gem 'will_paginate', '~> 3.0.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'

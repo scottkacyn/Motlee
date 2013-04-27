@@ -2,13 +2,12 @@ class Event < ActiveRecord::Base
 
   COORDINATE_DELTA = 0.05
 
-  has_many :photos, :conditions => 'image_file_name IS NOT NULL'
-  has_many :stories
   has_one :user
   has_one :fb_og_attend
   belongs_to :location
   has_many :attendees
   has_many :people_attending, :through => :attendees, :source => :user
+  has_many :photos, :conditions => 'is_uploaded = true'
 
   def owner
     if (user_id == 0 || !user_id)

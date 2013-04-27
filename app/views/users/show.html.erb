@@ -8,6 +8,7 @@
 <% end %>
 <div class="container_guy">
     <h1><%= @user.name %></h1>
+    <%= @user.favorites.count %>
     <%= render 'follow_form' if user_signed_in? %>
     <div class="container_inset">
         <div class="event_thumbnails">

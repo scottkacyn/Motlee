@@ -1,7 +1,7 @@
 class Photo < ActiveRecord::Base
   
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
-  
+
   COORDINATE_DELTA = 0.05	
 
   has_attached_file :image,
@@ -14,6 +14,7 @@ class Photo < ActiveRecord::Base
 		:secret_access_key => ENV['S3_SECRET'] }
   
   process_in_background :image
+  
   belongs_to :user
   belongs_to :event
 

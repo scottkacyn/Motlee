@@ -43,7 +43,7 @@
     <div class="container_guy">
         <div class="container_inset">
             <div class="event_thumbnails">
-                <% @event.photos.each do |photo| %>
+                <% @photos.each do |photo| %>
                     <div class="event_photo" id="event_photo_<%= photo.id %>">
                     <a href="/events/<%= @event.id %>/photos/<%= photo.id %>">
                         <%= image_tag photo.image.url(:thumbnail) %>
@@ -55,6 +55,7 @@
                 <% end %>
             </div>
             <div style="clear:both;"></div>
+            <%= will_paginate @photos %>
         </div>
     </div>
 <% end %>
