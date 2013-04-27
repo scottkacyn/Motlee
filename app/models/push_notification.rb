@@ -1,5 +1,42 @@
 class PushNotification
 
+	def self.add_friend_join_notification(friend_id, joined_user_id, message)
+		devices = Device.where(:user_id => friend_id)
+
+        devices.each do |device|
+            if (device.device_type == "Apple")
+                PushNotification.send_to_APNS(device.device_id, message)
+            elsif (device.device_type == "Android")
+                PushNotification.send_friend_join_to_GCM(device.device_id, message, joined_user_id)
+            end
+        end
+	end
+
+	def self.add_favorite_notification(owner_id, favorite_user_id, event_id, message)
+		devices = Device.where(:user_id => owner_id)
+
+        devices.each do |device|
+            if (device.device_type == "Apple")
+                PushNotification.send_to_APNS(device.device_id, message)
+            elsif (device.device_type == "Android")
+                PushNotification.send_favorite_to_GCM(device.device_id, message, favorite_user_id, event_id)
+            end
+        end
+	end
+
+
+	def self.add_follow_notification(following_id, follower_id, message)
+		devices = Device.where(:user_id => following_id)
+
+        devices.each do |device|
+            if (device.device_type == "Apple")
+                PushNotification.send_to_APNS(device.device_id, message)
+            elsif (device.device_type == "Android")
+                PushNotification.send_follow_to_GCM(device.device_id, message, follower_id)
+            end
+        end
+	end
+
     def self.add_event_notification(invitee_user_id, event, inviter_user)
         devices = Device.where(:user_id => invitee_user_id)
         notification_value = "#{inviter_user.name} invited you to #{event.name}"
@@ -82,4 +119,39 @@ class PushNotification
         response = Gcm::Notification.send_notifications
     end
 
+    def self.send_follow_to_GCM(device_id, message, follower_id)
+        device = Gcm::Device.where(:registration_id => "#{device_id}").first_or_create
+        notification = Gcm::Notification.new
+        notification.device = device
+        notification.collapse_key = "new_follow"
+        notification.delay_while_idle = true
+        notification.data = {:registration_ids => ["#{device_id}"], :data => {:message_text => message, :follower_id => follower_id}}
+        notification.save
+
+        response = Gcm::Notification.send_notifications
+    end
+
+    def self.send_favorite_to_GCM(device_id, message, favorite_id, event_id)
+        device = Gcm::Device.where(:registration_id => "#{device_id}").first_or_create
+        notification = Gcm::Notification.new
+        notification.device = device
+        notification.collapse_key = "new_favorite"
+        notification.delay_while_idle = true
+        notification.data = {:registration_ids => ["#{device_id}"], :data => {:message_text => message, :favorite_id => favorite_id, :event_id => event_id}}
+        notification.save
+
+        response = Gcm::Notification.send_notifications
+    end
+
+    def self.send_friend_join_to_GCM(device_id, message, joined_user_id)
+        device = Gcm::Device.where(:registration_id => "#{device_id}").first_or_create
+        notification = Gcm::Notification.new
+        notification.device = device
+        notification.collapse_key = "new_joined_user"
+        notification.delay_while_idle = true
+        notification.data = {:registration_ids => ["#{device_id}"], :data => {:message_text => message, :joined_user_id => joined_user_id}}
+        notification.save
+
+        response = Gcm::Notification.send_notifications
+    end
 end
