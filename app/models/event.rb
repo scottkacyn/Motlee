@@ -31,6 +31,13 @@ class Event < ActiveRecord::Base
     @photos.as_json(:methods => :owner)
   end
 
+  def from_users_followed_by(user)
+    followed_user_ids = "SELECT followed_id FROM relationships
+                         WHERE follower_id = :user_id"
+    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
+            user_id: user.id)
+  end
+
   scope :nearby, lambda { |lat,lon|
         where("updated_at > ?", (Time.now - 24.hours)).
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).

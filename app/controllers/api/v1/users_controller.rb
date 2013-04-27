@@ -26,6 +26,13 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def following
+    render :json => current_user.followed_users.as_json
+  end
+
+  def followers
+    render :json => current_user.followers.as_json
+  end
 
   def friends
     users = current_user.motlee_friends(params[:access_token])

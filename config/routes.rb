@@ -6,78 +6,67 @@ Motlee::Application.routes.draw do
   mount Resque::Server.new, :at => "/resque"
   
   devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
-
-  resources :users
-  resources :friendships
+  
   resources :events do
+    member do
+      get :live
+    end
     resources :photos
   end
+  resources :users
+  resources :relationships, :only => [:create, :destroy]
   resources :locations
-
-  # PAGES - get
-  get "pages/index"
-  get "pages/terms"
-  get "pages/about"
-  get "pages/support"
-  get "pages/privacy"
-  get "pages/company"
-  get "pages/contact"
-  get "pages/jobs"
-  get "pages/stats"
-  get "pages/api"
-  get "pages/godview"
-  get "pages/live"
-  get "pages/test"
-
-  # PAGES - match
-  match 'about' => 'pages#about', :via => :get
+  resources :leads, :only => [:index, :show, :create]
+  
+  # ----- #
+  # PAGES #
+  # ----- #
   match 'terms' => 'pages#terms', :via => :get
-  match 'stats' => 'pages#stats', :via => :get
-  match 'godview' => 'pages#godview', :via => :get
+  match 'about' => 'pages#about', :via => :get
   match 'support' => 'pages#support', :via => :get
   match 'privacy' => 'pages#privacy', :via => :get
   match 'company' => 'pages#company', :via => :get
   match 'contact' => 'pages#contact', :via => :get
   match 'jobs' => 'pages#jobs', :via => :get
+  match 'stats' => 'pages#stats', :via => :get
   match 'api' => 'pages#api', :via => :get
+  match 'godview' => 'pages#godview', :via => :get
+  match 'live' => 'pages#live', :via => :get
   match 'test' => 'pages#test', :via => :get
-  match 'events/:event_id/live' => 'pages#live', :via => :get
 
-  resources :leads, :only => [:index, :show, :create]
-
-  # Routes for API:V1
-  #
+  # ----------------- #
+  # Routes for API:V1 #
+  # ----------------- #
   namespace :api, defaults: {format: 'json'} do
     match '/' => 'api#index', :via => :get
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       resources :events do
-	collection do
-	  match 'fbfriends' => 'events#fb_friends', :via => :get
-          match ':event_id/report' => 'events#report', :via => :post
-	  match ':event_id/join' => 'events#join', :via => :post
-          match ':event_id/unjoin' => 'events#unjoin', :via => :post
-          match ':event_id/share' => 'events#share', :via => :post
-	end
+        member do
+          post :report, :join, :unjoin, :share
+        end
 	resources :photos do
+          member do
+            put :update_caption
+            post :report
+          end
           collection do
-            match 'temp' => 'photos#temp', :via => :post
-            match ':id/update_caption' => 'photos#update_caption', :via => :put
-            match ':photo_id/report' => 'photos#report', :via => :post
+            post :temp
           end
 	  resources :comments 
 	  resources :likes
 	end
       end
-      resources :photos, :only => :index
       resources :users do
+        member do
+            get :following, :followers, :friends, :notifications, :settings
+            post :device
+        end
 	collection do
-            match 'device' => 'users#device', :via => :post
-            match ':user_id/device' => 'users#device', :via => :post
-	    match ':user_id/friends' => 'users#friends', :via => :get
-        match ':user_id/notifications' => 'users#notifications', :via => :get
-        match ':user_id/settings' => 'settings#index', :via => :get
+            post :device
 	end
       end
+      resources :photos, :only => :index
+      resources :relationships, :only => [:create, :destroy]
       resources :locations, :only => [:index, :new, :create]
       resources :tokens, :only => [:create, :destroy]
     end

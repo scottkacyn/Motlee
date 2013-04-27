@@ -31,6 +31,7 @@ gem 'resque', :require => "resque/server"
 gem 'delayed_paperclip'
 gem 'gcm_on_rails'
 gem 'urbanairship'
+gem 'acts-as-taggable-on'
 
 # Use unicorn as the web server
 # gem 'unicorn'

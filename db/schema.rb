@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404031208) do
+ActiveRecord::Schema.define(:version => 20130427011004) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -113,6 +113,16 @@ ActiveRecord::Schema.define(:version => 20130404031208) do
     t.boolean  "is_deleted"
   end
 
+  create_table "favorites", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "favorites", ["event_id"], :name => "index_favorites_on_event_id"
+  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
+
   create_table "fb_og_attends", :force => true do |t|
     t.integer  "event_id"
     t.string   "fb_attend_id"
@@ -197,7 +207,21 @@ ActiveRecord::Schema.define(:version => 20130404031208) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.boolean  "image_processing"
+    t.boolean  "is_uploaded"
   end
+
+  create_table "relationships", :force => true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.boolean  "is_pending"
+    t.boolean  "is_active"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
+  add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
   create_table "reports", :force => true do |t|
     t.string   "reported_object"
@@ -230,6 +254,23 @@ ActiveRecord::Schema.define(:version => 20130404031208) do
     t.datetime "updated_at"
   end
 
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => ""
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
@@ -254,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20130404031208) do
     t.string   "authentication_token"
     t.string   "username"
     t.boolean  "is_activated"
+    t.boolean  "is_private"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

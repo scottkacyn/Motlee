@@ -14,14 +14,16 @@ class User < ActiveRecord::Base
   has_many :stories
   has_many :comments
   has_many :likes
-  has_many :attendees
   has_many :reports
   has_one :setting
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name: "Relationship",
+                                   dependent: :destroy
+  has_many :followed_users, :through => :relationships, :source => :followed
+  has_many :followers, :through => :reverse_relationships, :source => :follower
+
   has_many :events_attended, :through => :attendees, :source => :event
-  has_many :friendships
-  has_many :friends, :through => :friendships
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
@@ -66,6 +68,10 @@ class User < ActiveRecord::Base
     friends = User.where(:uid => uids)
   end
 
+  def streams
+    Event.from_users_followed_by(self)
+  end
+
   def all_events(access_token, updated_at, paging)
       users = User.where(:uid => self.motlee_friend_uids(access_token))
       user_ids = users.collect do |user|
@@ -79,6 +85,18 @@ class User < ActiveRecord::Base
           events = Event.where("updated_at > ?", updated_at)
                         .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
       end
+  end
+
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
   end
 
   def recent_photos
