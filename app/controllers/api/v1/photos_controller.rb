@@ -42,6 +42,7 @@ class Api::V1::PhotosController < ApplicationController
 	  @photo = Photo.new(params[:photo])
 	  @photo.user_id = current_user.id
 	  @photo.event_id = @event.id
+          @photo.is_uploaded = TRUE
             
 	  if @photo.save
               @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id, :rsvp_status => 1).first_or_create
