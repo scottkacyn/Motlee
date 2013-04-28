@@ -62,7 +62,7 @@ class Api::V1::EventsController < ApplicationController
         mid_array = mids.split(",")
         mid_array.each do |mid|
             unless (current_user.id == mid)
-                @attendee = Attendee.where("user_id = ? AND event_id = ?", mid, params[:event_id])
+                @attendee = Attendee.where("user_id = ? AND event_id = ?", mid, params[:id])
                 Attendee.destroy(@attendee)
             end
         end
@@ -91,7 +91,7 @@ class Api::V1::EventsController < ApplicationController
 
                 if motlee_user.nil?
                     token = params[:access_token]
-                    event_id = params[:event_id]
+                    event_id = params[:id]
                     Resque.enqueue(ProcessNewUserInvite, token, event_id, uid) 
                 else
                     # User is already a part of Motlee
@@ -99,12 +99,12 @@ class Api::V1::EventsController < ApplicationController
                     @motlee_users << uid
                 
                     # Now we check to see if the user has already been added to the event
-                    @attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:event_id]).first
+                    @attendee = Attendee.where("user_id = ? AND event_id = ?", motlee_user.id, params[:id]).first
                     if @attendee.nil?
                         # If user has not been added, create new Attendee object
-                        @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:event_id], :rsvp_status => 1)
+                        @attendee = Attendee.create(:user_id => motlee_user.id, :event_id => params[:id], :rsvp_status => 1)
                         if (motlee_user.id != current_user.id)
-                            Resque.enqueue(AddEventNotification, motlee_user.id, params[:event_id], current_user.id)
+                            Resque.enqueue(AddEventNotification, motlee_user.id, params[:id], current_user.id)
                         end
                     end
                 end
