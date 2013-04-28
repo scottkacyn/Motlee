@@ -55,7 +55,7 @@ class Api::V1::PhotosController < ApplicationController
 
         def update_caption
             @photo = current_user.photos.find(params[:id])
-            @photo.update_attributes(:caption => params[:caption])
+            @photo.update_attributes(:caption => params[:caption], :is_uploaded => TRUE)
             render :json => @photo.as_json
         end
 

@@ -62,7 +62,7 @@ Motlee::Application.routes.draw do
       end
       resources :users do
         member do
-            get :following, :followers, :friends, :notifications, :settings
+            get :notifications, :settings
             post :device
         end
 	collection do
@@ -70,7 +70,6 @@ Motlee::Application.routes.draw do
 	end
       end
       resources :photos, :only => :index
-      resources :relationships, :only => [:create, :destroy]
       resources :locations, :only => [:index, :new, :create]
       resources :tokens, :only => [:create, :destroy]
     end
