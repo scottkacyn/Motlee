@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
       users = User.where(:uid => self.motlee_friend_uids(access_token))
       user_ids = users.collect do |user|
           user.id
-      end.push(self.id).push(ENV['SUPERUSER_ID'])
+      end.push(self.id)
 
       if paging
           events = Event.where("updated_at < ?", updated_at)

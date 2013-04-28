@@ -1,7 +1,5 @@
 class Event < ActiveRecord::Base
 
-  COORDINATE_DELTA = 0.05
-
   has_one :user
   has_one :fb_og_attend
   belongs_to :location
@@ -37,6 +35,7 @@ class Event < ActiveRecord::Base
             user_id: user.id)
   end
 
+  COORDINATE_DELTA = 0.05
   scope :nearby, lambda { |lat,lon|
         where("updated_at > ?", (Time.now - 24.hours)).
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
