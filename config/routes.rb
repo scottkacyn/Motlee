@@ -43,7 +43,7 @@ Motlee::Application.routes.draw do
     # --------- #
     # VERSION 1 #
     # --------- #
-    scope module: :v1, constraints: ApiConstraints.new(version: 1) do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :events do
         member do
           post :report, :join, :unjoin, :share
@@ -79,7 +79,7 @@ Motlee::Application.routes.draw do
     # VERSION 2 #
     # --------- #
     
-    scope module: :v2, constraints: ApiConstraints.new(version: 2, default: :true) do
+    scope module: :v2, constraints: ApiConstraints.new(version: 2) do
       resources :events do
         member do
           get :attendees, :favorites
