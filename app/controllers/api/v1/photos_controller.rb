@@ -64,6 +64,7 @@ class Api::V1::PhotosController < ApplicationController
             @photo.caption = '';
 	    @photo.user_id = current_user.id
 	    @photo.event_id = @event.id
+            @photo.is_uploaded = FALSE
 
             if @photo.save
               render :json => @photo.as_json, :status => :created
@@ -94,7 +95,7 @@ class Api::V1::PhotosController < ApplicationController
         end
 
         def report
-          @report = Report.where(:reported_object => "Photo", :reported_object_id => params[:photo_id], :user_id => current_user.id).first_or_create
+          @report = Report.where(:reported_object => "Photo", :reported_object_id => params[:id], :user_id => current_user.id).first_or_create
           render :json => @report.as_json
         end
 

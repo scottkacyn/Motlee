@@ -55,7 +55,7 @@ class Api::V1::EventsController < ApplicationController
     # POST
     # /api/events/:id/unjoin
     def unjoin
-        event = Event.find(params[:event_id])
+        event = Event.find(params[:id])
         # User is the event creator, has delete priveleges
         mids = params[:ids]
         mid_array = []
@@ -77,7 +77,7 @@ class Api::V1::EventsController < ApplicationController
     # Allows you to add a user to an event as an attendee
     # Requires :uids param which is an array of Facebook UIDs
     def join
-        @event = Event.find(params[:event_id])
+        @event = Event.find(params[:id])
         if (params[:type] == "invite")
             @uids = params[:uids]
             @uid_array = []
@@ -120,12 +120,12 @@ class Api::V1::EventsController < ApplicationController
     end
 
     def share 
-        @event = Event.find(params[:event_id])
+        @event = Event.find(params[:id])
         uids = ""
         for attendee in @event.attendees
             uids = uids + attendee.user.uid.to_s + ","
         end
-        Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:event_id], uids)
+        Resque.enqueue(PublishFacebookAttend, params[:access_token], params[:id], uids)
         render :json => @event.as_json
     end
 
@@ -151,7 +151,7 @@ class Api::V1::EventsController < ApplicationController
     end
     
     def report
-      @report = Report.where(:reported_object => "Stream", :reported_object_id => params[:event_id], :user_id => current_user.id).first_or_create
+      @report = Report.where(:reported_object => "Stream", :reported_object_id => params[:id], :user_id => current_user.id).first_or_create
       render :json => @report.as_json
     end
 
