@@ -149,21 +149,31 @@ class Api::V2::EventsController < ApplicationController
                 @event.location_id = 0
             end
         end
-
         render :json => @event.as_json(:include => :location)
     end
 
-    def favorites
-      @events = current_user.favorites
-    end
-
-    def add_favorite
+    # POST
+    # /api/events/<id>/favorite
+    def favorite
+        event = Event.find(params[:id])
+        if event.watched_by?(current_user)
+            event.unwatch_for(current_user)
+            render :json => { :status => 200 }
+        else
+            event.watch_for(current_user)
+            render :json => { :status => 201 }
+        end
     end
 
     def destroy
         @event = current_user.events.find(params[:id])
         @event.update_attributes(:is_deleted => true)
         render :json => @event.as_json
+    end
+
+    def friends
+      streams = current_user.friend_streams(params[:access_token])
+      render :json => streams.as_json
     end
     
     def report

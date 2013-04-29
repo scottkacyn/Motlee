@@ -34,11 +34,23 @@ class Api::V2::UsersController < ApplicationController
     user = User.find(params[:followed_id])
     if current_user.following?(user)
       current_user.unfollow!(user)
-      render :json => { :status => 200 }
+      render :json => current_user.relationships.find_by_followed_id(user.id).as_json
     else
       current_user.follow!(user)
-      render :json => { :status => 201 }
+      render :json => current_user.relationships.find_by_followed_id(user.id).as_json
     end
+  end
+
+  def approve_follower
+    user = User.find(params[:follower_id])
+    current_user.approve_follower!(user)
+    render :json => current_user.relationships.find_by_followed_id(user.id).as_json
+  end
+
+  def reject_follower
+    user = User.find(params[:follower_id])
+    current_user.reject_follower!(user)
+    render :json => current_user.relationships.find_by_followed_id(user.id).as_json
   end
 
   def following
@@ -51,9 +63,13 @@ class Api::V2::UsersController < ApplicationController
     render :json => user.followers.as_json
   end
 
-  def friends
-    users = current_user.motlee_friends(params[:access_token])
-    render :json => users.as_json(:only => [:id, :name, :first_name, :last_name, :email, :uid, :picture, :birthday, :created_at, :updated_at, :sign_in_count])
+  def pending_followers
+    render :json => current_user.pending_followers.as_json
+  end
+
+  def favorites
+    favorites = Event.favorites_for_user(current_user)
+    render :json => favorites.as_json
   end
 
   def notifications
@@ -76,10 +92,19 @@ class Api::V2::UsersController < ApplicationController
     #end
   end
 
-  # POST api/users/<user id>/device
+  # POST 
+  # api/users/<user id>/device
   def device
     device = Device.where(:user_id => current_user.id, :device_id => params[:device_id], :device_type => params[:type]).first_or_create
     render :json => device.as_json
+  end
+
+  # PUT
+  # api/users/<id>/update_privacy
+  def update_privacy
+    current_user.is_private = params[:is_private]
+    current_user.save
+    render :json => current_user.as_json
   end
 
   # api/users/<user id>/events

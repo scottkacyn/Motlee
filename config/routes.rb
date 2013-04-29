@@ -83,8 +83,11 @@ Motlee::Application.routes.draw do
       match 'tags/trending' => 'events#tag_cloud', :via => :get
       resources :events do
         member do
-          get :attendees, :favorites, :tags
-          post :report, :join, :unjoin, :share, :add_favorite
+          get :attendees, :tags
+          post :report, :join, :unjoin, :share, :favorite
+        end
+        collection do
+          get :friends
         end
 	resources :photos do
           member do
@@ -100,8 +103,9 @@ Motlee::Application.routes.draw do
       end
       resources :users do
         member do
-            get :following, :followers, :friends, :notifications, :settings
-            post :device, :follow
+            get :following, :followers, :pending_followers, :favorites, :notifications, :settings
+            post :device, :follow, :approve_follower, :reject_follower
+            put :update_privacy
         end
 	collection do
             post :device

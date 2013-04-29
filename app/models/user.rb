@@ -18,11 +18,10 @@ class User < ActiveRecord::Base
   has_many :reports
   has_one :setting
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  has_many :reverse_relationships, foreign_key: "followed_id",
-                                   class_name: "Relationship",
-                                   dependent: :destroy
+  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :followed_users, :through => :relationships, :source => :followed
-  has_many :followers, :through => :reverse_relationships, :source => :follower
+  has_many :followers, :through => :reverse_relationships, :source => :follower, :conditions => "is_pending = FALSE AND is_active = TRUE"
+  has_many :pending_followers, :through => :reverse_relationships, :source => :follower, :conditions => "is_pending = TRUE AND is_active = TRUE"
   has_many :attendees  
   has_many :events_attended, :through => :attendees, :source => :event
   has_many :favorites
@@ -79,6 +78,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def friend_streams(access_token)
+    users = User.where(:uid => self.motlee_friend_uids(access_token))
+    user_ids = users.collect do |user|
+        user.id
+    end
+    Event.from_users_with_ids(user_ids)
+  end
+
   def attending?(event)
     events_attended.find(event.id)
   end
@@ -92,15 +99,33 @@ class User < ActiveRecord::Base
   end
 
   def following?(other_user)
-    relationships.find_by_followed_id(other_user.id)
+    rel = relationships.where(followed_id: other_user.id, is_pending: false, is_active: true).first
   end
 
   def follow!(other_user)
-    relationships.create!(followed_id: other_user.id)
+    rel = relationships.find_or_create_by_followed_id!(followed_id: other_user.id)
+    rel.is_pending = (other_user.is_private ? true : false)
+    rel.is_active = true
+    rel.save
   end
 
   def unfollow!(other_user)
-    relationships.find_by_followed_id(other_user.id).destroy
+    rel = relationships.find_by_followed_id(other_user.id)
+    rel.is_active = false
+    rel.save
+  end
+
+  def approve_follower!(other_user)
+    rel = relationships.find_by_follower_id(other_user.id)
+    rel.is_pending = false
+    rel.save
+  end
+
+  def reject_follower!(other_user)
+    rel = relationships.find_by_follower_id(other_user.id)
+    rel.is_pending = false
+    rel.is_active = false
+    rel.save
   end
 
   def recent_photos
