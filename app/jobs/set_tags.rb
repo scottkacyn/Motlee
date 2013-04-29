@@ -22,13 +22,12 @@ module SetTags
 
 			event = Event.find(event_id)
 			photo = Photo.find(photo_id)
-			user = User.find(photo.user_id)
 
-			user.tag(photo, :with => final_tag_list)
+			photo.tag_list.add(final_tag_list)
 			event.tag_list.add(final_tag_list)			
 
-			# decided not to have user tag event for redundancy
-			# user.tag(event, :with => final_tag_list)
+			event.save
+			photo.save
 
 		end
 
