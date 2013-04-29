@@ -34,10 +34,10 @@ class Api::V2::UsersController < ApplicationController
     user = User.find(params[:followed_id])
     if current_user.following?(user)
       current_user.unfollow!(user)
-      render :json => "User was unfollowed"
+      render :json => { :status => 200 }
     else
       current_user.follow!(user)
-      render :json => "User was followed"
+      render :json => { :status => 201 }
     end
   end
 
