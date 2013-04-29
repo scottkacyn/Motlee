@@ -78,6 +78,7 @@ class Api::V1::TokensController < ApplicationController
                                :username => username,
                                :gender => gender,
                                :is_activated => true,
+                               :is_private => false,
                                :picture => "https://graph.facebook.com/" + uid + "/picture",
                                :password => Devise.friendly_token[0,20]
                               )
