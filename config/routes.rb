@@ -99,7 +99,7 @@ Motlee::Application.routes.draw do
       resources :users do
         member do
             get :following, :followers, :friends, :notifications, :settings
-            post :device
+            post :device, :follow
         end
 	collection do
             post :device
