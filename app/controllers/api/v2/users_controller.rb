@@ -42,11 +42,13 @@ class Api::V2::UsersController < ApplicationController
   end
 
   def following
-    render :json => current_user.followed_users.as_json
+    user = (params[:id] ? User.find(params[:id]) : current_user)
+    render :json => user.followed_users.as_json
   end
 
   def followers
-    render :json => current_user.followers.as_json
+    user = (params[:id] ? User.find(params[:id]) : current_user)
+    render :json => user.followers.as_json
   end
 
   def friends
