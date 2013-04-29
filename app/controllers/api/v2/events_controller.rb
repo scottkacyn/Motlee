@@ -6,11 +6,8 @@ class Api::V2::EventsController < ApplicationController
     # GET
     # /api/events
     def index
-        events = current_user.all_events(params[:access_token], (params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"), (params[:paging] ? true : false))
-        lat, lon = params[:lat], params[:lon]
-        if lat and lon
-            events = events.nearby(lat.to_f, lon.to_f)
-        end
+        events = current_user.streams((params[:updatedAfter] ? params[:updatedAfter] : "2000-01-01T00:00:00.000Z"), (params[:paging] ? TRUE : FALSE))
+        
         render :json => events.as_json(:include => {:location => {}, :photos => {:methods => :owner}, :people_attending => {:only => [:id, :uid, :name, :first_name, :last_name, :picture, :birthday, :created_at, :updated_at, :sign_in_count]}})
     end
 
@@ -18,7 +15,8 @@ class Api::V2::EventsController < ApplicationController
     # /api/events/:id
     def show
         @event = Event.find(params[:id])
-        @photos = @event.photos.paginate(:page => params[:page], :per_page => 15)
+        @photos = @event.photos
+        #.paginate(:page => params[:page], :per_page => 15)
         @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id).first
 
         is_attending = (current_user.attending?(@event)) ? TRUE : FALSE
