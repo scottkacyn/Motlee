@@ -183,6 +183,11 @@ class Api::V2::EventsController < ApplicationController
       render :json => event.tags.as_json
     end
 
+    def tag_cloud
+      tags = Event.tag_counts_on(:tags).order("count DESC")
+      render :json => tags.as_json
+    end
+
     def tags_for_query
       events = Event.tagged_with_tag(params[:q], params[:page])
       render :json => events.as_json

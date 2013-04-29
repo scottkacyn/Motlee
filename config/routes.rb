@@ -80,6 +80,7 @@ Motlee::Application.routes.draw do
     
     scope module: :v2, constraints: ApiConstraints.new(version: 2, default: true) do
       match 'tags' => 'events#tags_for_query', :via => :get
+      match 'tags/trending' => 'events#tag_cloud', :via => :get
       resources :events do
         member do
           get :attendees, :favorites, :tags

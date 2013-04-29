@@ -40,7 +40,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.tagged_with_tag(query, page)
-    Event.tagged_with(query).popular.paginate(:page => page, :per_page => 20)
+    Event.tagged_with(query).popular.paginate(:page => page, :per_page => 20).uniq!
   end
 
   scope :nearby, lambda { |lat,lon|
