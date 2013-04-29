@@ -19,7 +19,7 @@ class Api::V2::EventsController < ApplicationController
         #.paginate(:page => params[:page], :per_page => 15)
         @attendee = Attendee.where(:user_id => current_user.id, :event_id => @event.id).first
 
-        is_attending = (current_user.attending?(@event)) ? TRUE : FALSE
+        is_attending = (current_user.attending?(@event) ? TRUE : FALSE)
     
         render :json => {
             :event => @event.as_json({
