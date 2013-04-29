@@ -167,8 +167,8 @@ class Api::V2::EventsController < ApplicationController
     end
     
     def report
-      @report = Report.where(:reported_object => "Stream", :reported_object_id => params[:event_id], :user_id => current_user.id).first_or_create
-      render :json => @report.as_json
+      report = Report.where(:reported_object => "Stream", :reported_object_id => params[:event_id], :user_id => current_user.id).first_or_create
+      render :json => report.as_json
     end
 
     def attendees
@@ -178,4 +178,13 @@ class Api::V2::EventsController < ApplicationController
       )
     end
 
+    def tags
+      event = Event.find(params[:id])
+      render :json => event.tags.as_json
+    end
+
+    def tags_for_query
+      events = Event.tagged_with_tag(params[:q], params[:page])
+      render :json => events.as_json
+    end
 end

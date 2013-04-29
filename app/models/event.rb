@@ -1,4 +1,8 @@
 class Event < ActiveRecord::Base
+  
+  COORDINATE_DELTA = 0.05
+
+  acts_as_taggable
 
   has_one :user
   has_one :fb_og_attend
@@ -35,7 +39,10 @@ class Event < ActiveRecord::Base
             user_id: user.id)
   end
 
-  COORDINATE_DELTA = 0.05
+  def self.tagged_with_tag(query, page)
+    Event.tagged_with(query).popular.paginate(:page => page, :per_page => 20)
+  end
+
   scope :nearby, lambda { |lat,lon|
         where("updated_at > ?", (Time.now - 24.hours)).
 	where("lat BETWEEN ? AND ?", lat - COORDINATE_DELTA, lat + COORDINATE_DELTA).
@@ -44,4 +51,6 @@ class Event < ActiveRecord::Base
 	limit(20)
   }
 
+  scope :popular, order("updated_at DESC")
+        
 end

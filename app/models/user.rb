@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :first_name, :last_name, :username, :birthday, :gender, :picture, :sign_in_count, :is_activated
-  
+ 
+  acts_as_tagger
   
   # Setup ActiveRecord associations with other models
   has_many :events

@@ -2,7 +2,9 @@ class Photo < ActiveRecord::Base
   
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
-  COORDINATE_DELTA = 0.05	
+  COORDINATE_DELTA = 0.05
+
+  acts_as_taggable
 
   has_attached_file :image,
 	  :styles => { :thumbnail => "200x200#",
