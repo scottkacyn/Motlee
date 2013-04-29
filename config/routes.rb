@@ -79,9 +79,10 @@ Motlee::Application.routes.draw do
     # --------- #
     
     scope module: :v2, constraints: ApiConstraints.new(version: 2, default: true) do
+      match 'tags' => 'events#tags_for_query', :via => :get
       resources :events do
         member do
-          get :attendees, :favorites
+          get :attendees, :favorites, :tags
           post :report, :join, :unjoin, :share, :add_favorite
         end
 	resources :photos do
@@ -99,7 +100,7 @@ Motlee::Application.routes.draw do
       resources :users do
         member do
             get :following, :followers, :friends, :notifications, :settings
-            post :device
+            post :device, :follow
         end
 	collection do
             post :device

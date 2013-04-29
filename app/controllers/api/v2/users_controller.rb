@@ -30,12 +30,25 @@ class Api::V2::UsersController < ApplicationController
     end
   end
 
+  def follow
+    user = User.find(params[:followed_id])
+    if current_user.following?(user)
+      current_user.unfollow!(user)
+      render :json => { :status => 200 }
+    else
+      current_user.follow!(user)
+      render :json => { :status => 201 }
+    end
+  end
+
   def following
-    render :json => current_user.followed_users.as_json
+    user = (params[:id] ? User.find(params[:id]) : current_user)
+    render :json => user.followed_users.as_json
   end
 
   def followers
-    render :json => current_user.followers.as_json
+    user = (params[:id] ? User.find(params[:id]) : current_user)
+    render :json => user.followers.as_json
   end
 
   def friends

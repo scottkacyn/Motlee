@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name, :first_name, :last_name, :username, :birthday, :gender, :picture, :sign_in_count, :is_activated
-  
+ 
+  acts_as_tagger
   
   # Setup ActiveRecord associations with other models
   has_many :events
@@ -40,6 +41,7 @@ class User < ActiveRecord::Base
       :picture => "https://graph.facebook.com/" + auth.uid + "/picture",
       :email => auth.info.email,
       :is_activated => true,
+      :is_private => false,
       :password => Devise.friendly_token[0,20]
       )
     end
@@ -69,23 +71,12 @@ class User < ActiveRecord::Base
     friends = User.where(:uid => uids)
   end
 
-  def streams
-    Event.from_users_followed_by(self)
-  end
-
-  def all_events(access_token, updated_at, paging)
-      users = User.where(:uid => self.motlee_friend_uids(access_token))
-      user_ids = users.collect do |user|
-          user.id
-      end.push(self.id)
-
-      if paging
-          events = Event.where("updated_at < ?", updated_at)
-                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
-      else
-          events = Event.where("updated_at > ?", updated_at)
-                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
-      end
+  def streams(updated_at, paging)
+    if paging
+        Event.from_users_followed_by(self).where("updated_at < ?", updated_at).limit(25)
+    else
+        Event.from_users_followed_by(self).where("updated_at > ?", updated_at).limit(25)
+    end
   end
 
   def attending?(event)
@@ -119,4 +110,24 @@ class User < ActiveRecord::Base
   def settings
     settings = Setting.where(:user_id => self.id)
   end
+
+  # ----------------------------------- #
+  # Old methods to grandfather v1 users #
+  # ----------------------------------- #
+
+  def all_events(access_token, updated_at, paging)
+      users = User.where(:uid => self.motlee_friend_uids(access_token))
+      user_ids = users.collect do |user|
+          user.id
+      end.push(self.id)
+
+      if paging
+          events = Event.where("updated_at < ?", updated_at)
+                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
+      else
+          events = Event.where("updated_at > ?", updated_at)
+                        .where("id = ANY (SELECT event_id FROM attendees WHERE user_id = ?) OR (user_id IN (?) AND is_private = 'f')", self.id, user_ids).order("updated_at DESC").limit(25)
+      end
+  end
+
 end
