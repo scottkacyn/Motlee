@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
       :picture => "https://graph.facebook.com/" + auth.uid + "/picture",
       :email => auth.info.email,
       :is_activated => true,
+      :is_private => false,
       :password => Devise.friendly_token[0,20]
       )
     end
